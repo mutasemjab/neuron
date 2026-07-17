@@ -6,14 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Models\Admin;
+use App\Models\Branch;
+use App\Models\Doctor;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
  public function show_login_view(){
- return view('admin.auth.login');
+    $stats = [
+        'doctors'  => Doctor::where('is_active', true)->count(),
+        'branches' => Branch::where('is_active', true)->count(),
+        'years'    => (int) sett_raw('about.badge_number'),
+    ];
 
-
+    return view('admin.auth.login', compact('stats'));
   }
 
   public function login(LoginRequest $request){

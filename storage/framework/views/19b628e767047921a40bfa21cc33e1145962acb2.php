@@ -1,10 +1,10 @@
-@php $dir = app()->getLocale() === 'ar' ? 'rtl' : 'ltr'; @endphp
+<?php $dir = app()->getLocale() === 'ar' ? 'rtl' : 'ltr'; ?>
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" dir="{{ $dir }}">
+<html lang="<?php echo e(app()->getLocale()); ?>" dir="<?php echo e($dir); ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('messages.admin_login_title') }} — {{ __('messages.edu_platform') }}</title>
+    <title><?php echo e(__('messages.admin_login_title')); ?> — <?php echo e(__('messages.edu_platform')); ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -314,150 +314,174 @@
             .r-panel { min-height: 100vh; padding: 32px 20px; }
         }
 
-        @if($dir === 'rtl')
+        <?php if($dir === 'rtl'): ?>
         .input-icon { left: auto; right: 14px; }
         .form-input { padding: 11px 42px 11px 14px; }
         .pw-toggle { right: auto; left: 14px; }
-        @endif
+        <?php endif; ?>
     </style>
 </head>
 <body>
 
-{{-- LEFT PANEL --}}
+
 <div class="l-panel">
 
     <div class="l-brand">
         <div class="l-brand-icon"><i class="bi bi-heart-pulse-fill"></i></div>
-        <div class="l-brand-name">{{ sett('identity.site_name') }} <span>{{ __('messages.brand_suffix') }}</span></div>
+        <div class="l-brand-name"><?php echo e(sett('identity.site_name')); ?> <span><?php echo e(__('messages.brand_suffix')); ?></span></div>
     </div>
 
     <div class="l-hero">
         <div class="l-badge">
-            <i class="bi bi-shield-check-fill"></i> {{ __('messages.admin_portal') }}
+            <i class="bi bi-shield-check-fill"></i> <?php echo e(__('messages.admin_portal')); ?>
+
         </div>
-        <h1 class="l-title">{{ __('messages.manage_platform_title') }}<br><span>{{ __('messages.manage_platform_subtitle') }}</span></h1>
+        <h1 class="l-title"><?php echo e(__('messages.manage_platform_title')); ?><br><span><?php echo e(__('messages.manage_platform_subtitle')); ?></span></h1>
         <p class="l-subtitle">
-            {{ __('messages.manage_platform_desc') }}
+            <?php echo e(__('messages.manage_platform_desc')); ?>
+
         </p>
         <ul class="l-features">
             <li>
                 <div class="feat-icon"><i class="bi bi-people-fill"></i></div>
-                {{ __('messages.feature_staff_roles') }}
+                <?php echo e(__('messages.feature_staff_roles')); ?>
+
             </li>
             <li>
                 <div class="feat-icon"><i class="bi bi-heart-pulse-fill"></i></div>
-                {{ __('messages.feature_doctors_services') }}
+                <?php echo e(__('messages.feature_doctors_services')); ?>
+
             </li>
             <li>
                 <div class="feat-icon"><i class="bi bi-bar-chart-line-fill"></i></div>
-                {{ __('messages.feature_analytics') }}
+                <?php echo e(__('messages.feature_analytics')); ?>
+
             </li>
             <li>
                 <div class="feat-icon"><i class="bi bi-gear-fill"></i></div>
-                {{ __('messages.feature_settings_perms') }}
+                <?php echo e(__('messages.feature_settings_perms')); ?>
+
             </li>
         </ul>
     </div>
 
     <div class="l-stats">
         <div class="l-stat">
-            <span class="l-stat-val">{{ $stats['doctors'] }}</span>
-            <span class="l-stat-lbl">{{ __('messages.stat_doctors') }}</span>
+            <span class="l-stat-val"><?php echo e($stats['doctors']); ?></span>
+            <span class="l-stat-lbl"><?php echo e(__('messages.stat_doctors')); ?></span>
         </div>
         <div class="l-stat-divider"></div>
         <div class="l-stat">
-            <span class="l-stat-val">{{ $stats['branches'] }}</span>
-            <span class="l-stat-lbl">{{ __('messages.stat_branches') }}</span>
+            <span class="l-stat-val"><?php echo e($stats['branches']); ?></span>
+            <span class="l-stat-lbl"><?php echo e(__('messages.stat_branches')); ?></span>
         </div>
         <div class="l-stat-divider"></div>
         <div class="l-stat">
-            <span class="l-stat-val">{{ $stats['years'] }}</span>
-            <span class="l-stat-lbl">{{ __('messages.stat_years') }}</span>
+            <span class="l-stat-val"><?php echo e($stats['years']); ?></span>
+            <span class="l-stat-lbl"><?php echo e(__('messages.stat_years')); ?></span>
         </div>
     </div>
 
 </div>
 
-{{-- RIGHT PANEL --}}
+
 <div class="r-panel">
     <div class="r-wrap">
 
         <div class="r-header">
             <div class="r-eyebrow">
-                <span class="dot"></span> {{ __('messages.secure_access') }}
+                <span class="dot"></span> <?php echo e(__('messages.secure_access')); ?>
+
             </div>
-            <h2 class="r-title">{{ __('messages.welcome_back_short') }}</h2>
-            <p class="r-sub">{{ __('messages.sign_in_admin_desc') }}</p>
+            <h2 class="r-title"><?php echo e(__('messages.welcome_back_short')); ?></h2>
+            <p class="r-sub"><?php echo e(__('messages.sign_in_admin_desc')); ?></p>
         </div>
 
-        {{-- Error Message --}}
-        @if($errors->any() || session('error'))
+        
+        <?php if($errors->any() || session('error')): ?>
         <div class="alert-err">
             <i class="bi bi-exclamation-circle-fill"></i>
-            {{ $errors->first() ?: session('error') }}
+            <?php echo e($errors->first() ?: session('error')); ?>
+
         </div>
-        @endif
+        <?php endif; ?>
 
-        <form method="POST" action="{{ route('admin.login') }}" autocomplete="off">
-            @csrf
+        <form method="POST" action="<?php echo e(route('admin.login')); ?>" autocomplete="off">
+            <?php echo csrf_field(); ?>
 
-            {{-- Username --}}
+            
             <div class="form-group">
-                <label class="form-label" for="username">{{ __('messages.username_label') }}</label>
+                <label class="form-label" for="username"><?php echo e(__('messages.username_label')); ?></label>
                 <div class="input-wrap">
                     <i class="input-icon bi bi-person"></i>
                     <input
                         id="username"
                         name="username"
                         type="text"
-                        class="form-input {{ $errors->has('username') ? 'is-invalid' : '' }}"
-                        placeholder="{{ __('messages.username_ph') }}"
-                        value="{{ old('username') }}"
+                        class="form-input <?php echo e($errors->has('username') ? 'is-invalid' : ''); ?>"
+                        placeholder="<?php echo e(__('messages.username_ph')); ?>"
+                        value="<?php echo e(old('username')); ?>"
                         required
                         autofocus
                     >
                 </div>
-                @error('username')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                @enderror
+                <?php $__errorArgs = ['username'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <span class="invalid-feedback"><?php echo e($message); ?></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
 
-            {{-- Password --}}
+            
             <div class="form-group">
-                <label class="form-label" for="password">{{ __('messages.password_label') }}</label>
+                <label class="form-label" for="password"><?php echo e(__('messages.password_label')); ?></label>
                 <div class="input-wrap">
                     <i class="input-icon bi bi-lock"></i>
                     <input
                         id="password"
                         name="password"
                         type="password"
-                        class="form-input {{ $errors->has('password') ? 'is-invalid' : '' }}"
-                        placeholder="{{ __('messages.password_ph') }}"
+                        class="form-input <?php echo e($errors->has('password') ? 'is-invalid' : ''); ?>"
+                        placeholder="<?php echo e(__('messages.password_ph')); ?>"
                         required
                     >
                     <button type="button" class="pw-toggle" id="pwToggle" aria-label="Toggle password">
                         <i class="bi bi-eye" id="pwIcon"></i>
                     </button>
                 </div>
-                @error('password')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                @enderror
+                <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <span class="invalid-feedback"><?php echo e($message); ?></span>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
             </div>
 
-            {{-- Remember Me --}}
+            
             <div class="form-check">
                 <input type="checkbox" id="remember" name="remember">
-                <label for="remember">{{ __('messages.keep_signed_in') }}</label>
+                <label for="remember"><?php echo e(__('messages.keep_signed_in')); ?></label>
             </div>
 
-            {{-- Submit --}}
+            
             <button type="submit" class="btn-login">
-                <i class="bi bi-box-arrow-in-right"></i> {{ __('messages.sign_in_admin_btn') }}
+                <i class="bi bi-box-arrow-in-right"></i> <?php echo e(__('messages.sign_in_admin_btn')); ?>
+
             </button>
         </form>
 
         <div class="r-footer">
-            &copy; {{ date('Y') }} {{ __('messages.edu_platform') }}. {{ __('messages.all_rights_reserved') }}
+            &copy; <?php echo e(date('Y')); ?> <?php echo e(__('messages.edu_platform')); ?>. <?php echo e(__('messages.all_rights_reserved')); ?>
+
         </div>
 
     </div>
@@ -476,3 +500,4 @@
 </script>
 </body>
 </html>
+<?php /**PATH C:\xampp\htdocs\nuron\resources\views/admin/auth/login.blade.php ENDPATH**/ ?>
