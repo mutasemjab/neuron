@@ -391,8 +391,30 @@ header.scrolled .nav .wrap {
 
 .logo-txt {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   line-height: 1
+}
+
+.logo-txt img {
+  display: block;
+  height: 52px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  transition: height .45s var(--ease)
+}
+
+.logo-footer img {
+  display: block;
+  height: 80px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  transition: height .45s var(--ease)
+}
+
+header.scrolled .logo-txt img {
+  height: 42px
 }
 
 .logo-txt b {
@@ -3081,6 +3103,14 @@ footer {
 @media(max-width:640px) {
   .wrap {
     padding: 0 20px
+  }
+
+  .logo-txt img {
+    height: 40px
+  }
+
+  header.scrolled .logo-txt img {
+    height: 34px
   }
 
   .services,

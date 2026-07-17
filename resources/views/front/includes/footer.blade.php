@@ -7,14 +7,7 @@
     <div class="foot-grid">
       <div class="foot-brand">
         <a href="{{ route('home') }}" class="logo">
-          <span class="logo-mark">
-            <svg viewBox="0 0 48 48" fill="none">
-              <circle cx="24" cy="24" r="23" fill="#2a807d"/>
-              <path d="M24 8c-3 0-5 2-5 5 0 1.5.6 2.8 1.6 3.7-.9 1-1.6 2.3-1.6 3.8 0 1.5.6 2.8 1.6 3.8-.9 1-1.6 2.3-1.6 3.8 0 1.5.7 2.8 1.6 3.8-1 .9-1.6 2.2-1.6 3.7 0 3 2 5 5 5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-              <circle cx="30" cy="13" r="2.6" fill="#7fd8d3"/><circle cx="32" cy="24" r="2.6" fill="#fff"/><circle cx="30" cy="35" r="2.6" fill="#7fd8d3"/>
-            </svg>
-          </span>
-          <span class="logo-txt"><b>{{ sett('identity.site_name') }}</b><small>{{ sett('identity.brand_tag') }}</small></span>
+          <span class="logo-footer"><img src="{{ asset('assets_front/images/logo.png') }}" alt="{{ sett('identity.site_name') }}"></span>
         </a>
         <p>{{ sett('footer.about_text') }}</p>
         <div class="foot-social">
