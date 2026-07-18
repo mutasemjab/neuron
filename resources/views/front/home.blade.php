@@ -36,6 +36,7 @@
 
   <div class="wrap">
     <div class="hero-inner">
+      <br>
       <span class="eyebrow">{{ sett('hero.eyebrow') }}</span>
       <h1>
         <span class="ln"><i>{{ sett('hero.heading_line1') }}</i></span>
@@ -59,6 +60,7 @@
       @endforeach
     </div>
   </div>
+  
 </section>
 <div class="trust"></div>
 
@@ -128,6 +130,9 @@
 <!-- ============ STATS ============ -->
 <section class="stats">
   <div class="wrap">
+    <div class="stats-badge-wrap reveal">
+      <span class="stats-badge"><span class="pulse-dot"></span> {{ sett('stats_section.eyebrow') }}</span>
+    </div>
     <div class="stats-grid">
       @foreach($mainStats as $stat)
       <div class="stat reveal @if(!$loop->first) d{{ $loop->iteration - 1 }} @endif"><b data-count="{{ $stat->number }}" @if($stat->suffix) data-suffix="{{ $stat->suffix }}" @endif>0</b><span>{{ $stat->label }}</span></div>

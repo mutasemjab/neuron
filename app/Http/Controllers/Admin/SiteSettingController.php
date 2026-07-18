@@ -73,6 +73,12 @@ class SiteSettingController extends Controller
                     'about.image_sub'        => ['label' => 'الصورة الفرعية', 'type' => 'image', 'translatable' => false],
                 ],
             ],
+            'stats_section' => [
+                'label'  => 'شارة قسم الإحصائيات',
+                'fields' => [
+                    'stats_section.eyebrow' => ['label' => 'نص الشارة', 'type' => 'text', 'translatable' => true],
+                ],
+            ],
             'services_section' => [
                 'label'  => 'عنوان قسم الخدمات',
                 'fields' => [

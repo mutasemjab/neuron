@@ -18,6 +18,7 @@ return [
     'nav_careers'   => 'التوظيف',
     'nav_menu'      => 'القائمة',
     'lang_switch'   => 'English',
+    'scroll_to_top' => 'العودة للأعلى',
 
     'topbar_branches' => 'فروع في المملكة',
     'topbar_hours'    => 'السبت – الخميس',

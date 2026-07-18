@@ -29,6 +29,11 @@ window.addEventListener('scroll',()=>{
   if(header)header.classList.toggle('scrolled',y>60);
   if(toTop)toTop.classList.toggle('show',y>600);
 });
+if(toTop){
+  toTop.addEventListener('click',()=>{
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+}
 
 /* ============ MOBILE MENU ============ */
 const burger=document.getElementById('burger');

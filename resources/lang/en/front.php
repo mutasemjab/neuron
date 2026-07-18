@@ -18,6 +18,7 @@ return [
     'nav_careers'   => 'Careers',
     'nav_menu'      => 'Menu',
     'lang_switch'   => 'العربية',
+    'scroll_to_top' => 'Back to top',
 
     'topbar_branches' => 'branches in the Kingdom',
     'topbar_hours'    => 'Sat – Thu',

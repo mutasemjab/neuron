@@ -49,6 +49,9 @@ class SiteSettingSeeder extends Seeder
             ['about.badge_number', '18', '18', 'about'],
             ['about.badge_text', 'عاماً في خدمة مرضى العمود الفقري', 'Years serving spine patients', 'about'],
 
+            // stats section
+            ['stats_section.eyebrow', 'أرقامٌ تصنع الثقة', 'Numbers That Build Trust', 'stats_section'],
+
             // services section
             ['services_section.eyebrow', 'خدماتنا العلاجية', 'Our Treatment Services', 'services_section'],
             ['services_section.heading_main', 'عناية متخصصة لكل ما يتعلّق', 'Specialized Care for Everything Related', 'services_section'],

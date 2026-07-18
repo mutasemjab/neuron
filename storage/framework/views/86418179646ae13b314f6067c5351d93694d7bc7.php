@@ -35,6 +35,7 @@
 
   <div class="wrap">
     <div class="hero-inner">
+      <br>
       <span class="eyebrow"><?php echo e(sett('hero.eyebrow')); ?></span>
       <h1>
         <span class="ln"><i><?php echo e(sett('hero.heading_line1')); ?></i></span>
@@ -58,6 +59,7 @@
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
   </div>
+  
 </section>
 <div class="trust"></div>
 
@@ -127,6 +129,9 @@
 <!-- ============ STATS ============ -->
 <section class="stats">
   <div class="wrap">
+    <div class="stats-badge-wrap reveal">
+      <span class="stats-badge"><span class="pulse-dot"></span> <?php echo e(sett('stats_section.eyebrow')); ?></span>
+    </div>
     <div class="stats-grid">
       <?php $__currentLoopData = $mainStats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <div class="stat reveal <?php if(!$loop->first): ?> d<?php echo e($loop->iteration - 1); ?> <?php endif; ?>"><b data-count="<?php echo e($stat->number); ?>" <?php if($stat->suffix): ?> data-suffix="<?php echo e($stat->suffix); ?>" <?php endif; ?>>0</b><span><?php echo e($stat->label); ?></span></div>
