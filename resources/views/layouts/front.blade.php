@@ -139,15 +139,20 @@
   </div>
 </div>
 
+@php
+  $chatMsgUrl  = route('chatbot.message');
+  $chatClrUrl  = route('chatbot.clear');
+  $chatGreeting = app()->getLocale() === 'ar'
+    ? 'أهلاً! أنا سارة من فريق ' . sett('identity.site_name') . '. كيف أقدر أساعدك اليوم؟'
+    : 'Hello! I\'m Sara from the ' . sett('identity.site_name') . ' team. How can I help you today?';
+@endphp
 <script>
 window.ChatbotConfig = {
-  messageUrl: '{{ route('chatbot.message') }}',
-  clearUrl:   '{{ route('chatbot.clear') }}',
-  csrf:       '{{ csrf_token() }}',
-  locale:     '{{ app()->getLocale() }}',
-  greeting:   {{ json_encode(app()->getLocale() === 'ar'
-    ? 'أهلاً! أنا سارة من فريق ' . sett('identity.site_name') . '. كيف أقدر أساعدك اليوم؟'
-    : 'Hello! I\'m Sara from the ' . sett('identity.site_name') . ' team. How can I help you today?') }},
+  messageUrl: @json($chatMsgUrl),
+  clearUrl:   @json($chatClrUrl),
+  csrf:       @json(csrf_token()),
+  locale:     @json(app()->getLocale()),
+  greeting:   @json($chatGreeting),
 };
 </script>
 

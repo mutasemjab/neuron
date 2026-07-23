@@ -251,9 +251,6 @@ if(heroBg&&heroSection&&!reduce){
 
 /* ============ CHATBOT WIDGET ============ */
 (function(){
-  const cfg=window.ChatbotConfig;
-  if(!cfg)return;
-
   const widget   = document.getElementById('chatWidget');
   const toggle   = document.getElementById('chatToggle');
   const closeBtn = document.getElementById('chatClose');
@@ -272,8 +269,8 @@ if(heroBg&&heroSection&&!reduce){
     isOpen=true;
     widget.classList.add('open');
     toggle.classList.add('open');
-    badge.classList.remove('show');
-    setTimeout(()=>input.focus(),350);
+    if(badge)badge.classList.remove('show');
+    if(input)setTimeout(()=>input.focus(),350);
   }
 
   function close(){
@@ -284,6 +281,11 @@ if(heroBg&&heroSection&&!reduce){
 
   toggle.addEventListener('click',()=>isOpen?close():open());
   if(closeBtn)closeBtn.addEventListener('click',close);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&isOpen)close();});
+
+  /* ── Messaging: requires ChatbotConfig ── */
+  const cfg=window.ChatbotConfig;
+  if(!cfg||!messages||!input||!sendBtn)return;
 
   // Auto-resize textarea
   input.addEventListener('input',function(){
@@ -299,7 +301,7 @@ if(heroBg&&heroSection&&!reduce){
     }
   });
 
-  if(sendBtn)sendBtn.addEventListener('click',sendMessage);
+  sendBtn.addEventListener('click',sendMessage);
 
   function appendMessage(role,text){
     const div=document.createElement('div');
@@ -352,7 +354,7 @@ if(heroBg&&heroSection&&!reduce){
       removeTyping();
       if(data.reply){
         appendMessage('bot',data.reply);
-        if(!isOpen)badge.classList.add('show');
+        if(!isOpen&&badge)badge.classList.add('show');
       }
     }catch(e){
       removeTyping();
