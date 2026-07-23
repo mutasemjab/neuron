@@ -206,19 +206,84 @@
 </section>
 
 <!-- ============ INSURANCE ============ -->
-<section class="insurance">
+<section class="insurance" id="insurance">
+
+  {{-- decorative background elements --}}
+  <div class="ins-bg-ring ins-bg-ring-1" aria-hidden="true"></div>
+  <div class="ins-bg-ring ins-bg-ring-2" aria-hidden="true"></div>
+  <div class="ins-bg-dots" aria-hidden="true"></div>
+
   <div class="wrap">
     <div class="sec-head center reveal">
       <span class="eyebrow">{{ sett('insurance_section.eyebrow') }}</span>
       <h2>{{ sett('insurance_section.heading_main') }} <span class="tealword">{{ sett('insurance_section.heading_highlight') }}</span></h2>
       <p>{{ sett('insurance_section.paragraph') }}</p>
     </div>
-    <div class="ins-grid reveal d1">
-      @foreach($insuranceCompanies as $company)
-      <div class="ins-card"><b>{{ $company->name }}</b><small>{{ $company->subtitle }}</small></div>
-      @endforeach
+
+    {{-- Trust pills --}}
+    <div class="ins-trust reveal d1">
+      <span class="ins-trust-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        {{ app()->getLocale() === 'ar' ? 'مقبولة في جميع فروعنا' : 'Accepted at all branches' }}
+      </span>
+      <span class="ins-trust-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        {{ app()->getLocale() === 'ar' ? 'تسوية مباشرة' : 'Direct billing' }}
+      </span>
+      <span class="ins-trust-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        {{ app()->getLocale() === 'ar' ? 'لا رسوم إضافية' : 'No extra fees' }}
+      </span>
     </div>
   </div>
+
+  {{-- Marquee rows — full-width, outside wrap --}}
+  @php $items = $insuranceCompanies->values(); $teal_colors = ['#2a807d','#1d5c5a','#3a9e9b','#246b68','#14504e','#2d9490']; @endphp
+
+  {{-- Row 1: left direction --}}
+  <div class="ins-marquee-wrap reveal d2">
+    <div class="ins-marquee ins-marquee--fwd">
+      <div class="ins-track">
+        @for($r=0;$r<3;$r++)
+          @foreach($items as $ci => $company)
+          <div class="ins-card">
+            <div class="ins-card-badge" style="--accent:{{ $teal_colors[$ci % count($teal_colors)] }}">
+              {{ mb_strtoupper(mb_substr($company->name, 0, 2)) }}
+            </div>
+            <div class="ins-card-body">
+              <strong>{{ $company->name }}</strong>
+              @if($company->subtitle)<span>{{ $company->subtitle }}</span>@endif
+            </div>
+            <div class="ins-card-shine" aria-hidden="true"></div>
+          </div>
+          @endforeach
+        @endfor
+      </div>
+    </div>
+  </div>
+
+  {{-- Row 2: right direction --}}
+  <div class="ins-marquee-wrap reveal d3">
+    <div class="ins-marquee ins-marquee--rev">
+      <div class="ins-track">
+        @for($r=0;$r<3;$r++)
+          @foreach($items->reverse()->values() as $ci => $company)
+          <div class="ins-card">
+            <div class="ins-card-badge" style="--accent:{{ $teal_colors[$ci % count($teal_colors)] }}">
+              {{ mb_strtoupper(mb_substr($company->name, 0, 2)) }}
+            </div>
+            <div class="ins-card-body">
+              <strong>{{ $company->name }}</strong>
+              @if($company->subtitle)<span>{{ $company->subtitle }}</span>@endif
+            </div>
+            <div class="ins-card-shine" aria-hidden="true"></div>
+          </div>
+          @endforeach
+        @endfor
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ============ VIDEOS ============ -->
@@ -287,47 +352,120 @@
 
 <!-- ============ TESTIMONIALS ============ -->
 @if($testimonials->isNotEmpty())
-<section class="testi">
+<section class="testi" id="testi">
+
+  {{-- Layered background decorations --}}
+  <div class="testi-orb testi-orb-1" aria-hidden="true"></div>
+  <div class="testi-orb testi-orb-2" aria-hidden="true"></div>
+  <div class="testi-orb testi-orb-3" aria-hidden="true"></div>
+  <div class="testi-grid-lines" aria-hidden="true"></div>
+
   <div class="wrap testi-wrap">
-    <div class="sec-head center reveal">
-      <span class="eyebrow">{{ sett('testimonials_section.eyebrow') }}</span>
-      <h2>{{ sett('testimonials_section.heading') }}</h2>
-    </div>
 
-    <div class="reveal d1" style="overflow:hidden">
-      <div class="testi-track" id="testiTrack">
-        @foreach($testimonials as $testimonial)
-        @php $tInitials = collect(explode(' ', $testimonial->patient_name))->map(fn($w) => mb_substr($w, 0, 1))->take(2)->implode('.'); @endphp
-        <div class="testi-slide">
-          <div class="testi-card">
-            <div class="testi-card-top">
-              <div class="testi-author">
-                <div class="av ph" data-label="{{ $tInitials }}">
-                  @if($testimonial->avatar)<img data-src="{{ $testimonial->avatar_url }}" alt="{{ $testimonial->patient_name }}">@endif
-                </div>
-                <div class="meta"><b>{{ $testimonial->patient_name }}</b><span>{{ $testimonial->role_text }}</span></div>
-              </div>
-              <div class="testi-stars">{{ str_repeat('★', $testimonial->rating) }}</div>
-            </div>
-
-            <p class="testi-quote-text"><span class="qmark">"</span>{{ $testimonial->quote }}</p>
-
-            @if($testimonial->doctor || $testimonial->procedure)
-            <div class="testi-doctor-info">
-              @if($testimonial->doctor)
-              <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>{{ __('front.testi_treated_by') }}: <b>{{ $testimonial->doctor->name }}</b></div>
-              @endif
-              @if($testimonial->procedure)
-              <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>{{ __('front.testi_procedure') }}: <b>{{ $testimonial->procedure }}</b></div>
-              @endif
-            </div>
-            @endif
-          </div>
-        </div>
-        @endforeach
+    {{-- Header --}}
+    <div class="testi-header reveal">
+      <div class="sec-head center">
+        <span class="eyebrow testi-eyebrow">{{ sett('testimonials_section.eyebrow') }}</span>
+        <h2>{{ sett('testimonials_section.heading') }}</h2>
       </div>
-      <div class="testi-nav" id="testiNav"></div>
+      {{-- Rating summary badge --}}
+      <div class="testi-rating-badge">
+        <div class="testi-badge-stars">★★★★★</div>
+        <div class="testi-badge-info">
+          <strong>{{ $testimonials->avg('rating') >= 1 ? number_format($testimonials->avg('rating'), 1) : '5.0' }}</strong>
+          <span>{{ $testimonials->count() }}+ {{ app()->getLocale() === 'ar' ? 'تقييم موثق' : 'verified reviews' }}</span>
+        </div>
+      </div>
     </div>
+
+    {{-- Slider container --}}
+    <div class="testi-stage reveal d1">
+
+      {{-- Arrow: previous --}}
+      <button class="testi-arrow testi-arrow-prev" id="testiPrev" aria-label="{{ app()->getLocale() === 'ar' ? 'التالي' : 'Previous' }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      {{-- Slides --}}
+      <div class="testi-viewport">
+        <div class="testi-track" id="testiTrack">
+          @foreach($testimonials as $testimonial)
+          @php
+            $tInitials = collect(explode(' ', $testimonial->patient_name))
+              ->map(fn($w) => mb_substr($w, 0, 1))->take(2)->implode('');
+          @endphp
+          <div class="testi-slide">
+            <div class="testi-card">
+
+              {{-- Decorative quote watermark --}}
+              <div class="testi-wm-q" aria-hidden="true">❝</div>
+
+              {{-- Stars --}}
+              <div class="testi-stars" aria-label="{{ $testimonial->rating }} stars">
+                @for($s = 1; $s <= 5; $s++)
+                  <span class="testi-star {{ $s <= $testimonial->rating ? 'testi-star--on' : '' }}" style="--d:{{ $s * 80 }}ms">★</span>
+                @endfor
+              </div>
+
+              {{-- Quote text --}}
+              <blockquote class="testi-quote">{{ $testimonial->quote }}</blockquote>
+
+              {{-- Procedure/doctor pills --}}
+              @if($testimonial->doctor || $testimonial->procedure)
+              <div class="testi-pills">
+                @if($testimonial->doctor)
+                <span class="testi-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  {{ $testimonial->doctor->name }}
+                </span>
+                @endif
+                @if($testimonial->procedure)
+                <span class="testi-pill testi-pill--alt">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+                  {{ $testimonial->procedure }}
+                </span>
+                @endif
+              </div>
+              @endif
+
+              {{-- Author --}}
+              <div class="testi-author">
+                <div class="testi-av-wrap">
+                  <div class="av ph" data-label="{{ $tInitials }}">
+                    @if($testimonial->avatar)<img data-src="{{ $testimonial->avatar_url }}" alt="{{ $testimonial->patient_name }}">@endif
+                  </div>
+                  <span class="testi-verified-dot" title="{{ app()->getLocale() === 'ar' ? 'مريض موثق' : 'Verified Patient' }}">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                </div>
+                <div class="testi-meta">
+                  <strong>{{ $testimonial->patient_name }}</strong>
+                  <span>{{ $testimonial->role_text }}</span>
+                </div>
+                <span class="testi-verified-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                  {{ app()->getLocale() === 'ar' ? 'مريض موثق' : 'Verified Patient' }}
+                </span>
+              </div>
+
+            </div>
+          </div>
+          @endforeach
+        </div>
+      </div>
+
+      {{-- Arrow: next --}}
+      <button class="testi-arrow testi-arrow-next" id="testiNext" aria-label="{{ app()->getLocale() === 'ar' ? 'السابق' : 'Next' }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    {{-- Progress dots + counter --}}
+    <div class="testi-footer reveal d2">
+      <div class="testi-nav" id="testiNav"></div>
+      <span class="testi-counter" id="testiCounter"></span>
+    </div>
+
   </div>
 </section>
 @endif

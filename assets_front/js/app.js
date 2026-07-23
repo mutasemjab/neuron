@@ -85,22 +85,61 @@ document.querySelectorAll('.faq-item').forEach(item=>{
 });
 
 /* ============ TESTIMONIALS SLIDER ============ */
-const track=document.getElementById('testiTrack');
-if(track){
+(function(){
+  const track=document.getElementById('testiTrack');
+  if(!track)return;
   const slides=track.children.length;
+  if(slides<1)return;
   const nav=document.getElementById('testiNav');
-  let cur=0;
+  const counter=document.getElementById('testiCounter');
+  const prevBtn=document.getElementById('testiPrev');
+  const nextBtn=document.getElementById('testiNext');
+  const viewport=track.parentElement;
+  const isRTL=document.documentElement.dir==='rtl';
+  let cur=0,timer=null,dragging=false,dragStartX=0;
+
+  /* Build dots */
+  const dots=[];
   for(let i=0;i<slides;i++){
-    const d=document.createElement('span');d.className='testi-dot'+(i===0?' active':'');
-    d.addEventListener('click',()=>goTesti(i));nav.appendChild(d);
+    const d=document.createElement('button');
+    d.className='testi-dot'+(i===0?' active':'');
+    d.setAttribute('aria-label','Slide '+(i+1));
+    d.addEventListener('click',()=>{stopTimer();go(i);startTimer();});
+    nav.appendChild(d);dots.push(d);
   }
-  function goTesti(i){
-    cur=i;track.style.transform=`translateX(${i*100}%)`;
-    nav.querySelectorAll('.testi-dot').forEach((d,idx)=>d.classList.toggle('active',idx===i));
+
+  function go(i){
+    cur=(i+slides)%slides;
+    /* RTL: positive translateX to go forward, LTR: negative */
+    const dir=isRTL?1:-1;
+    track.style.transform=`translateX(${dir*cur*100}%)`;
+    dots.forEach((d,idx)=>d.classList.toggle('active',idx===cur));
+    if(counter)counter.textContent=(cur+1)+' / '+slides;
   }
-  let testiTimer=setInterval(()=>goTesti((cur+1)%slides),6000);
-  nav.addEventListener('click',()=>{clearInterval(testiTimer);testiTimer=setInterval(()=>goTesti((cur+1)%slides),6000);});
-}
+
+  function startTimer(){timer=setInterval(()=>go(cur+1),7000);}
+  function stopTimer(){clearInterval(timer);}
+
+  if(prevBtn)prevBtn.addEventListener('click',()=>{stopTimer();go(cur-1);startTimer();});
+  if(nextBtn)nextBtn.addEventListener('click',()=>{stopTimer();go(cur+1);startTimer();});
+
+  /* Pause on hover */
+  viewport.addEventListener('mouseenter',stopTimer);
+  viewport.addEventListener('mouseleave',startTimer);
+
+  /* Touch/swipe support */
+  viewport.addEventListener('touchstart',e=>{dragStartX=e.touches[0].clientX;},{ passive:true });
+  viewport.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-dragStartX;
+    if(Math.abs(dx)>50){
+      stopTimer();
+      go(isRTL?(dx>0?cur-1:cur+1):(dx<0?cur+1:cur-1));
+      startTimer();
+    }
+  });
+
+  go(0);startTimer();
+})();
 
 /* ============ LOCATIONS MAP ============ */
 const mapFrame=document.getElementById('mapFrame');
@@ -209,3 +248,133 @@ if(heroBg&&heroSection&&!reduce){
     heroBg.style.transform=`scale(1.06) translate(${x*-18}px,${y*-18}px)`;
   });
 }
+
+/* ============ CHATBOT WIDGET ============ */
+(function(){
+  const cfg=window.ChatbotConfig;
+  if(!cfg)return;
+
+  const widget   = document.getElementById('chatWidget');
+  const toggle   = document.getElementById('chatToggle');
+  const closeBtn = document.getElementById('chatClose');
+  const messages = document.getElementById('chatMessages');
+  const input    = document.getElementById('chatInput');
+  const sendBtn  = document.getElementById('chatSend');
+  const clearBtn = document.getElementById('chatClear');
+  const badge    = document.getElementById('chatBadge');
+
+  if(!widget||!toggle)return;
+
+  let isOpen=false;
+  let busy=false;
+
+  function open(){
+    isOpen=true;
+    widget.classList.add('open');
+    toggle.classList.add('open');
+    badge.classList.remove('show');
+    setTimeout(()=>input.focus(),350);
+  }
+
+  function close(){
+    isOpen=false;
+    widget.classList.remove('open');
+    toggle.classList.remove('open');
+  }
+
+  toggle.addEventListener('click',()=>isOpen?close():open());
+  if(closeBtn)closeBtn.addEventListener('click',close);
+
+  // Auto-resize textarea
+  input.addEventListener('input',function(){
+    this.style.height='auto';
+    this.style.height=Math.min(this.scrollHeight,100)+'px';
+  });
+
+  // Send on Enter (Shift+Enter = newline)
+  input.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+
+  if(sendBtn)sendBtn.addEventListener('click',sendMessage);
+
+  function appendMessage(role,text){
+    const div=document.createElement('div');
+    div.className='chat-msg chat-msg--'+(role==='user'?'user':'bot');
+    const bubble=document.createElement('div');
+    bubble.className='chat-bubble';
+    bubble.textContent=text;
+    div.appendChild(bubble);
+    messages.appendChild(div);
+    messages.scrollTop=messages.scrollHeight;
+    return bubble;
+  }
+
+  function showTyping(){
+    const div=document.createElement('div');
+    div.className='chat-msg chat-msg--bot';
+    div.id='chatTyping';
+    div.innerHTML='<div class="chat-typing"><span></span><span></span><span></span></div>';
+    messages.appendChild(div);
+    messages.scrollTop=messages.scrollHeight;
+  }
+
+  function removeTyping(){
+    const t=document.getElementById('chatTyping');
+    if(t)t.remove();
+  }
+
+  async function sendMessage(){
+    const text=input.value.trim();
+    if(!text||busy)return;
+
+    busy=true;
+    sendBtn.disabled=true;
+    input.value='';
+    input.style.height='auto';
+
+    appendMessage('user',text);
+    showTyping();
+
+    try{
+      const res=await fetch(cfg.messageUrl,{
+        method:'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'X-CSRF-TOKEN':cfg.csrf
+        },
+        body:JSON.stringify({message:text})
+      });
+      const data=await res.json();
+      removeTyping();
+      if(data.reply){
+        appendMessage('bot',data.reply);
+        if(!isOpen)badge.classList.add('show');
+      }
+    }catch(e){
+      removeTyping();
+      const msg=cfg.locale==='ar'
+        ?'حدث خطأ، يرجى المحاولة مجدداً.'
+        :'An error occurred, please try again.';
+      appendMessage('bot',msg);
+    }finally{
+      busy=false;
+      sendBtn.disabled=false;
+      input.focus();
+    }
+  }
+
+  if(clearBtn){
+    clearBtn.addEventListener('click',async function(){
+      await fetch(cfg.clearUrl,{
+        method:'POST',
+        headers:{'X-CSRF-TOKEN':cfg.csrf,'Content-Type':'application/json'}
+      }).catch(()=>{});
+      messages.innerHTML='';
+      appendMessage('bot',cfg.greeting);
+    });
+  }
+})();

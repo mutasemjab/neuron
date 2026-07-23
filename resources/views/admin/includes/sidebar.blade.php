@@ -121,6 +121,17 @@
             </li>
         </ul>
 
+        <div class="nav-label">الشات بوت</div>
+        <ul>
+            <li class="nav-item">
+                <a href="{{ route('admin.chatbot.index') }}"
+                    class="nav-link {{ request()->routeIs('admin.chatbot.*') ? 'active' : '' }}">
+                    <i class="nav-icon bi bi-robot"></i>
+                    <span>قاعدة معرفة المساعد</span>
+                </a>
+            </li>
+        </ul>
+
         <div class="nav-label">{{ __('messages.system') }}</div>
         <ul>
             <li class="nav-item">

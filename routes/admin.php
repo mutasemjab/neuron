@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AppointmentController;
+use App\Http\Controllers\Admin\ChatbotKnowledgeController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BranchController;
@@ -91,6 +92,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         // ── Banners ───────────────────────────────────────────────────
         Route::post('banners/{banner}/toggle', [BannerController::class, 'toggleActive'])->name('admin.banners.toggle');
         Route::resource('banners', BannerController::class, ['as' => 'admin']);
+
+        // ── Chatbot Knowledge Base ────────────────────────────────────
+        Route::post('chatbot/{chatbot}/toggle', [ChatbotKnowledgeController::class, 'toggleActive'])->name('admin.chatbot.toggle');
+        Route::resource('chatbot', ChatbotKnowledgeController::class, ['as' => 'admin']);
 
         // ── Contact Messages ──────────────────────────────────────────
         Route::get('contact-messages',              [ContactMessageController::class, 'index'])->name('admin.contact_messages.index');

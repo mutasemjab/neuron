@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"c:\\\\xampp\\\\htdocs\\\\neuron\" -Force)",
+      "Bash(Select-Object Name, PSIsContainer)",
+      "Bash(Get-ChildItem \"c:/xampp/htdocs/neuron/app/Http/Controllers/Admin\")",
+      "Bash(Select-Object Name)",
+      "Read(//cygdrive/c/xampp/htdocs/**)",
+      "Bash(php artisan *)",
+      "Bash(php -r \"echo 'PHP works';\")"
+    ]
+  }
+}
