@@ -25,7 +25,7 @@
     <div class="wrap">
       <a href="{{ route('home') }}" class="logo" aria-label="{{ sett('identity.site_name') }}">
       
-        <span class="logo-txt"><img src="{{ asset('assets_front/images/logo.png') }}" alt=""></span>
+        <span class="logo-txt"><img src="{{ asset_v('assets_front/images/logo.png') }}" alt=""></span>
       </a>
 
       <div class="nav-links">

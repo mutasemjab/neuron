@@ -25,7 +25,7 @@
     <div class="wrap">
       <a href="<?php echo e(route('home')); ?>" class="logo" aria-label="<?php echo e(sett('identity.site_name')); ?>">
       
-        <span class="logo-txt"><img src="<?php echo e(asset('assets_front/images/logo.png')); ?>" alt=""></span>
+        <span class="logo-txt"><img src="<?php echo e(asset_v('assets_front/images/logo.png')); ?>" alt=""></span>
       </a>
 
       <div class="nav-links">

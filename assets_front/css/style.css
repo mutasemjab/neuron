@@ -1518,8 +1518,35 @@ body.nav-open .burger span:nth-child(3) {
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-sm);
-  transition: transform .45s var(--ease), box-shadow .45s;
+  position: relative;
+  transition: transform .45s var(--ease), box-shadow .45s, border-color .45s;
   animation: insFloat 6s ease-in-out infinite
+}
+
+.ins-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r);
+  box-shadow: 0 0 0 0 var(--teal-glow);
+  opacity: 0;
+  pointer-events: none
+}
+
+.ins-card:hover::before {
+  animation: insPulseRing 1.3s ease-out infinite
+}
+
+@keyframes insPulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(42, 128, 125, .45);
+    opacity: 1
+  }
+
+  100% {
+    box-shadow: 0 0 0 20px rgba(42, 128, 125, 0);
+    opacity: 0
+  }
 }
 
 .ins-card:nth-child(2n) {
@@ -1547,26 +1574,35 @@ body.nav-open .burger span:nth-child(3) {
 }
 
 .ins-card:hover {
-  transform: translateY(-9px) scale(1.03);
-  box-shadow: var(--shadow-md)
+  transform: translateY(-9px) scale(1.05);
+  box-shadow: var(--shadow-md);
+  border-color: var(--teal)
 }
 
 .ins-card b {
   font-family: var(--f-disp);
   font-weight: 700;
-  font-size: 1.05rem;
-  color: var(--ink)
+  font-size: 1.3rem;
+  color: var(--ink);
+  transition: color .35s var(--ease), transform .35s var(--ease)
 }
 
 .ins-card small {
   font-family: var(--f-num);
-  font-size: .66rem;
+  font-size: .68rem;
   color: var(--muted);
-  margin-top: 2px
+  margin-top: 4px;
+  transition: color .35s var(--ease)
 }
 
 .ins-card:hover b {
-  color: var(--teal)
+  color: var(--teal);
+  font-weight: 800;
+  transform: scale(1.08)
+}
+
+.ins-card:hover small {
+  color: var(--teal-deep)
 }
 
 @media(max-width:900px) {

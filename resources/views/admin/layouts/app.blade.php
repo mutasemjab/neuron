@@ -19,7 +19,7 @@
     @endif
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset_v('assets/admin/css/style.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
 <body>
@@ -48,7 +48,7 @@
 
     {{-- Bootstrap JS (must be before panel.js) --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ asset('assets/shared/js/panel.js') }}"></script>
+    <script src="{{ asset_v('assets/shared/js/panel.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

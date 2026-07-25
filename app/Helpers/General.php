@@ -47,6 +47,19 @@ function uploaded_image(?string $filename, string $folder): ?string
     return $filename ? asset("assets/uploads/{$folder}/{$filename}") : null;
 }
 
+/**
+ * asset() with a cache-busting ?v= query string based on the file's last-modified
+ * time, so browsers fetch a fresh copy automatically whenever the file on disk
+ * changes — without needing a manual hard refresh / cache clear.
+ */
+function asset_v(string $path): string
+{
+    $full = base_path($path);
+    $version = file_exists($full) ? filemtime($full) : time();
+
+    return asset($path) . '?v=' . $version;
+}
+
 
 
 

@@ -18,7 +18,7 @@
         
         <div class="foot-brand">
           <a href="<?php echo e(route('home')); ?>" class="foot-logo-link">
-            <img src="<?php echo e(asset('assets_front/images/logo.png')); ?>" alt="<?php echo e(sett('identity.site_name')); ?>" class="foot-logo-img">
+            <img src="<?php echo e(asset_v('assets_front/images/logo.png')); ?>" alt="<?php echo e(sett('identity.site_name')); ?>" class="foot-logo-img">
           </a>
           <p class="foot-brand-desc"><?php echo e(sett('footer.about_text')); ?></p>
           <a href="<?php echo e(route('home')); ?>#booking" class="foot-book-cta">

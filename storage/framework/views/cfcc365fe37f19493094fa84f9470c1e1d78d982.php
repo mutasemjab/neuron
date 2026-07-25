@@ -19,7 +19,7 @@
     <?php endif; ?>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="<?php echo e(asset('assets/admin/css/style.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset_v('assets/admin/css/style.css')); ?>" rel="stylesheet">
     <?php echo $__env->yieldPushContent('styles'); ?>
 </head>
 <body>
@@ -48,7 +48,7 @@
 
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo e(asset('assets/shared/js/panel.js')); ?>"></script>
+    <script src="<?php echo e(asset_v('assets/shared/js/panel.js')); ?>"></script>
     <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>

@@ -63,7 +63,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&family=Cairo:wght@400;500;600;700&family=Sora:wght@400;500;600&display=swap" rel="stylesheet">
-<link href="{{ asset('assets_front/css/style.css') }}" rel="stylesheet">
+<link href="{{ asset_v('assets_front/css/style.css') }}" rel="stylesheet">
 @stack('styles')
 </head>
 <body class="{{ app()->getLocale() === 'en' ? 'lang-en' : 'lang-ar' }}">
@@ -185,7 +185,7 @@ window.ChatbotConfig = {
   </div>
 </div>
 
-<script src="{{ asset('assets_front/js/app.js') }}"></script>
+<script src="{{ asset_v('assets_front/js/app.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

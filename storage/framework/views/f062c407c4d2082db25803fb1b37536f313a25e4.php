@@ -121,6 +121,17 @@
             </li>
         </ul>
 
+        <div class="nav-label">الشات بوت</div>
+        <ul>
+            <li class="nav-item">
+                <a href="<?php echo e(route('admin.chatbot.index')); ?>"
+                    class="nav-link <?php echo e(request()->routeIs('admin.chatbot.*') ? 'active' : ''); ?>">
+                    <i class="nav-icon bi bi-robot"></i>
+                    <span>قاعدة معرفة المساعد</span>
+                </a>
+            </li>
+        </ul>
+
         <div class="nav-label"><?php echo e(__('messages.system')); ?></div>
         <ul>
             <li class="nav-item">

@@ -18,7 +18,7 @@
         {{-- Brand column --}}
         <div class="foot-brand">
           <a href="{{ route('home') }}" class="foot-logo-link">
-            <img src="{{ asset('assets_front/images/logo.png') }}" alt="{{ sett('identity.site_name') }}" class="foot-logo-img">
+            <img src="{{ asset_v('assets_front/images/logo.png') }}" alt="{{ sett('identity.site_name') }}" class="foot-logo-img">
           </a>
           <p class="foot-brand-desc">{{ sett('footer.about_text') }}</p>
           <a href="{{ route('home') }}#booking" class="foot-book-cta">
