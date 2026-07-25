@@ -207,83 +207,18 @@
 
 <!-- ============ INSURANCE ============ -->
 <section class="insurance" id="insurance">
-
-  {{-- decorative background elements --}}
-  <div class="ins-bg-ring ins-bg-ring-1" aria-hidden="true"></div>
-  <div class="ins-bg-ring ins-bg-ring-2" aria-hidden="true"></div>
-  <div class="ins-bg-dots" aria-hidden="true"></div>
-
   <div class="wrap">
     <div class="sec-head center reveal">
-      <span class="eyebrow">{{ sett('insurance_section.eyebrow') }}</span>
+      <span class="eyebrow"><span class="pulse-dot"></span> {{ sett('insurance_section.eyebrow') }}</span>
       <h2>{{ sett('insurance_section.heading_main') }} <span class="tealword">{{ sett('insurance_section.heading_highlight') }}</span></h2>
       <p>{{ sett('insurance_section.paragraph') }}</p>
     </div>
-
-    {{-- Trust pills --}}
-    <div class="ins-trust reveal d1">
-      <span class="ins-trust-pill">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        {{ app()->getLocale() === 'ar' ? 'مقبولة في جميع فروعنا' : 'Accepted at all branches' }}
-      </span>
-      <span class="ins-trust-pill">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        {{ app()->getLocale() === 'ar' ? 'تسوية مباشرة' : 'Direct billing' }}
-      </span>
-      <span class="ins-trust-pill">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        {{ app()->getLocale() === 'ar' ? 'لا رسوم إضافية' : 'No extra fees' }}
-      </span>
+    <div class="ins-grid reveal d1">
+      @foreach($insuranceCompanies as $company)
+      <div class="ins-card"><b>{{ $company->name }}</b>@if($company->subtitle)<small>{{ $company->subtitle }}</small>@endif</div>
+      @endforeach
     </div>
   </div>
-
-  {{-- Marquee rows — full-width, outside wrap --}}
-  @php $items = $insuranceCompanies->values(); $teal_colors = ['#2a807d','#1d5c5a','#3a9e9b','#246b68','#14504e','#2d9490']; @endphp
-
-  {{-- Row 1: left direction --}}
-  <div class="ins-marquee-wrap reveal d2">
-    <div class="ins-marquee ins-marquee--fwd">
-      <div class="ins-track">
-        @for($r=0;$r<3;$r++)
-          @foreach($items as $ci => $company)
-          <div class="ins-card">
-            <div class="ins-card-badge" style="--accent:{{ $teal_colors[$ci % count($teal_colors)] }}">
-              {{ mb_strtoupper(mb_substr($company->name, 0, 2)) }}
-            </div>
-            <div class="ins-card-body">
-              <strong>{{ $company->name }}</strong>
-              @if($company->subtitle)<span>{{ $company->subtitle }}</span>@endif
-            </div>
-            <div class="ins-card-shine" aria-hidden="true"></div>
-          </div>
-          @endforeach
-        @endfor
-      </div>
-    </div>
-  </div>
-
-  {{-- Row 2: right direction --}}
-  <div class="ins-marquee-wrap reveal d3">
-    <div class="ins-marquee ins-marquee--rev">
-      <div class="ins-track">
-        @for($r=0;$r<3;$r++)
-          @foreach($items->reverse()->values() as $ci => $company)
-          <div class="ins-card">
-            <div class="ins-card-badge" style="--accent:{{ $teal_colors[$ci % count($teal_colors)] }}">
-              {{ mb_strtoupper(mb_substr($company->name, 0, 2)) }}
-            </div>
-            <div class="ins-card-body">
-              <strong>{{ $company->name }}</strong>
-              @if($company->subtitle)<span>{{ $company->subtitle }}</span>@endif
-            </div>
-            <div class="ins-card-shine" aria-hidden="true"></div>
-          </div>
-          @endforeach
-        @endfor
-      </div>
-    </div>
-  </div>
-
 </section>
 
 <!-- ============ VIDEOS ============ -->

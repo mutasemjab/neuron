@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('title', __('front.page_title') . ' | ' . sett('identity.site_name')); ?>
 <?php $__env->startSection('meta_description', sett('seo.default_description')); ?>
 
@@ -205,16 +206,16 @@
 </section>
 
 <!-- ============ INSURANCE ============ -->
-<section class="insurance">
+<section class="insurance" id="insurance">
   <div class="wrap">
     <div class="sec-head center reveal">
-      <span class="eyebrow"><?php echo e(sett('insurance_section.eyebrow')); ?></span>
+      <span class="eyebrow"><span class="pulse-dot"></span> <?php echo e(sett('insurance_section.eyebrow')); ?></span>
       <h2><?php echo e(sett('insurance_section.heading_main')); ?> <span class="tealword"><?php echo e(sett('insurance_section.heading_highlight')); ?></span></h2>
       <p><?php echo e(sett('insurance_section.paragraph')); ?></p>
     </div>
     <div class="ins-grid reveal d1">
       <?php $__currentLoopData = $insuranceCompanies; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $company): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-      <div class="ins-card"><b><?php echo e($company->name); ?></b><small><?php echo e($company->subtitle); ?></small></div>
+      <div class="ins-card"><b><?php echo e($company->name); ?></b><?php if($company->subtitle): ?><small><?php echo e($company->subtitle); ?></small><?php endif; ?></div>
       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
   </div>
@@ -286,47 +287,124 @@
 
 <!-- ============ TESTIMONIALS ============ -->
 <?php if($testimonials->isNotEmpty()): ?>
-<section class="testi">
+<section class="testi" id="testi">
+
+  
+  <div class="testi-orb testi-orb-1" aria-hidden="true"></div>
+  <div class="testi-orb testi-orb-2" aria-hidden="true"></div>
+  <div class="testi-orb testi-orb-3" aria-hidden="true"></div>
+  <div class="testi-grid-lines" aria-hidden="true"></div>
+
   <div class="wrap testi-wrap">
-    <div class="sec-head center reveal">
-      <span class="eyebrow"><?php echo e(sett('testimonials_section.eyebrow')); ?></span>
-      <h2><?php echo e(sett('testimonials_section.heading')); ?></h2>
-    </div>
 
-    <div class="reveal d1" style="overflow:hidden">
-      <div class="testi-track" id="testiTrack">
-        <?php $__currentLoopData = $testimonials; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $testimonial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <?php $tInitials = collect(explode(' ', $testimonial->patient_name))->map(fn($w) => mb_substr($w, 0, 1))->take(2)->implode('.'); ?>
-        <div class="testi-slide">
-          <div class="testi-card">
-            <div class="testi-card-top">
-              <div class="testi-author">
-                <div class="av ph" data-label="<?php echo e($tInitials); ?>">
-                  <?php if($testimonial->avatar): ?><img data-src="<?php echo e($testimonial->avatar_url); ?>" alt="<?php echo e($testimonial->patient_name); ?>"><?php endif; ?>
-                </div>
-                <div class="meta"><b><?php echo e($testimonial->patient_name); ?></b><span><?php echo e($testimonial->role_text); ?></span></div>
-              </div>
-              <div class="testi-stars"><?php echo e(str_repeat('★', $testimonial->rating)); ?></div>
-            </div>
-
-            <p class="testi-quote-text"><span class="qmark">"</span><?php echo e($testimonial->quote); ?></p>
-
-            <?php if($testimonial->doctor || $testimonial->procedure): ?>
-            <div class="testi-doctor-info">
-              <?php if($testimonial->doctor): ?>
-              <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><?php echo e(__('front.testi_treated_by')); ?>: <b><?php echo e($testimonial->doctor->name); ?></b></div>
-              <?php endif; ?>
-              <?php if($testimonial->procedure): ?>
-              <div class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg><?php echo e(__('front.testi_procedure')); ?>: <b><?php echo e($testimonial->procedure); ?></b></div>
-              <?php endif; ?>
-            </div>
-            <?php endif; ?>
-          </div>
-        </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    
+    <div class="testi-header reveal">
+      <div class="sec-head center">
+        <span class="eyebrow testi-eyebrow"><?php echo e(sett('testimonials_section.eyebrow')); ?></span>
+        <h2><?php echo e(sett('testimonials_section.heading')); ?></h2>
       </div>
-      <div class="testi-nav" id="testiNav"></div>
+      
+      <div class="testi-rating-badge">
+        <div class="testi-badge-stars">★★★★★</div>
+        <div class="testi-badge-info">
+          <strong><?php echo e($testimonials->avg('rating') >= 1 ? number_format($testimonials->avg('rating'), 1) : '5.0'); ?></strong>
+          <span><?php echo e($testimonials->count()); ?>+ <?php echo e(app()->getLocale() === 'ar' ? 'تقييم موثق' : 'verified reviews'); ?></span>
+        </div>
+      </div>
     </div>
+
+    
+    
+    <div class="testi-stage reveal d1">
+
+      
+      <button class="testi-arrow testi-arrow-prev" id="testiPrev" aria-label="<?php echo e(app()->getLocale() === 'ar' ? 'التالي' : 'Previous'); ?>">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      
+      <div class="testi-viewport">
+        <div class="testi-track" id="testiTrack">
+          <?php $__currentLoopData = $testimonials; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $testimonial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <?php
+            $tInitials = collect(explode(' ', $testimonial->patient_name))
+              ->map(fn($w) => mb_substr($w, 0, 1))->take(2)->implode('');
+          ?>
+          <div class="testi-slide">
+            <div class="testi-card">
+
+              
+              <div class="testi-wm-q" aria-hidden="true">❝</div>
+
+              
+              <div class="testi-stars" aria-label="<?php echo e($testimonial->rating); ?> stars">
+                <?php for($s = 1; $s <= 5; $s++): ?>
+                  <span class="testi-star <?php echo e($s <= $testimonial->rating ? 'testi-star--on' : ''); ?>" style="--d:<?php echo e($s * 80); ?>ms">★</span>
+                <?php endfor; ?>
+              </div>
+
+              
+              <blockquote class="testi-quote"><?php echo e($testimonial->quote); ?></blockquote>
+
+              
+              <?php if($testimonial->doctor || $testimonial->procedure): ?>
+              <div class="testi-pills">
+                <?php if($testimonial->doctor): ?>
+                <span class="testi-pill">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <?php echo e($testimonial->doctor->name); ?>
+
+                </span>
+                <?php endif; ?>
+                <?php if($testimonial->procedure): ?>
+                <span class="testi-pill testi-pill--alt">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+                  <?php echo e($testimonial->procedure); ?>
+
+                </span>
+                <?php endif; ?>
+              </div>
+              <?php endif; ?>
+
+              
+              <div class="testi-author">
+                <div class="testi-av-wrap">
+                  <div class="av ph" data-label="<?php echo e($tInitials); ?>">
+                    <?php if($testimonial->avatar): ?><img data-src="<?php echo e($testimonial->avatar_url); ?>" alt="<?php echo e($testimonial->patient_name); ?>"><?php endif; ?>
+                  </div>
+                  <span class="testi-verified-dot" title="<?php echo e(app()->getLocale() === 'ar' ? 'مريض موثق' : 'Verified Patient'); ?>">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  </span>
+                </div>
+                <div class="testi-meta">
+                  <strong><?php echo e($testimonial->patient_name); ?></strong>
+                  <span><?php echo e($testimonial->role_text); ?></span>
+                </div>
+                <span class="testi-verified-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                  <?php echo e(app()->getLocale() === 'ar' ? 'مريض موثق' : 'Verified Patient'); ?>
+
+                </span>
+              </div>
+
+            </div>
+          </div>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
+      </div>
+
+      
+      <button class="testi-arrow testi-arrow-next" id="testiNext" aria-label="<?php echo e(app()->getLocale() === 'ar' ? 'السابق' : 'Next'); ?>">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    
+    <div class="testi-footer reveal d2">
+      <div class="testi-nav" id="testiNav"></div>
+      <span class="testi-counter" id="testiCounter"></span>
+    </div>
+
   </div>
 </section>
 <?php endif; ?>
