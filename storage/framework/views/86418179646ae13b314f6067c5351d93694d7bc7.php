@@ -293,7 +293,6 @@
   <div class="testi-orb testi-orb-1" aria-hidden="true"></div>
   <div class="testi-orb testi-orb-2" aria-hidden="true"></div>
   <div class="testi-orb testi-orb-3" aria-hidden="true"></div>
-  <div class="testi-grid-lines" aria-hidden="true"></div>
 
   <div class="wrap testi-wrap">
 

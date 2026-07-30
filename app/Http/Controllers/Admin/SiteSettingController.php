@@ -215,6 +215,12 @@ class SiteSettingController extends Controller
 
     public function update(Request $request)
     {
+        // Keys like "identity.site_name" contain a literal dot, so we must read
+        // the "settings" array natively — $request->input('settings.identity.site_name.ar')
+        // would make Laravel treat every dot as nested-array traversal and always
+        // return null, silently wiping every field on every save.
+        $settingsInput = $request->input('settings', []);
+
         foreach (self::fields() as $group) {
             foreach ($group['fields'] as $key => $def) {
                 if ($def['type'] === 'image') {
@@ -228,12 +234,12 @@ class SiteSettingController extends Controller
                 if ($def['translatable']) {
                     SiteSetting::set(
                         $key,
-                        $request->input("settings.{$key}.ar"),
-                        $request->input("settings.{$key}.en"),
+                        $settingsInput[$key]['ar'] ?? null,
+                        $settingsInput[$key]['en'] ?? null,
                         explode('.', $key)[0]
                     );
                 } else {
-                    $raw = $request->input("settings.{$key}.raw");
+                    $raw = $settingsInput[$key]['raw'] ?? null;
                     SiteSetting::set($key, $raw, $raw, explode('.', $key)[0]);
                 }
             }
