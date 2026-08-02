@@ -7,7 +7,20 @@
       "Bash(Select-Object Name)",
       "Read(//cygdrive/c/xampp/htdocs/**)",
       "Bash(php artisan *)",
-      "Bash(php -r \"echo 'PHP works';\")"
+      "Bash(php -r \"echo 'PHP works';\")",
+      "Bash(Get-ChildItem -Path \"c:\\\\xampp\\\\htdocs\\\\neuron\\\\app\\\\Http\\\\Controllers\" -Filter \"*Chat*\" -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object FullName)",
+      "Bash(Get-Item \"C:\\\\Users\\\\m.jaber\\\\.claude\\\\projects\\\\c--xampp-htdocs-neuron\\\\6603f53f-8ad6-4e47-90c0-3271624aff62.jsonl\")",
+      "Bash(Select-Object Length, LastWriteTime)",
+      "Read(//c/Users/m.jaber/.claude/projects/c--xampp-htdocs-neuron/**)",
+      "Bash(pip install *)",
+      "Bash(python -c \"import pypdf; print\\('installed'\\)\")",
+      "Bash(python \"C:\\\\Users\\\\m.jaber\\\\.claude\\\\projects\\\\c--xampp-htdocs-neuron\\\\generate_php.py\")",
+      "Bash(python \"C:\\\\Users\\\\m.jaber\\\\.claude\\\\projects\\\\c--xampp-htdocs-neuron\\\\generate_php2.py\")",
+      "PowerShell(\\(Get-Content \"C:\\\\xampp\\\\htdocs\\\\neuron\\\\chatbot_qa_php_rows.txt\"\\).Count)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\m.jaber\\.claude\\projects\\c--xampp-htdocs-neuron"
     ]
   }
 }

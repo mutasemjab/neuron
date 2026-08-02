@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ChatbotKnowledgeTemplateExport;
 use App\Http\Controllers\Controller;
+use App\Imports\ChatbotKnowledgeImport;
 use App\Models\ChatbotKnowledge;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ChatbotKnowledgeController extends Controller
 {
@@ -75,5 +78,31 @@ class ChatbotKnowledgeController extends Controller
     {
         $chatbot->update(['is_active' => !$chatbot->is_active]);
         return back()->with('success', 'تم تحديث الحالة.');
+    }
+
+    public function downloadTemplate()
+    {
+        return Excel::download(new ChatbotKnowledgeTemplateExport(), 'chatbot-template.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls,csv|max:10240',
+        ], [
+            'file.required' => 'يرجى اختيار ملف للاستيراد.',
+            'file.mimes'    => 'صيغة الملف غير مدعومة. استخدم xlsx أو xls أو csv.',
+            'file.max'      => 'حجم الملف كبير جداً (الحد الأقصى 10 ميغابايت).',
+        ]);
+
+        if ($request->boolean('truncate_first')) {
+            ChatbotKnowledge::truncate();
+        }
+
+        $import = new ChatbotKnowledgeImport();
+        Excel::import($import, $request->file('file'));
+
+        return redirect()->route('admin.chatbot.index')
+            ->with('success', "تم استيراد {$import->importedCount} سؤال وجواب بنجاح.");
     }
 }
