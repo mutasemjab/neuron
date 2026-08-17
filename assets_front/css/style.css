@@ -3691,6 +3691,7 @@ body.nav-open .burger span:nth-child(3) {
 
 /* ==================== SUBSCRIPTION CHECKOUT MODAL ==================== */
 .sub-modal-card {
+  display: block;
   max-width: 460px
 }
 
