@@ -25,6 +25,7 @@ return [
 
     // ── Buttons / CTAs ───────────────────────────────────────────────
     'book_now'            => 'Book Your Appointment',
+    'subscribe_now'       => 'Subscribe Now',
     'explore_services'    => 'Explore Our Services',
     'read_details'        => 'Read Details',
     'read_article'        => 'Read Article',
@@ -69,6 +70,22 @@ return [
     'time_slot_noon'      => 'Noon (12pm – 3pm)',
     'time_slot_afternoon' => 'Afternoon (3pm – 6pm)',
     'time_slot_evening'   => 'Evening (6pm – 9pm)',
+
+    // ── Subscription checkout ───────────────────────────────────────────
+    'sub_modal_title'       => 'Subscribe to Plan',
+    'sub_modal_subtitle'    => 'Enter your details to continue to secure payment',
+    'sub_form_email'        => 'Email (optional)',
+    'sub_form_email_ph'     => 'name@example.com',
+    'sub_form_submit'       => 'Continue to Payment',
+    'sub_processing'        => 'Preparing secure payment...',
+    'sub_paying'            => 'Processing payment...',
+    'sub_success_title'     => 'Payment Successful',
+    'sub_success_text'      => 'Your subscription has been activated. We will contact you shortly.',
+    'sub_failed_title'      => 'Payment Failed',
+    'sub_failed_text'       => 'The payment could not be completed. Please try again.',
+    'sub_init_failed'       => 'Could not start the payment, please try again later.',
+    'sub_try_again'         => 'Try Again',
+    'sub_close'             => 'Close',
 
     // ── Footer ───────────────────────────────────────────────────────
     'footer_quick_links'  => 'Quick Links',

@@ -205,6 +205,49 @@
   </div>
 </section>
 
+<!-- ============ SUBSCRIPTION PLANS ============ -->
+<?php if($subscriptionPlans->isNotEmpty()): ?>
+<section class="plans" id="plans">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow"><?php echo e(sett('plans_section.eyebrow')); ?></span>
+      <h2><?php echo e(sett('plans_section.heading_main')); ?> <span class="tealword"><?php echo e(sett('plans_section.heading_highlight')); ?></span></h2>
+      <p><?php echo e(sett('plans_section.paragraph')); ?></p>
+    </div>
+
+    <div class="plans-grid reveal d1">
+      <?php $__currentLoopData = $subscriptionPlans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <div class="plan-card <?php if($plan->is_featured): ?> featured <?php endif; ?>">
+        <?php if($plan->badge): ?><span class="plan-badge"><?php echo e($plan->badge); ?></span><?php endif; ?>
+        <div class="plan-head">
+          <h3><?php echo e($plan->title); ?></h3>
+          <?php if($plan->subtitle): ?><p><?php echo e($plan->subtitle); ?></p><?php endif; ?>
+        </div>
+        <div class="plan-price">
+          <b><?php echo e(rtrim(rtrim(number_format((float) $plan->price, 2), '0'), '.')); ?></b>
+          <?php if($plan->price_suffix): ?><span><?php echo e($plan->price_suffix); ?></span><?php endif; ?>
+        </div>
+        <?php if(count($plan->features_list)): ?>
+        <ul class="plan-features">
+          <?php $__currentLoopData = $plan->features_list; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $feature): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><span><?php echo e($feature); ?></span></li>
+          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </ul>
+        <?php endif; ?>
+        <button type="button" class="btn <?php echo e($plan->is_featured ? 'btn-primary' : 'btn-ghost'); ?> plan-cta"
+                data-plan-id="<?php echo e($plan->id); ?>"
+                data-plan-title="<?php echo e($plan->title); ?>"
+                data-plan-price="<?php echo e(rtrim(rtrim(number_format((float) $plan->price, 2), '0'), '.')); ?>"
+                data-plan-suffix="<?php echo e($plan->price_suffix); ?>">
+          <span><?php echo e($plan->button_text ?: __('front.subscribe_now')); ?></span>
+        </button>
+      </div>
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
 <!-- ============ INSURANCE ============ -->
 <section class="insurance" id="insurance">
   <div class="wrap">

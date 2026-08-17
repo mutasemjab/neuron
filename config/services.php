@@ -36,4 +36,13 @@ return [
     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
     'redirect' => env('GOOGLE_REDIRECT_URI', 'https://your-domain.com/login/google/callback'),
     ],
+
+    'bank_etihad' => [
+        'env'         => env('BANK_ETIHAD_ENV', 'testing'),
+        'auth_token'  => env('BANK_ETIHAD_AUTH_TOKEN'),
+        'capture_context_url' => [
+            'testing'    => 'https://merchant-order-token.baelab.net/v1/payments/capture-context',
+            'production' => 'https://merchant-order-token.bankaletihad.com/v1/payments/app2/capture-context',
+        ],
+    ],
 ];

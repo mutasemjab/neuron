@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\SubscriptionCheckoutController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -25,5 +26,9 @@ Route::group([
     // Chatbot
     Route::post('/chatbot/message', [ChatbotController::class, 'message'])->name('chatbot.message');
     Route::post('/chatbot/clear',   [ChatbotController::class, 'clearHistory'])->name('chatbot.clear');
+
+    // Subscription plan checkout (Bank al Etihad)
+    Route::post('/subscriptions/{subscriptionPlan}/checkout', [SubscriptionCheckoutController::class, 'store'])->name('subscriptions.checkout');
+    Route::post('/subscriptions/orders/{subscriptionOrder}/result', [SubscriptionCheckoutController::class, 'result'])->name('subscriptions.result');
 
 });

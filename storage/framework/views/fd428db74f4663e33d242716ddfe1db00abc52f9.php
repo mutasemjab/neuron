@@ -188,7 +188,80 @@ window.ChatbotConfig = {
   </div>
 </div>
 
+<!-- ============ SUBSCRIPTION CHECKOUT MODAL ============ -->
+<div class="modal" id="subModal">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-card sub-modal-card">
+    <button class="modal-close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="modal-body">
+
+      <div class="sub-plan-summary">
+        <span id="subPlanTitle"></span>
+        <span class="sub-plan-price"><b id="subPlanPrice"></b><small id="subPlanSuffix"></small></span>
+      </div>
+
+      <div class="sub-step" id="subStepForm">
+        <h3><?php echo e(__('front.sub_modal_title')); ?></h3>
+        <p class="modal-sub"><?php echo e(__('front.sub_modal_subtitle')); ?></p>
+        <form id="subCheckoutForm" novalidate>
+          <div class="field">
+            <label><?php echo e(__('front.form_full_name')); ?> <span class="req">*</span></label>
+            <input type="text" name="name" required placeholder="<?php echo e(__('front.form_full_name_ph')); ?>">
+          </div>
+          <div class="field">
+            <label><?php echo e(__('front.form_phone')); ?> <span class="req">*</span></label>
+            <input type="tel" name="phone" dir="ltr" required placeholder="<?php echo e(__('front.form_phone_ph')); ?>">
+          </div>
+          <div class="field">
+            <label><?php echo e(__('front.sub_form_email')); ?></label>
+            <input type="email" name="email" dir="ltr" placeholder="<?php echo e(__('front.sub_form_email_ph')); ?>">
+          </div>
+          <p class="sub-error" id="subFormError" style="display:none"></p>
+          <button type="submit" class="btn btn-primary" style="width:100%"><span><?php echo e(__('front.sub_form_submit')); ?></span></button>
+        </form>
+      </div>
+
+      <div class="sub-step" id="subStepLoading" style="display:none">
+        <div class="sub-spinner"></div>
+        <p id="subLoadingText"><?php echo e(__('front.sub_processing')); ?></p>
+      </div>
+
+      <div class="sub-step" id="subStepPayment" style="display:none">
+        <div id="payment-form"></div>
+      </div>
+
+      <div class="sub-step sub-step-result" id="subStepResult" style="display:none">
+        <div class="sub-result-icon" id="subResultIcon"></div>
+        <h3 id="subResultTitle"></h3>
+        <p id="subResultText"></p>
+        <button type="button" class="btn btn-ghost" id="subResultClose" style="width:100%"><?php echo e(__('front.sub_close')); ?></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+window.SubscriptionCheckoutConfig = {
+  checkoutUrlTemplate: <?php echo json_encode(route('subscriptions.checkout', ['subscriptionPlan' => '__PLAN_ID__']), 512) ?>,
+  resultUrlTemplate:   <?php echo json_encode(route('subscriptions.result', ['subscriptionOrder' => '__ORDER_ID__']), 512) ?>,
+  csrf:                <?php echo json_encode(csrf_token(), 15, 512) ?>,
+  locale:              <?php echo json_encode(app()->getLocale(), 15, 512) ?>,
+  i18n: {
+    processing:   <?php echo json_encode(__('front.sub_processing'), 15, 512) ?>,
+    paying:       <?php echo json_encode(__('front.sub_paying'), 15, 512) ?>,
+    successTitle: <?php echo json_encode(__('front.sub_success_title'), 15, 512) ?>,
+    successText:  <?php echo json_encode(__('front.sub_success_text'), 15, 512) ?>,
+    failedTitle:  <?php echo json_encode(__('front.sub_failed_title'), 15, 512) ?>,
+    failedText:   <?php echo json_encode(__('front.sub_failed_text'), 15, 512) ?>,
+    initFailed:   <?php echo json_encode(__('front.sub_init_failed'), 15, 512) ?>,
+    tryAgain:     <?php echo json_encode(__('front.sub_try_again'), 15, 512) ?>,
+  },
+};
+</script>
+
 <script src="<?php echo e(asset_v('assets_front/js/app.js')); ?>"></script>
+<script src="<?php echo e(asset_v('assets_front/js/subscription-checkout.js')); ?>"></script>
 <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>

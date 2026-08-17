@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\StatController;
+use App\Http\Controllers\Admin\SubscriptionOrderController;
+use App\Http\Controllers\Admin\SubscriptionPlanController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\VideoController;
 use Illuminate\Support\Facades\Route;
@@ -82,6 +84,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
 
         Route::post('articles/{article}/toggle', [ArticleController::class, 'toggleActive'])->name('admin.articles.toggle');
         Route::resource('articles', ArticleController::class, ['as' => 'admin']);
+
+        Route::post('subscription-plans/{subscription_plan}/toggle', [SubscriptionPlanController::class, 'toggleActive'])->name('admin.subscription-plans.toggle');
+        Route::resource('subscription-plans', SubscriptionPlanController::class, ['as' => 'admin']);
+
+        // ── Subscription orders (payments) ──────────────────────────
+        Route::get('subscription-orders',                        [SubscriptionOrderController::class, 'index'])->name('admin.subscription-orders.index');
+        Route::get('subscription-orders/{subscriptionOrder}',     [SubscriptionOrderController::class, 'show'])->name('admin.subscription-orders.show');
+        Route::delete('subscription-orders/{subscriptionOrder}',  [SubscriptionOrderController::class, 'destroy'])->name('admin.subscription-orders.destroy');
 
         // ── Appointments (bookings) ─────────────────────────────────
         Route::get('appointments',                       [AppointmentController::class, 'index'])->name('admin.appointments.index');

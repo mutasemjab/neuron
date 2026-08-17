@@ -11,6 +11,7 @@ use App\Models\Faq;
 use App\Models\InsuranceCompany;
 use App\Models\Service;
 use App\Models\Stat;
+use App\Models\SubscriptionPlan;
 use App\Models\Testimonial;
 use App\Models\Video;
 use Illuminate\Http\Request;
@@ -30,10 +31,12 @@ class HomeController extends Controller
         $articles       = Article::published()->limit(3)->get();
         $heroStats      = Stat::active()->section('hero')->get();
         $mainStats      = Stat::active()->section('main')->get();
+        $subscriptionPlans = SubscriptionPlan::active()->get();
 
         return view('front.home', compact(
             'services', 'doctors', 'branches', 'faqs', 'insuranceCompanies',
-            'videos', 'testimonials', 'careerJobs', 'articles', 'heroStats', 'mainStats'
+            'videos', 'testimonials', 'careerJobs', 'articles', 'heroStats', 'mainStats',
+            'subscriptionPlans'
         ));
     }
 

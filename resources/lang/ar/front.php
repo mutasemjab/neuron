@@ -25,6 +25,7 @@ return [
 
     // ── Buttons / CTAs ───────────────────────────────────────────────
     'book_now'            => 'احجز موعدك الآن',
+    'subscribe_now'       => 'اشترك الآن',
     'explore_services'    => 'استكشف خدماتنا',
     'read_details'        => 'اقرأ التفاصيل',
     'read_article'        => 'اقرأ المقال',
@@ -69,6 +70,22 @@ return [
     'time_slot_noon'      => 'ظهراً (12م – 3م)',
     'time_slot_afternoon' => 'مساءً (3م – 6م)',
     'time_slot_evening'   => 'مساءً (6م – 9م)',
+
+    // ── Subscription checkout ───────────────────────────────────────────
+    'sub_modal_title'       => 'اشتراك في باقة',
+    'sub_modal_subtitle'    => 'أدخل بياناتك للمتابعة إلى صفحة الدفع الآمن',
+    'sub_form_email'        => 'البريد الإلكتروني (اختياري)',
+    'sub_form_email_ph'     => 'name@example.com',
+    'sub_form_submit'       => 'متابعة إلى الدفع',
+    'sub_processing'        => 'جاري تجهيز صفحة الدفع الآمن...',
+    'sub_paying'            => 'جاري معالجة الدفع...',
+    'sub_success_title'     => 'تم الدفع بنجاح',
+    'sub_success_text'      => 'تم تفعيل اشتراكك بنجاح. سنتواصل معك قريباً.',
+    'sub_failed_title'      => 'فشلت عملية الدفع',
+    'sub_failed_text'       => 'لم تكتمل عملية الدفع. يرجى المحاولة مرة أخرى.',
+    'sub_init_failed'       => 'تعذّر بدء عملية الدفع، حاول مرة أخرى لاحقاً.',
+    'sub_try_again'         => 'حاول مرة أخرى',
+    'sub_close'             => 'إغلاق',
 
     // ── Footer ───────────────────────────────────────────────────────
     'footer_quick_links'  => 'روابط سريعة',

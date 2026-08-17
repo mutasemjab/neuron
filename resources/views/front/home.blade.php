@@ -205,6 +205,49 @@
   </div>
 </section>
 
+<!-- ============ SUBSCRIPTION PLANS ============ -->
+@if($subscriptionPlans->isNotEmpty())
+<section class="plans" id="plans">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow">{{ sett('plans_section.eyebrow') }}</span>
+      <h2>{{ sett('plans_section.heading_main') }} <span class="tealword">{{ sett('plans_section.heading_highlight') }}</span></h2>
+      <p>{{ sett('plans_section.paragraph') }}</p>
+    </div>
+
+    <div class="plans-grid reveal d1">
+      @foreach($subscriptionPlans as $plan)
+      <div class="plan-card @if($plan->is_featured) featured @endif">
+        @if($plan->badge)<span class="plan-badge">{{ $plan->badge }}</span>@endif
+        <div class="plan-head">
+          <h3>{{ $plan->title }}</h3>
+          @if($plan->subtitle)<p>{{ $plan->subtitle }}</p>@endif
+        </div>
+        <div class="plan-price">
+          <b>{{ rtrim(rtrim(number_format((float) $plan->price, 2), '0'), '.') }}</b>
+          @if($plan->price_suffix)<span>{{ $plan->price_suffix }}</span>@endif
+        </div>
+        @if(count($plan->features_list))
+        <ul class="plan-features">
+          @foreach($plan->features_list as $feature)
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg><span>{{ $feature }}</span></li>
+          @endforeach
+        </ul>
+        @endif
+        <button type="button" class="btn {{ $plan->is_featured ? 'btn-primary' : 'btn-ghost' }} plan-cta"
+                data-plan-id="{{ $plan->id }}"
+                data-plan-title="{{ $plan->title }}"
+                data-plan-price="{{ rtrim(rtrim(number_format((float) $plan->price, 2), '0'), '.') }}"
+                data-plan-suffix="{{ $plan->price_suffix }}">
+          <span>{{ $plan->button_text ?: __('front.subscribe_now') }}</span>
+        </button>
+      </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+@endif
+
 <!-- ============ INSURANCE ============ -->
 <section class="insurance" id="insurance">
   <div class="wrap">

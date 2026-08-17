@@ -119,6 +119,24 @@
                     <span>{{ __('messages.banners') }}</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.subscription-plans.index') }}"
+                    class="nav-link {{ request()->routeIs('admin.subscription-plans.*') ? 'active' : '' }}">
+                    <i class="nav-icon bi bi-credit-card-2-front"></i>
+                    <span>{{ __('messages.subscription_plans') }}</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-label">{{ __('messages.bookings') }}</div>
+        <ul>
+            <li class="nav-item">
+                <a href="{{ route('admin.subscription-orders.index') }}"
+                    class="nav-link {{ request()->routeIs('admin.subscription-orders.*') ? 'active' : '' }}">
+                    <i class="nav-icon bi bi-wallet2"></i>
+                    <span>{{ __('messages.subscription_orders') }}</span>
+                </a>
+            </li>
         </ul>
 
         <div class="nav-label">الشات بوت</div>

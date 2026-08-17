@@ -45,6 +45,8 @@ return [
   'faqs' => 'الأسئلة الشائعة',
   'insurance_companies' => 'شركات التأمين',
   'videos' => 'الفيديوهات',
+  'subscription_plans' => 'باقات الاشتراك',
+  'subscription_orders' => 'طلبات الاشتراك',
   'testimonials' => 'آراء المرضى',
   'career_jobs' => 'الوظائف الشاغرة',
   'stats' => 'الأرقام والإحصائيات',

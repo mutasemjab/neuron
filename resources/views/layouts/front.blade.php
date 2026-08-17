@@ -185,7 +185,80 @@ window.ChatbotConfig = {
   </div>
 </div>
 
+<!-- ============ SUBSCRIPTION CHECKOUT MODAL ============ -->
+<div class="modal" id="subModal">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-card sub-modal-card">
+    <button class="modal-close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="modal-body">
+
+      <div class="sub-plan-summary">
+        <span id="subPlanTitle"></span>
+        <span class="sub-plan-price"><b id="subPlanPrice"></b><small id="subPlanSuffix"></small></span>
+      </div>
+
+      <div class="sub-step" id="subStepForm">
+        <h3>{{ __('front.sub_modal_title') }}</h3>
+        <p class="modal-sub">{{ __('front.sub_modal_subtitle') }}</p>
+        <form id="subCheckoutForm" novalidate>
+          <div class="field">
+            <label>{{ __('front.form_full_name') }} <span class="req">*</span></label>
+            <input type="text" name="name" required placeholder="{{ __('front.form_full_name_ph') }}">
+          </div>
+          <div class="field">
+            <label>{{ __('front.form_phone') }} <span class="req">*</span></label>
+            <input type="tel" name="phone" dir="ltr" required placeholder="{{ __('front.form_phone_ph') }}">
+          </div>
+          <div class="field">
+            <label>{{ __('front.sub_form_email') }}</label>
+            <input type="email" name="email" dir="ltr" placeholder="{{ __('front.sub_form_email_ph') }}">
+          </div>
+          <p class="sub-error" id="subFormError" style="display:none"></p>
+          <button type="submit" class="btn btn-primary" style="width:100%"><span>{{ __('front.sub_form_submit') }}</span></button>
+        </form>
+      </div>
+
+      <div class="sub-step" id="subStepLoading" style="display:none">
+        <div class="sub-spinner"></div>
+        <p id="subLoadingText">{{ __('front.sub_processing') }}</p>
+      </div>
+
+      <div class="sub-step" id="subStepPayment" style="display:none">
+        <div id="payment-form"></div>
+      </div>
+
+      <div class="sub-step sub-step-result" id="subStepResult" style="display:none">
+        <div class="sub-result-icon" id="subResultIcon"></div>
+        <h3 id="subResultTitle"></h3>
+        <p id="subResultText"></p>
+        <button type="button" class="btn btn-ghost" id="subResultClose" style="width:100%">{{ __('front.sub_close') }}</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+window.SubscriptionCheckoutConfig = {
+  checkoutUrlTemplate: @json(route('subscriptions.checkout', ['subscriptionPlan' => '__PLAN_ID__'])),
+  resultUrlTemplate:   @json(route('subscriptions.result', ['subscriptionOrder' => '__ORDER_ID__'])),
+  csrf:                @json(csrf_token()),
+  locale:              @json(app()->getLocale()),
+  i18n: {
+    processing:   @json(__('front.sub_processing')),
+    paying:       @json(__('front.sub_paying')),
+    successTitle: @json(__('front.sub_success_title')),
+    successText:  @json(__('front.sub_success_text')),
+    failedTitle:  @json(__('front.sub_failed_title')),
+    failedText:   @json(__('front.sub_failed_text')),
+    initFailed:   @json(__('front.sub_init_failed')),
+    tryAgain:     @json(__('front.sub_try_again')),
+  },
+};
+</script>
+
 <script src="{{ asset_v('assets_front/js/app.js') }}"></script>
+<script src="{{ asset_v('assets_front/js/subscription-checkout.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

@@ -45,6 +45,8 @@ return [
   'faqs' => 'FAQs',
   'insurance_companies' => 'Insurance Companies',
   'videos' => 'Videos',
+  'subscription_plans' => 'Subscription Plans',
+  'subscription_orders' => 'Subscription Orders',
   'testimonials' => 'Testimonials',
   'career_jobs' => 'Job Openings',
   'stats' => 'Stats & Counters',

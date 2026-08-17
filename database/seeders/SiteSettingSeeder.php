@@ -75,6 +75,12 @@ class SiteSettingSeeder extends Seeder
             ['insurance_section.heading_highlight', 'لراحتك', 'For Your Convenience', 'insurance_section'],
             ['insurance_section.paragraph', 'نتعامل مع شبكة واسعة من شركات التأمين لتسهيل تلقّي العلاج دون عناء.', 'We work with a wide network of insurance companies to make receiving treatment effortless.', 'insurance_section'],
 
+            // plans section
+            ['plans_section.eyebrow', 'باقات الاشتراك', 'Subscription Plans', 'plans_section'],
+            ['plans_section.heading_main', 'اختر الباقة', 'Choose the Plan', 'plans_section'],
+            ['plans_section.heading_highlight', 'الأنسب لك', 'That Suits You', 'plans_section'],
+            ['plans_section.paragraph', 'باقات متابعة وعناية طبية مرنة تمنحك أولوية في الحجز وخصومات على الفحوصات والاستشارات.', 'Flexible medical follow-up and care plans that give you booking priority and discounts on exams and consultations.', 'plans_section'],
+
             // videos section
             ['videos_section.eyebrow', 'مكتبة الفيديو', 'Video Library', 'videos_section'],
             ['videos_section.heading_main', 'شاهد قصص التعافي', 'Watch Recovery Stories', 'videos_section'],
