@@ -31,4 +31,17 @@ class ChatbotKnowledge extends Model
               ->orWhere('tags', 'LIKE', "%{$term}%");
         });
     }
+
+    public function scopeSearchByKeywords($query, array $keywords)
+    {
+        return $query->where(function ($q) use ($keywords) {
+            foreach ($keywords as $kw) {
+                $q->orWhere('title_ar',   'LIKE', "%{$kw}%")
+                  ->orWhere('title_en',   'LIKE', "%{$kw}%")
+                  ->orWhere('content_ar', 'LIKE', "%{$kw}%")
+                  ->orWhere('content_en', 'LIKE', "%{$kw}%")
+                  ->orWhere('tags',       'LIKE', "%{$kw}%");
+            }
+        });
+    }
 }

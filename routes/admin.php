@@ -104,6 +104,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::resource('banners', BannerController::class, ['as' => 'admin']);
 
         // ── Chatbot Knowledge Base ────────────────────────────────────
+        Route::get('chatbot/template', [ChatbotKnowledgeController::class, 'downloadTemplate'])->name('admin.chatbot.template');
+        Route::post('chatbot/import',  [ChatbotKnowledgeController::class, 'import'])->name('admin.chatbot.import');
         Route::post('chatbot/{chatbot}/toggle', [ChatbotKnowledgeController::class, 'toggleActive'])->name('admin.chatbot.toggle');
         Route::resource('chatbot', ChatbotKnowledgeController::class, ['as' => 'admin']);
 

@@ -50,20 +50,37 @@ class ChatbotController extends Controller
 
     private function searchKnowledge(string $query): string
     {
-        // Try full-text keyword search first
+        // 1. Try exact-phrase search first
         $entries = ChatbotKnowledge::active()
             ->search($query)
             ->orderBy('order_index')
             ->limit(5)
             ->get();
 
-        // If nothing matched, pull general/clinic-info entries as background context
+        // 2. If nothing matched, try individual keyword search
         if ($entries->isEmpty()) {
-            $entries = ChatbotKnowledge::active()
-                ->whereIn('category', ['general', 'services', 'locations', 'hours'])
-                ->orderBy('order_index')
-                ->limit(4)
-                ->get();
+            $keywords = $this->extractKeywords($query);
+            if (!empty($keywords)) {
+                $entries = ChatbotKnowledge::active()
+                    ->searchByKeywords($keywords)
+                    ->orderBy('order_index')
+                    ->limit(5)
+                    ->get();
+
+                // Score by keyword relevance — put entries that match more keywords first
+                if ($entries->count() > 1) {
+                    $entries = $entries->sortByDesc(function ($item) use ($keywords) {
+                        $text = strtolower(
+                            ($item->title_ar ?? '') . ' ' .
+                            ($item->title_en ?? '') . ' ' .
+                            ($item->content_ar ?? '') . ' ' .
+                            ($item->content_en ?? '') . ' ' .
+                            ($item->tags ?? '')
+                        );
+                        return collect($keywords)->filter(fn($kw) => str_contains($text, $kw))->count();
+                    })->values()->take(3);
+                }
+            }
         }
 
         if ($entries->isEmpty()) return '';
@@ -78,6 +95,40 @@ class ChatbotController extends Controller
         }
 
         return trim($context);
+    }
+
+    private function extractKeywords(string $query): array
+    {
+        static $stopWords = [
+            'من', 'في', 'على', 'إلى', 'عن', 'مع', 'هل', 'ما', 'ماذا', 'هو', 'هي', 'هم',
+            'أن', 'لا', 'كل', 'شو', 'شو', 'اللي', 'كيف', 'متى', 'أين', 'وين', 'كم', 'قديش',
+            'لو', 'إذا', 'عند', 'بعد', 'قبل', 'يجب', 'أريد', 'اريد', 'أرغب', 'بدي', 'بدك',
+            'ابي', 'ابغى', 'ممكن', 'قادر', 'هناك', 'هنا', 'هون', 'لي', 'لك', 'له', 'لها',
+            'عندي', 'عندك', 'انا', 'أنا', 'انت', 'أنت', 'احنا', 'نحن', 'هاي', 'هذا', 'هذه',
+            'الي', 'التي', 'الذي', 'عليه', 'عليها', 'يا', 'يب', 'او', 'أو', 'و', 'ف',
+        ];
+
+        $words = preg_split('/[\s،,\.؟?!:؛;]+/u', $query, -1, PREG_SPLIT_NO_EMPTY);
+
+        $keywords = [];
+        foreach ($words as $word) {
+            $word = trim($word);
+            if (mb_strlen($word, 'UTF-8') < 3) continue;
+            if (in_array($word, $stopWords, true))  continue;
+
+            // Strip Arabic definite article "ال" prefix, keep root if ≥ 3 chars
+            if (mb_substr($word, 0, 2, 'UTF-8') === 'ال') {
+                $root = mb_substr($word, 2, null, 'UTF-8');
+                if (mb_strlen($root, 'UTF-8') >= 3) {
+                    $keywords[] = $root;
+                    continue;
+                }
+            }
+
+            $keywords[] = $word;
+        }
+
+        return array_values(array_unique($keywords));
     }
 
     private function buildSystemPrompt(string $locale, string $context): string
@@ -99,12 +150,13 @@ class ChatbotController extends Controller
 - أوقات العمل: {$hours}
 - ردودك تكون موجزة وواضحة ومفيدة — 2 إلى 4 جمل في الغالب
 - لا تبدأي كل رد بـ\"بالطبع\" أو \"أهلاً\" — تنوعي في المقدمات
-- اسألي أسئلة متابعة عند الحاجة لتفهم احتياج المريض أكثر";
+- اسألي أسئلة متابعة عند الحاجة لتفهم احتياج المريض أكثر
+- **هام جداً**: لا تخترعي أي معلومات محددة خاصة بالعيادة مثل الأسعار أو أرقام الهواتف أو المواعيد أو العناوين إلا إذا كانت مذكورة صراحةً في المعلومات المقدمة أدناه";
 
             if ($context) {
-                $base .= "\n\nمعلومات المركز التي يجب استخدامها في الإجابة:\n{$context}";
+                $base .= "\n\nمعلومات العيادة — استخدميها كما هي دون تعديل أو إضافة:\n{$context}";
             } else {
-                $base .= "\n\nأجيبي من معرفتك العامة بالطب العصبي والصحة النفسية مع ذكر أن المريض يتصل بنا للاستفسار الدقيق.";
+                $base .= "\n\nلا تتوفر معلومات محددة لهذا السؤال في قاعدة بياناتنا. أجيبي بشكل عام إذا كان السؤال طبياً عاماً، أما إذا كان السؤال عن أسعار أو مواعيد أو تفاصيل خاصة بالعيادة فقولي: «للحصول على المعلومات الدقيقة، يمكنك الاتصال على {$phone} وسيسعد فريقنا بمساعدتك.»";
             }
         } else {
             $base = "You are Sara, a warm and professional reception staff member at {$clinicName}. You speak with patients and their families in a caring, natural, human way — exactly like a real clinic receptionist.
@@ -118,12 +170,13 @@ Strict rules:
 - Working hours: {$hours}
 - Keep responses concise and helpful — usually 2 to 4 sentences
 - Vary your opening phrases — don't always start with \"Of course\" or \"Hello\"
-- Ask follow-up questions when needed to understand the patient's needs better";
+- Ask follow-up questions when needed to understand the patient's needs better
+- **Critical**: Never invent clinic-specific details (prices, phone numbers, addresses, schedules) unless they are explicitly stated in the context provided below";
 
             if ($context) {
-                $base .= "\n\nClinic information to use in your answer:\n{$context}";
+                $base .= "\n\nClinic information — use exactly as provided, do not modify or add to it:\n{$context}";
             } else {
-                $base .= "\n\nAnswer from your general knowledge of neurology and mental health, mentioning that the patient can contact us for precise information.";
+                $base .= "\n\nNo specific clinic information is available for this question. Answer general medical questions from general knowledge. For clinic-specific questions (prices, schedules, locations), say: \"For accurate details, please call us at {$phone} and our team will be happy to help.\"";
             }
         }
 

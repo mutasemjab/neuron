@@ -8,10 +8,73 @@
         <h1 class="page-title">قاعدة معرفة الشات بوت</h1>
         <p class="page-sub">المعلومات التي يستخدمها المساعد الذكي للإجابة على أسئلة المرضى</p>
     </div>
-    <a href="{{ route('admin.chatbot.create') }}" class="btn-primary-sm">
-        <i class="bi bi-plus-lg"></i> إضافة معلومة
-    </a>
+    <div class="d-flex gap-2">
+        <button type="button" class="btn-outline-sm" data-bs-toggle="modal" data-bs-target="#importModal">
+            <i class="bi bi-upload"></i> استيراد من ملف
+        </button>
+        <a href="{{ route('admin.chatbot.create') }}" class="btn-primary-sm">
+            <i class="bi bi-plus-lg"></i> إضافة معلومة
+        </a>
+    </div>
 </div>
+
+{{-- Import Modal --}}
+<div class="modal fade" id="importModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="bi bi-upload me-2"></i>استيراد أسئلة وأجوبة</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('admin.chatbot.import') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body">
+                    @if($errors->has('file'))
+                        <div class="alert alert-danger py-2">{{ $errors->first('file') }}</div>
+                    @endif
+                    <p class="text-muted small mb-3">
+                        ارفع ملف Excel أو CSV يحتوي على الأسئلة والأجوبة.
+                        أعمدة الملف المطلوبة: <code>category, title_ar, content_ar</code>
+                        (الأعمدة الاختيارية: <code>title_en, content_en, tags, order_index</code>)
+                    </p>
+                    <div class="mb-3">
+                        <label class="form-label fw-medium">الملف <span class="text-danger">*</span></label>
+                        <input type="file" name="file" class="form-control" accept=".xlsx,.xls,.csv" required>
+                        <div class="form-text">صيغ مدعومة: xlsx, xls, csv — بحد أقصى 10 ميغابايت</div>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="truncate_first" value="1" id="truncateCheck">
+                        <label class="form-check-label text-danger" for="truncateCheck">
+                            حذف جميع البيانات الحالية قبل الاستيراد
+                        </label>
+                    </div>
+                    <div class="mt-3 pt-3 border-top">
+                        <a href="{{ route('admin.chatbot.template') }}" class="text-decoration-none small">
+                            <i class="bi bi-download me-1"></i> تحميل قالب Excel نموذجي
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="bi bi-upload me-1"></i> استيراد
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@push('scripts')
+<script>
+    // Re-open modal automatically if there are validation errors
+    @if($errors->has('file'))
+        document.addEventListener('DOMContentLoaded', function() {
+            new bootstrap.Modal(document.getElementById('importModal')).show();
+        });
+    @endif
+</script>
+@endpush
 
 @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show mb-3">
