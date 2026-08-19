@@ -167,14 +167,14 @@ document.querySelectorAll('[data-service]').forEach(el=>{
   el.addEventListener('click',()=>{document.querySelector('.svc-list')?.scrollIntoView({behavior:'smooth'});});
 });
 
-/* ============ BOOKING FORM ============ */
-const bookForm=document.getElementById('bookForm');
-if(bookForm){
+/* ============ BOOKING FORM(S) ============ */
+document.querySelectorAll('form.book-ajax-form').forEach(bookForm=>{
+  const successEl=bookForm.parentElement.querySelector('.form-success');
   bookForm.addEventListener('submit',async e=>{
     e.preventDefault();
     const submitBtn=bookForm.querySelector('button[type="submit"]');
     submitBtn.disabled=true;
-    document.querySelectorAll('.field-error').forEach(el=>el.remove());
+    bookForm.querySelectorAll('.field-error').forEach(el=>el.remove());
 
     try{
       const token=document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -186,7 +186,7 @@ if(bookForm){
 
       if(res.ok){
         bookForm.style.display='none';
-        document.getElementById('formSuccess').classList.add('show');
+        successEl?.classList.add('show');
       }else if(res.status===422){
         const data=await res.json();
         Object.entries(data.errors||{}).forEach(([field,messages])=>{
@@ -208,7 +208,7 @@ if(bookForm){
       submitBtn.disabled=false;
     }
   });
-}
+});
 
 /* ============ HERO PARALLAX (mouse) ============ */
 const heroBg=document.querySelector('.hero-bg');

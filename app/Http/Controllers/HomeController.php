@@ -43,8 +43,9 @@ class HomeController extends Controller
     public function bookingPage()
     {
         $branches = Branch::active()->get();
+        $doctors  = Doctor::active()->get();
 
-        return view('front.booking', compact('branches'));
+        return view('front.booking', compact('branches', 'doctors'));
     }
 
     public function contact(Request $request)
