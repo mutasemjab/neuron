@@ -17,7 +17,8 @@
       "Bash(python -c \"import pypdf; print\\('installed'\\)\")",
       "Bash(python \"C:\\\\Users\\\\m.jaber\\\\.claude\\\\projects\\\\c--xampp-htdocs-neuron\\\\generate_php.py\")",
       "Bash(python \"C:\\\\Users\\\\m.jaber\\\\.claude\\\\projects\\\\c--xampp-htdocs-neuron\\\\generate_php2.py\")",
-      "PowerShell(\\(Get-Content \"C:\\\\xampp\\\\htdocs\\\\neuron\\\\chatbot_qa_php_rows.txt\"\\).Count)"
+      "PowerShell(\\(Get-Content \"C:\\\\xampp\\\\htdocs\\\\neuron\\\\chatbot_qa_php_rows.txt\"\\).Count)",
+      "Bash(Get-ChildItem -Path \"c:\\\\xampp\\\\htdocs\\\\neuron\" -Directory)"
     ],
     "additionalDirectories": [
       "C:\\Users\\m.jaber\\.claude\\projects\\c--xampp-htdocs-neuron"

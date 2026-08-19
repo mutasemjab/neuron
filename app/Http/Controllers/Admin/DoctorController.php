@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
+use App\Models\DoctorPublication;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -36,6 +37,11 @@ class DoctorController extends Controller
             'tags_en'           => 'nullable|string|max:255',
             'image'             => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'order_index'       => 'nullable|integer',
+            'publications'                  => 'nullable|array',
+            'publications.*.title_ar'       => 'required_with:publications.*|string|max:500',
+            'publications.*.title_en'       => 'nullable|string|max:500',
+            'publications.*.year'           => 'nullable|integer|min:1900|max:2100',
+            'publications.*.url'            => 'nullable|url|max:500',
         ];
     }
 
@@ -50,13 +56,16 @@ class DoctorController extends Controller
         $data['is_active']   = $request->boolean('is_active', true);
         $data['order_index'] = $data['order_index'] ?? 0;
 
-        Doctor::create($data);
+        $doctor = Doctor::create($data);
+
+        $this->syncPublications($doctor, $request->input('publications', []));
 
         return redirect()->route('admin.doctors.index')->with('success', 'تمت إضافة الطبيب بنجاح.');
     }
 
     public function edit(Doctor $doctor)
     {
+        $doctor->load('publications');
         return view('admin.doctors.edit', compact('doctor'));
     }
 
@@ -73,6 +82,8 @@ class DoctorController extends Controller
 
         $doctor->update($data);
 
+        $this->syncPublications($doctor, $request->input('publications', []));
+
         return redirect()->route('admin.doctors.index')->with('success', 'تم تحديث بيانات الطبيب بنجاح.');
     }
 
@@ -86,5 +97,24 @@ class DoctorController extends Controller
     {
         $doctor->update(['is_active' => ! $doctor->is_active]);
         return back()->with('success', 'تم تحديث الحالة.');
+    }
+
+    private function syncPublications(Doctor $doctor, array $rows): void
+    {
+        $doctor->publications()->delete();
+
+        foreach (array_values($rows) as $i => $row) {
+            $titleAr = trim($row['title_ar'] ?? '');
+            if ($titleAr === '') continue;
+
+            DoctorPublication::create([
+                'doctor_id'   => $doctor->id,
+                'title_ar'    => $titleAr,
+                'title_en'    => trim($row['title_en'] ?? '') ?: null,
+                'year'        => !empty($row['year']) ? (int) $row['year'] : null,
+                'url'         => trim($row['url'] ?? '') ?: null,
+                'order_index' => $i,
+            ]);
+        }
     }
 }

@@ -65,6 +65,7 @@
                         </td>
                         <td>
                             <div class="d-flex gap-2">
+                                <a href="{{ route('doctors.show', $doctor->id) }}" target="_blank" class="btn-outline-sm" title="عرض الصفحة"><i class="bi bi-eye"></i></a>
                                 <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="btn-outline-sm"><i class="bi bi-pencil"></i></a>
                                 <form action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
                                     @csrf @method('DELETE')

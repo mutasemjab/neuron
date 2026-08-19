@@ -88,10 +88,122 @@
                 </div>
             </div>
 
-            <div class="col-12">
-                <button type="submit" class="btn-primary-sm"><i class="bi bi-save"></i> حفظ</button>
-            </div>
-
         </div>
     </div>
 </div>
+
+{{-- ── Publications ─────────────────────────────────────────────────── --}}
+<div class="panel-card mt-3">
+    <div class="panel-card-header d-flex align-items-center justify-content-between">
+        <h2 class="panel-card-title mb-0">الأبحاث والمنشورات العلمية</h2>
+        <button type="button" class="btn-primary-sm" id="addPubBtn">
+            <i class="bi bi-plus-lg"></i> إضافة بحث
+        </button>
+    </div>
+    <div class="panel-card-body">
+
+        <div id="pubList">
+            @php
+                $pubs = old('publications', $d?->publications?->toArray() ?? []);
+            @endphp
+
+            @forelse($pubs as $i => $pub)
+            <div class="pub-row border rounded p-3 mb-3 position-relative">
+                <button type="button" class="btn-danger-sm pub-remove position-absolute" style="top:10px;inset-inline-end:10px" title="حذف">
+                    <i class="bi bi-trash"></i>
+                </button>
+                <div class="row g-2">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label">عنوان البحث (عربي) <span class="text-danger">*</span></label>
+                        <input type="text" name="publications[{{ $i }}][title_ar]" class="form-control" value="{{ $pub['title_ar'] ?? '' }}" required>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label">Research Title (English)</label>
+                        <input type="text" name="publications[{{ $i }}][title_en]" dir="ltr" class="form-control" value="{{ $pub['title_en'] ?? '' }}">
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label class="form-label">سنة النشر</label>
+                        <input type="number" name="publications[{{ $i }}][year]" class="form-control" value="{{ $pub['year'] ?? '' }}" min="1900" max="2100" placeholder="{{ date('Y') }}">
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <label class="form-label">رابط البحث (URL)</label>
+                        <input type="url" name="publications[{{ $i }}][url]" dir="ltr" class="form-control" value="{{ $pub['url'] ?? '' }}" placeholder="https://...">
+                    </div>
+                </div>
+            </div>
+            @empty
+            <p class="text-muted text-center py-3" id="pubEmpty">لا توجد أبحاث مضافة بعد.</p>
+            @endforelse
+        </div>
+
+    </div>
+</div>
+
+<div class="mt-3">
+    <button type="submit" class="btn-primary-sm"><i class="bi bi-save"></i> حفظ</button>
+</div>
+
+{{-- Template row (hidden) --}}
+<template id="pubTemplate">
+    <div class="pub-row border rounded p-3 mb-3 position-relative">
+        <button type="button" class="btn-danger-sm pub-remove position-absolute" style="top:10px;inset-inline-end:10px" title="حذف">
+            <i class="bi bi-trash"></i>
+        </button>
+        <div class="row g-2">
+            <div class="col-12 col-md-6">
+                <label class="form-label">عنوان البحث (عربي) <span class="text-danger">*</span></label>
+                <input type="text" name="publications[__IDX__][title_ar]" class="form-control" required>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="form-label">Research Title (English)</label>
+                <input type="text" name="publications[__IDX__][title_en]" dir="ltr" class="form-control">
+            </div>
+            <div class="col-12 col-md-3">
+                <label class="form-label">سنة النشر</label>
+                <input type="number" name="publications[__IDX__][year]" class="form-control" min="1900" max="2100" placeholder="{{ date('Y') }}">
+            </div>
+            <div class="col-12 col-md-9">
+                <label class="form-label">رابط البحث (URL)</label>
+                <input type="url" name="publications[__IDX__][url]" dir="ltr" class="form-control" placeholder="https://...">
+            </div>
+        </div>
+    </div>
+</template>
+
+@push('scripts')
+<script>
+(function () {
+    const list    = document.getElementById('pubList');
+    const empty   = document.getElementById('pubEmpty');
+    const addBtn  = document.getElementById('addPubBtn');
+    const tmpl    = document.getElementById('pubTemplate');
+    let idx       = list.querySelectorAll('.pub-row').length;
+
+    function refreshEmpty() {
+        if (empty) empty.style.display = list.querySelectorAll('.pub-row').length ? 'none' : '';
+    }
+
+    refreshEmpty();
+
+    addBtn.addEventListener('click', function () {
+        const html = tmpl.innerHTML.replaceAll('__IDX__', idx++);
+        const div  = document.createElement('div');
+        div.innerHTML = html;
+        const row = div.firstElementChild;
+        list.appendChild(row);
+        row.querySelector('input').focus();
+        refreshEmpty();
+        bindRemove(row);
+    });
+
+    function bindRemove(row) {
+        row.querySelector('.pub-remove').addEventListener('click', function () {
+            row.remove();
+            refreshEmpty();
+        });
+    }
+
+    list.querySelectorAll('.pub-row').forEach(bindRemove);
+})();
+</script>
+@endpush

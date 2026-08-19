@@ -42,4 +42,9 @@ class Doctor extends Model
     {
         return array_values(array_filter(array_map('trim', explode(',', (string) $this->tags))));
     }
+
+    public function publications()
+    {
+        return $this->hasMany(DoctorPublication::class)->orderBy('order_index')->orderBy('year', 'desc');
+    }
 }
