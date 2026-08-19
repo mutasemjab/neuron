@@ -23,11 +23,18 @@
                 <div class="row g-3">
                     <div class="col-md-6"><label class="form-label">الاسم</label><p>{{ $appointment->name }}</p></div>
                     <div class="col-md-6"><label class="form-label">الهاتف</label><p dir="ltr">{{ $appointment->phone }}</p></div>
+                    <div class="col-md-6"><label class="form-label">نوع الحجز</label><p>{{ $appointment->booking_type === 'international' ? 'خارج الأردن' : 'داخل الأردن' }}</p></div>
                     <div class="col-md-6"><label class="form-label">الفرع</label><p>{{ $appointment->branch->name_ar ?? '—' }}</p></div>
                     <div class="col-md-6"><label class="form-label">الطبيب / التخصص</label><p>{{ $appointment->doctor->name_ar ?? '—' }}</p></div>
                     <div class="col-md-6"><label class="form-label">التاريخ المفضّل</label><p>{{ $appointment->preferred_date->format('Y-m-d') }}</p></div>
                     <div class="col-md-6"><label class="form-label">الوقت المفضّل</label><p>{{ $appointment->preferred_time_slot }}</p></div>
                     <div class="col-12"><label class="form-label">ملاحظات</label><p>{{ $appointment->notes ?: '—' }}</p></div>
+                    @if($appointment->attachment)
+                    <div class="col-12">
+                        <label class="form-label">الملفات المرضية المرفقة</label>
+                        <p><a href="{{ $appointment->attachment_url }}" target="_blank" class="btn-outline-sm"><i class="bi bi-paperclip"></i> عرض / تحميل الملف</a></p>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

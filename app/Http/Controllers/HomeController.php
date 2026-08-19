@@ -82,11 +82,18 @@ class HomeController extends Controller
             'phone'                => 'required|string|max:30',
             'branch_id'            => 'required|exists:branches,id',
             'doctor_id'            => 'nullable|exists:doctors,id',
+            'booking_type'         => 'nullable|in:domestic,international',
             'preferred_date'       => 'required|date|after_or_equal:today',
             'preferred_time_slot'  => 'required|string|max:100',
             'notes'                => 'nullable|string|max:2000',
+            'attachment'           => 'nullable|file|mimes:pdf,jpg,jpeg,png,doc,docx|max:10240',
         ]);
 
+        if ($request->hasFile('attachment')) {
+            $validated['attachment'] = uploadImage('assets/uploads/appointments', $request->file('attachment'));
+        }
+
+        $validated['booking_type'] = $validated['booking_type'] ?? 'domestic';
         $validated['status'] = 'new';
 
         $appointment = \App\Models\Appointment::create($validated);

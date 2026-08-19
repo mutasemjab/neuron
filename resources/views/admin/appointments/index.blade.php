@@ -39,6 +39,7 @@
                     <tr>
                         <th>الاسم</th>
                         <th>الهاتف</th>
+                        <th>النوع</th>
                         <th>الفرع</th>
                         <th>الطبيب</th>
                         <th>التاريخ المفضّل</th>
@@ -51,6 +52,13 @@
                     <tr>
                         <td style="font-weight:500">{{ $appointment->name }}</td>
                         <td dir="ltr">{{ $appointment->phone }}</td>
+                        <td>
+                            @if($appointment->booking_type === 'international')
+                                <span class="badge bg-info">خارج الأردن</span>
+                            @else
+                                <span class="badge bg-light text-dark border">داخل الأردن</span>
+                            @endif
+                        </td>
                         <td>{{ $appointment->branch->name_ar ?? '—' }}</td>
                         <td>{{ $appointment->doctor->name_ar ?? '—' }}</td>
                         <td>{{ $appointment->preferred_date->format('Y-m-d') }} — {{ $appointment->preferred_time_slot }}</td>
