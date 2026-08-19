@@ -154,41 +154,13 @@ if(mapFrame){
   });
 }
 
-/* ============ DOCTOR MODAL (data comes from server-rendered .doc cards) ============ */
-const modal=document.getElementById('docModal');
-function openDoc(d){
-  document.getElementById('mImg').setAttribute('data-label',d.initials||'');
-  document.getElementById('mImg').innerHTML=d.img?`<img src="${d.img}" alt="${d.name}" onerror="this.classList.add('failed')" style="width:100%;height:100%;object-fit:cover">`:'';
-  document.getElementById('mSpec').textContent=d.spec||'';
-  document.getElementById('mName').textContent=d.name||'';
-  document.getElementById('mTitle').textContent=d.title||'';
-  document.getElementById('mBio').textContent=d.bio||'';
-  document.getElementById('mCerts').innerHTML=(d.certs||[]).map(c=>`<li>${c}</li>`).join('');
-  document.getElementById('mTags').innerHTML=(d.tags||[]).map(t=>`<span>${t}</span>`).join('');
-  modal.classList.add('open');document.body.style.overflow='hidden';
-}
-if(modal){
-  document.querySelectorAll('.doc[data-name]').forEach(el=>{
-    el.addEventListener('click',()=>{
-      let certs=[],tags=[];
-      try{certs=JSON.parse(el.dataset.certs||'[]');}catch(e){}
-      try{tags=JSON.parse(el.dataset.tags||'[]');}catch(e){}
-      openDoc({
-        name:el.dataset.name,
-        spec:el.dataset.spec,
-        title:el.dataset.title,
-        bio:el.dataset.bio,
-        img:el.dataset.img,
-        initials:el.dataset.initials,
-        certs,tags,
-      });
-    });
+/* ============ DOCTOR CARDS -> navigate to profile page ============ */
+document.querySelectorAll('.doc[data-href]').forEach(el=>{
+  el.addEventListener('click',e=>{
+    if(e.target.closest('a')) return;
+    window.location.href=el.dataset.href;
   });
-  modal.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',()=>{
-    modal.classList.remove('open');document.body.style.overflow='';
-  }));
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'){modal.classList.remove('open');document.body.style.overflow='';}});
-}
+});
 
 /* ============ SERVICE CARDS -> scroll to detail ============ */
 document.querySelectorAll('[data-service]').forEach(el=>{

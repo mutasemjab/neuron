@@ -156,35 +156,6 @@ window.ChatbotConfig = {
 };
 </script>
 
-<!-- ============ DOCTOR MODAL ============ -->
-<div class="modal" id="docModal">
-  <div class="modal-bg" data-close></div>
-  <div class="modal-card">
-    <button class="modal-close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-    <div class="modal-img"><div class="ph" id="mImg"></div></div>
-    <div class="modal-body">
-      <span class="spec" id="mSpec"></span>
-      <h3 id="mName"></h3>
-      <p class="modal-sub" id="mTitle"></p>
-      <div class="modal-section">
-        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>{{ __('front.modal_bio') }}</h4>
-        <p id="mBio"></p>
-      </div>
-      <div class="modal-section">
-        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>{{ __('front.modal_certs') }}</h4>
-        <ul id="mCerts"></ul>
-      </div>
-      <div class="modal-section">
-        <h4><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>{{ __('front.modal_specialties') }}</h4>
-        <div class="modal-tags" id="mTags"></div>
-      </div>
-      <a href="#booking" class="btn btn-primary" data-close style="width:100%;margin-top:10px"><span>{{ __('front.book_with_doctor') }}</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
-      </a>
-    </div>
-  </div>
-</div>
-
 <!-- ============ SUBSCRIPTION CHECKOUT MODAL ============ -->
 <div class="modal" id="subModal">
   <div class="modal-bg" data-close></div>

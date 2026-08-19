@@ -156,19 +156,13 @@
         $initials = collect(explode(' ', $doctor->name))->map(fn($w) => mb_substr($w, 0, 1))->take(2)->implode('.');
       @endphp
       <div class="doc reveal @if($loop->iteration % 4 !== 1) d{{ ($loop->iteration - 1) % 4 }} @endif"
-           data-name="{{ $doctor->name }}"
-           data-spec="{{ $doctor->specialization }}"
-           data-title="{{ $doctor->title }}"
-           data-bio="{{ $doctor->bio }}"
-           data-img="{{ $doctor->image_url }}"
-           data-initials="{{ $initials }}"
-           data-certs="{{ json_encode($doctor->certifications_list, JSON_UNESCAPED_UNICODE) }}"
-           data-tags="{{ json_encode($doctor->tags_list, JSON_UNESCAPED_UNICODE) }}">
+           data-href="{{ route('doctors.show', $doctor) }}"
+           style="cursor:pointer">
         <div class="doc-img"><div class="ph" data-label="{{ $initials }}">
             @if($doctor->image)<img data-src="{{ $doctor->image_url }}" alt="{{ $doctor->name }}">@endif
           </div>
           <div class="doc-social">
-            <a href="#" aria-label="{{ __('front.view_doctor_profile') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+            <a href="{{ route('doctors.show', $doctor) }}" aria-label="{{ __('front.view_doctor_profile') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
             <a href="#booking" aria-label="{{ __('front.book_now') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></a>
           </div>
         </div>
