@@ -18,10 +18,10 @@
         {{-- Brand column --}}
         <div class="foot-brand">
           <a href="{{ route('home') }}" class="foot-logo-link">
-            <img src="{{ asset_v('assets_front/images/logo.png') }}" alt="{{ sett('identity.site_name') }}" class="foot-logo-img">
+            <img src="{{ asset_v('assets_front/images/logo.PNG') }}" alt="{{ sett('identity.site_name') }}" class="foot-logo-img">
           </a>
           <p class="foot-brand-desc">{{ sett('footer.about_text') }}</p>
-          <a href="{{ route('home') }}#booking" class="foot-book-cta">
+          <a href="{{ route('booking.page') }}" class="foot-book-cta">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
             {{ __('front.book_now') }}
           </a>

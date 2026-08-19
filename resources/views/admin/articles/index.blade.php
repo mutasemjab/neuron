@@ -56,7 +56,7 @@
                         <td>{{ $article->category_ar }}</td>
                         <td>{{ $article->published_at?->format('Y-m-d') }}</td>
                         <td>
-                            <form action="{{ route('admin.articles.toggle', $article->id) }}" method="POST">
+                            <form action="{{ route('admin.articles.toggle', $article) }}" method="POST">
                                 @csrf
                                 <button type="submit" class="badge border-0 {{ $article->is_active ? 'bg-success' : 'bg-secondary' }}" style="cursor:pointer;font-size:12px;padding:5px 10px">
                                     {{ $article->is_active ? 'منشور' : 'مسودة' }}
@@ -65,8 +65,8 @@
                         </td>
                         <td>
                             <div class="d-flex gap-2">
-                                <a href="{{ route('admin.articles.edit', $article->id) }}" class="btn-outline-sm"><i class="bi bi-pencil"></i></a>
-                                <form action="{{ route('admin.articles.destroy', $article->id) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
+                                <a href="{{ route('admin.articles.edit', $article) }}" class="btn-outline-sm"><i class="bi bi-pencil"></i></a>
+                                <form action="{{ route('admin.articles.destroy', $article) }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn-danger-sm"><i class="bi bi-trash"></i></button>
                                 </form>

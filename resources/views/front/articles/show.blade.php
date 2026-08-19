@@ -34,7 +34,7 @@
     </div>
 
     <div style="margin-top:40px;text-align:center">
-      <a href="#booking-cta" class="btn btn-primary btn-lg" onclick="location.href='{{ route('home') }}#booking'"><span>{{ __('front.book_now') }}</span>
+      <a href="{{ route('booking.page') }}" class="btn btn-primary btn-lg"><span>{{ __('front.book_now') }}</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
     </div>

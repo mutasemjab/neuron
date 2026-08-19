@@ -277,7 +277,7 @@
         </div>
         @endif
 
-        <a href="{{ route('home') }}#booking" class="btn btn-primary">
+        <a href="{{ route('booking.page') }}" class="btn btn-primary">
           <span>{{ __('front.book_with_doctor') }}</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
         </a>
@@ -345,6 +345,90 @@
         </div>
         @endif
 
+        @if($doctor->education_list)
+        <div class="doc-card reveal">
+          <div class="doc-card-title">
+            <div class="doc-card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            {{ app()->getLocale() === 'ar' ? 'التعليم' : 'Education' }}
+          </div>
+          <ul class="doc-certs">
+            @foreach($doctor->education_list as $item)
+            <li>
+              <div class="doc-cert-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              {{ $item }}
+            </li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
+
+        @if($doctor->training_list)
+        <div class="doc-card reveal">
+          <div class="doc-card-title">
+            <div class="doc-card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            {{ app()->getLocale() === 'ar' ? 'التدريب' : 'Training' }}
+          </div>
+          <ul class="doc-certs">
+            @foreach($doctor->training_list as $item)
+            <li>
+              <div class="doc-cert-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              {{ $item }}
+            </li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
+
+        @if($doctor->affiliation_list)
+        <div class="doc-card reveal">
+          <div class="doc-card-title">
+            <div class="doc-card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            {{ app()->getLocale() === 'ar' ? 'الانتساب' : 'Affiliation' }}
+          </div>
+          <ul class="doc-certs">
+            @foreach($doctor->affiliation_list as $item)
+            <li>
+              <div class="doc-cert-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              {{ $item }}
+            </li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
+
+        @if($doctor->memberships_list)
+        <div class="doc-card reveal">
+          <div class="doc-card-title">
+            <div class="doc-card-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg>
+            </div>
+            {{ app()->getLocale() === 'ar' ? 'العضويات المهنية' : 'Professional Memberships' }}
+          </div>
+          <ul class="doc-certs">
+            @foreach($doctor->memberships_list as $item)
+            <li>
+              <div class="doc-cert-check">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              {{ $item }}
+            </li>
+            @endforeach
+          </ul>
+        </div>
+        @endif
+
         @if($doctor->publications->isNotEmpty())
         <div class="doc-card reveal">
           <div class="doc-card-title">
@@ -405,7 +489,7 @@
 
         <div class="doc-card doc-book-card reveal">
           <p>{{ app()->getLocale() === 'ar' ? 'احجز موعدك مع الدكتور الآن' : 'Book your appointment now' }}</p>
-          <a href="{{ route('home') }}#booking" class="btn">
+          <a href="{{ route('booking.page') }}" class="btn">
             <span>{{ __('front.book_with_doctor') }}</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
           </a>

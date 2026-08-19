@@ -40,6 +40,13 @@ class HomeController extends Controller
         ));
     }
 
+    public function bookingPage()
+    {
+        $branches = Branch::active()->get();
+
+        return view('front.booking', compact('branches'));
+    }
+
     public function contact(Request $request)
     {
         $validated = $request->validate([

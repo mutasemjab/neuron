@@ -59,6 +59,50 @@
             </div>
 
             <div class="col-12 col-md-6">
+                <label class="form-label">التعليم (عربي)</label>
+                <textarea name="education_ar" rows="3" class="form-control" placeholder="سطر لكل مؤهل علمي">{{ old('education_ar', $d->education_ar ?? '') }}</textarea>
+                <small class="text-muted">اكتب كل مؤهل في سطر منفصل</small>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="form-label">Education (English)</label>
+                <textarea name="education_en" dir="ltr" rows="3" class="form-control" placeholder="One per line">{{ old('education_en', $d->education_en ?? '') }}</textarea>
+                <small class="text-muted">One qualification per line</small>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label class="form-label">التدريب (عربي)</label>
+                <textarea name="training_ar" rows="3" class="form-control" placeholder="سطر لكل برنامج تدريبي">{{ old('training_ar', $d->training_ar ?? '') }}</textarea>
+                <small class="text-muted">اكتب كل برنامج تدريبي في سطر منفصل</small>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="form-label">Training (English)</label>
+                <textarea name="training_en" dir="ltr" rows="3" class="form-control" placeholder="One per line">{{ old('training_en', $d->training_en ?? '') }}</textarea>
+                <small class="text-muted">One training program per line</small>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label class="form-label">الانتساب (عربي)</label>
+                <textarea name="affiliation_ar" rows="3" class="form-control" placeholder="سطر لكل جهة انتساب">{{ old('affiliation_ar', $d->affiliation_ar ?? '') }}</textarea>
+                <small class="text-muted">اكتب كل انتساب في سطر منفصل</small>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="form-label">Affiliation (English)</label>
+                <textarea name="affiliation_en" dir="ltr" rows="3" class="form-control" placeholder="One per line">{{ old('affiliation_en', $d->affiliation_en ?? '') }}</textarea>
+                <small class="text-muted">One affiliation per line</small>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label class="form-label">العضويات المهنية (عربي)</label>
+                <textarea name="memberships_ar" rows="3" class="form-control" placeholder="سطر لكل عضوية">{{ old('memberships_ar', $d->memberships_ar ?? '') }}</textarea>
+                <small class="text-muted">اكتب كل عضوية في سطر منفصل</small>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="form-label">Professional Memberships (English)</label>
+                <textarea name="memberships_en" dir="ltr" rows="3" class="form-control" placeholder="One per line">{{ old('memberships_en', $d->memberships_en ?? '') }}</textarea>
+                <small class="text-muted">One membership per line</small>
+            </div>
+
+            <div class="col-12 col-md-6">
                 <label class="form-label">الوسوم / التخصصات الدقيقة (عربي)</label>
                 <input type="text" name="tags_ar" class="form-control" value="{{ old('tags_ar', $d->tags_ar ?? '') }}" placeholder="مفصولة بفواصل: الديسك، المنظار">
             </div>

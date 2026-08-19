@@ -179,6 +179,16 @@ class SiteSettingController extends Controller
                     'booking_section.feat3_text'  => ['label' => 'ميزة 3 - نص', 'type' => 'text', 'translatable' => true],
                 ],
             ],
+            'booking_page' => [
+                'label'  => 'صفحة الحجز العامة',
+                'fields' => [
+                    'booking_page.eyebrow'    => ['label' => 'العنوان الفرعي الصغير', 'type' => 'text', 'translatable' => true],
+                    'booking_page.heading'    => ['label' => 'العنوان الرئيسي', 'type' => 'text', 'translatable' => true],
+                    'booking_page.subtext'    => ['label' => 'الفقرة التعريفية', 'type' => 'textarea', 'translatable' => true],
+                    'booking_page.price'      => ['label' => 'سعر الحجز', 'type' => 'text', 'translatable' => true],
+                    'booking_page.price_note' => ['label' => 'ملاحظة توضيحية عن السعر', 'type' => 'text', 'translatable' => true],
+                ],
+            ],
             'careers_section' => [
                 'label'  => 'عنوان قسم التوظيف',
                 'fields' => [

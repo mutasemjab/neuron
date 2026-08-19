@@ -13,6 +13,8 @@ class Doctor extends Model
         'name_ar', 'name_en', 'specialization_ar', 'specialization_en',
         'title_ar', 'title_en', 'bio_ar', 'bio_en',
         'certifications_ar', 'certifications_en', 'tags_ar', 'tags_en',
+        'education_ar', 'education_en', 'training_ar', 'training_en',
+        'affiliation_ar', 'affiliation_en', 'memberships_ar', 'memberships_en',
         'image', 'order_index', 'is_active',
     ];
 
@@ -21,7 +23,10 @@ class Doctor extends Model
         'order_index' => 'integer',
     ];
 
-    protected array $translatable = ['name', 'specialization', 'title', 'bio', 'certifications', 'tags'];
+    protected array $translatable = [
+        'name', 'specialization', 'title', 'bio', 'certifications', 'tags',
+        'education', 'training', 'affiliation', 'memberships',
+    ];
 
     public function scopeActive($query)
     {
@@ -36,6 +41,26 @@ class Doctor extends Model
     public function getCertificationsListAttribute(): array
     {
         return array_values(array_filter(array_map('trim', explode("\n", (string) $this->certifications))));
+    }
+
+    public function getEducationListAttribute(): array
+    {
+        return array_values(array_filter(array_map('trim', explode("\n", (string) $this->education))));
+    }
+
+    public function getTrainingListAttribute(): array
+    {
+        return array_values(array_filter(array_map('trim', explode("\n", (string) $this->training))));
+    }
+
+    public function getAffiliationListAttribute(): array
+    {
+        return array_values(array_filter(array_map('trim', explode("\n", (string) $this->affiliation))));
+    }
+
+    public function getMembershipsListAttribute(): array
+    {
+        return array_values(array_filter(array_map('trim', explode("\n", (string) $this->memberships))));
     }
 
     public function getTagsListAttribute(): array

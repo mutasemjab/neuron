@@ -45,7 +45,7 @@
       </h1>
       <p class="lead">{{ sett('hero.lead') }}</p>
       <div class="cta-row">
-        <a href="#booking" class="btn btn-primary btn-lg"><span>{{ __('front.book_now') }}</span>
+        <a href="{{ route('booking.page') }}" class="btn btn-primary btn-lg"><span>{{ __('front.book_now') }}</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <a href="#services" class="btn btn-ghost btn-lg">{{ __('front.explore_services') }}</a>
@@ -163,7 +163,7 @@
           </div>
           <div class="doc-social">
             <a href="{{ route('doctors.show', $doctor) }}" aria-label="{{ __('front.view_doctor_profile') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
-            <a href="#booking" aria-label="{{ __('front.book_now') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></a>
+            <a href="{{ route('booking.page') }}" aria-label="{{ __('front.book_now') }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></a>
           </div>
         </div>
         <div class="doc-body">
@@ -509,83 +509,6 @@
   </div>
 </section>
 
-<!-- ============ BOOKING ============ -->
-<section class="booking" id="booking">
-  <div class="wrap">
-    <div class="book-card reveal">
-      <div class="book-side">
-        <span class="eyebrow">{{ sett('booking_section.eyebrow') }}</span>
-        <h2>{{ sett('booking_section.heading') }}</h2>
-        <p>{{ sett('booking_section.paragraph') }}</p>
-        <div class="book-feats">
-          <div class="book-feat">
-            <span class="bf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg></span>
-            <div><b>{{ sett('booking_section.feat1_title') }}</b><span>{{ sett('booking_section.feat1_text') }}</span></div>
-          </div>
-          <div class="book-feat">
-            <span class="bf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
-            <div><b>{{ sett('booking_section.feat2_title') }}</b><span>{{ sett('booking_section.feat2_text') }}</span></div>
-          </div>
-          <div class="book-feat">
-            <span class="bf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg></span>
-            <div><b>{{ sett('booking_section.feat3_title') }}</b><span>{{ sett('booking_section.feat3_text') }}</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="book-form">
-        <form id="bookForm" action="{{ route('appointments.store') }}" method="POST">
-          @csrf
-          <div class="form-row">
-            <div class="field"><label>{{ __('front.form_full_name') }} <span class="req">*</span></label><input type="text" name="name" required placeholder="{{ __('front.form_full_name_ph') }}"></div>
-            <div class="field"><label>{{ __('front.form_phone') }} <span class="req">*</span></label><input type="tel" name="phone" required placeholder="{{ __('front.form_phone_ph') }}"></div>
-          </div>
-          <div class="form-row">
-            <div class="field"><label>{{ __('front.form_branch') }} <span class="req">*</span></label>
-              <select name="branch_id" required>
-                <option value="">{{ __('front.form_branch_ph') }}</option>
-                @foreach($branches as $branch)
-                <option value="{{ $branch->id }}">{{ $branch->name }}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="field"><label>{{ __('front.form_doctor') }}</label>
-              <select name="doctor_id">
-                <option value="">{{ __('front.form_doctor_ph') }}</option>
-                @foreach($doctors as $doctor)
-                <option value="{{ $doctor->id }}">{{ $doctor->name }} — {{ $doctor->specialization }}</option>
-                @endforeach
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="field"><label>{{ __('front.form_date') }} <span class="req">*</span></label><input type="date" name="preferred_date" min="{{ now()->toDateString() }}" required></div>
-            <div class="field"><label>{{ __('front.form_time') }} <span class="req">*</span></label>
-              <select name="preferred_time_slot" required>
-                <option value="">{{ __('front.form_time_ph') }}</option>
-                <option>{{ __('front.time_slot_morning') }}</option>
-                <option>{{ __('front.time_slot_noon') }}</option>
-                <option>{{ __('front.time_slot_afternoon') }}</option>
-                <option>{{ __('front.time_slot_evening') }}</option>
-              </select>
-            </div>
-          </div>
-          <div class="field full" style="margin-bottom:18px"><label>{{ __('front.form_notes') }}</label><textarea name="notes" placeholder="{{ __('front.form_notes_ph') }}"></textarea></div>
-          <button type="submit" class="btn btn-primary btn-lg"><span>{{ __('front.form_submit') }}</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-        </form>
-
-        <div class="form-success" id="formSuccess">
-          <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
-          <h3>{{ __('front.form_success_title') }}</h3>
-          <p>{{ __('front.form_success_text') }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ CAREERS ============ -->
 @if($careerJobs->isNotEmpty())
 <section class="careers" id="careers">
@@ -595,7 +518,7 @@
         <span class="eyebrow">{{ sett('careers_section.eyebrow') }}</span>
         <h2>{{ sett('careers_section.heading_main') }} <span class="tealword">{{ sett('careers_section.heading_highlight') }}</span></h2>
       </div>
-      <a href="#booking" class="btn btn-ghost">{{ __('front.submit_application') }}</a>
+      <a href="{{ route('booking.page') }}" class="btn btn-ghost">{{ __('front.submit_application') }}</a>
     </div>
     <div class="career-grid">
       @foreach($careerJobs as $job)
@@ -605,7 +528,7 @@
         <p>{{ $job->description }}</p>
         <div class="job-foot">
           @if($job->location)<span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>{{ $job->location }}</span>@endif
-          <a href="#booking" class="job-apply">{{ __('front.apply_now') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="{{ route('booking.page') }}" class="job-apply">{{ __('front.apply_now') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
       @endforeach
@@ -622,7 +545,7 @@
       <h2>{{ sett('cta_band.heading') }}</h2>
       <p>{{ sett('cta_band.paragraph') }}</p>
       <div class="cta-row">
-        <a href="#booking" class="btn btn-primary btn-lg"><span>{{ __('front.book_now') }}</span>
+        <a href="{{ route('booking.page') }}" class="btn btn-primary btn-lg"><span>{{ __('front.book_now') }}</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
         <a href="tel:{{ sett_raw('contact.phone') }}" class="btn btn-ghost btn-lg" style="color:#fff;border-color:rgba(255,255,255,.3)">{{ __('front.call_us') }}: {{ sett_raw('contact.phone') }}</a>

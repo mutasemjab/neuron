@@ -119,6 +119,13 @@ class SiteSettingSeeder extends Seeder
             ['booking_section.feat3_title', 'دفع مرن', 'Flexible Payment', 'booking_section'],
             ['booking_section.feat3_text', 'دفع إلكتروني مسبق أو عند الوصول للعيادة.', 'Pay online in advance or upon arrival at the clinic.', 'booking_section'],
 
+            // booking page (general, no doctor selection)
+            ['booking_page.eyebrow', 'احجز موعدك', 'Book Your Appointment', 'booking_page'],
+            ['booking_page.heading', 'احجز موعد طبي مع الدكتور', 'Book a Medical Appointment', 'booking_page'],
+            ['booking_page.subtext', 'املأ بياناتك وسيتواصل معك فريق المواعيد لتأكيد الحجز وتحديد الطبيب المناسب لحالتك.', 'Fill in your details and our appointments team will contact you to confirm the booking and assign the right doctor for your case.', 'booking_page'],
+            ['booking_page.price', '20 دينار أردني', '20 JOD', 'booking_page'],
+            ['booking_page.price_note', 'قابل للخصم من شركات التأمين المعتمدة', 'Deductible through approved insurance providers', 'booking_page'],
+
             // careers section
             ['careers_section.eyebrow', 'انضم إلينا', 'Join Us', 'careers_section'],
             ['careers_section.heading_main', 'ابنِ مستقبلك المهني', 'Build Your Career', 'careers_section'],

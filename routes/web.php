@@ -18,6 +18,7 @@ Route::group([
 
     // ── Public front routes ───────────────────────────────────────────────
     Route::get('/',               [HomeController::class, 'index'])->name('home');
+    Route::get('/book-appointment', [HomeController::class, 'bookingPage'])->name('booking.page');
     Route::post('/contact',       [HomeController::class, 'contact'])->name('contact.store');
     Route::post('/appointments',  [HomeController::class, 'storeAppointment'])->name('appointments.store');
 
