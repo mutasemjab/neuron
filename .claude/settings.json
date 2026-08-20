@@ -18,7 +18,8 @@
       "Bash(python \"C:\\\\Users\\\\m.jaber\\\\.claude\\\\projects\\\\c--xampp-htdocs-neuron\\\\generate_php.py\")",
       "Bash(python \"C:\\\\Users\\\\m.jaber\\\\.claude\\\\projects\\\\c--xampp-htdocs-neuron\\\\generate_php2.py\")",
       "PowerShell(\\(Get-Content \"C:\\\\xampp\\\\htdocs\\\\neuron\\\\chatbot_qa_php_rows.txt\"\\).Count)",
-      "Bash(Get-ChildItem -Path \"c:\\\\xampp\\\\htdocs\\\\neuron\" -Directory)"
+      "Bash(Get-ChildItem -Path \"c:\\\\xampp\\\\htdocs\\\\neuron\" -Directory)",
+      "Bash(findstr /r /s \"bank_etihad\\\\|BANK_ETIHAD\\\\|capture-context\\\\|unifiedPayments\" *.php app\\\\*.php app\\\\Http\\\\*.php app\\\\Http\\\\Controllers\\\\*.php config\\\\*.php)"
     ],
     "additionalDirectories": [
       "C:\\Users\\m.jaber\\.claude\\projects\\c--xampp-htdocs-neuron"
