@@ -36,7 +36,7 @@ class SubscriptionCheckoutController extends Controller
         $response = Http::withHeaders([
             'Content-Type'  => 'application/json',
             'Accept'        => 'application/json',
-            'Authorization' => 'Basic ' . config('services.bank_etihad.auth_token'),
+            'Authorization' => config('services.bank_etihad.auth_token'),
         ])->post($url, [
             'targetOrigins' => [$request->getSchemeAndHttpHost()],
             'totalAmount'   => number_format((float) $subscriptionPlan->price, 2, '.', ''),
