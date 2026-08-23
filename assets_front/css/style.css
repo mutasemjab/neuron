@@ -1849,10 +1849,10 @@ body.nav-open .burger span:nth-child(3) {
 /* ── "Show more" button + full-list modal ─────────────── */
 .ins-more-wrap { display:flex; justify-content:center; margin-top:30px; }
 
-.ins-modal-card { display:block; max-width:960px; }
+.modal-card.ins-modal-card { display:block; max-width:960px; overflow-x:hidden; }
 
 /* ── Video player modal ────────────────────────────────── */
-.video-modal-card { display:block; max-width:960px; background:#000; }
+.modal-card.video-modal-card { display:block; max-width:960px; background:#000; }
 .video-modal-frame {
   position: relative;
   width: 100%;
@@ -1876,7 +1876,12 @@ body.nav-open .burger span:nth-child(3) {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+  overflow-x: hidden;
 }
+
+/* cancel the mobile ".ins-card{min-width:170px}" floor — inside the (narrower) modal
+   it must be free to shrink so cards wrap onto new rows instead of overflowing sideways */
+.ins-modal-grid .ins-card { min-width: 0; }
 
 @media(max-width:700px) {
   .ins-modal-grid { grid-template-columns: repeat(3, 1fr); }
