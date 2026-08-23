@@ -44,6 +44,8 @@ class SiteSettingController extends Controller
                     'social.youtube_url'   => ['label' => 'يوتيوب', 'type' => 'text', 'translatable' => false],
                     'social.tiktok_url'    => ['label' => 'تيك توك', 'type' => 'text', 'translatable' => false],
                     'social.x_url'         => ['label' => 'X (تويتر)', 'type' => 'text', 'translatable' => false],
+                    'social.linkedin_url'  => ['label' => 'لينكد إن', 'type' => 'text', 'translatable' => false],
+                    'social.snapchat_url'  => ['label' => 'سناب شات', 'type' => 'text', 'translatable' => false],
                 ],
             ],
             'hero' => [
