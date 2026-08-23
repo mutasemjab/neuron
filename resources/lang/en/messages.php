@@ -54,6 +54,7 @@ return [
   'banners' => 'Banners',
   'appointments' => 'Appointment Requests',
   'contact_messages' => 'Contact Messages',
+  'job_applications' => 'Job Applications',
   'roles_permissions' => 'Roles & Permissions',
   'settings' => 'Settings',
   'sign_out' => 'Sign Out',

@@ -542,6 +542,7 @@
           <p>{{ sett('faq_section.side_text') }}</p>
           <div class="contact-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><div><b dir="ltr">{{ sett_raw('contact.phone') }}</b></div></div>
           <div class="contact-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg><div><b>{{ sett_raw('contact.email') }}</b></div></div>
+          <button type="button" class="contact-line" id="faqChatBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><div><b>{{ app()->getLocale() === 'ar' ? 'تحدث معنا مباشرة' : 'Chat With Us' }}</b></div></button>
         </div>
       </div>
 
@@ -566,9 +567,9 @@
         <span class="eyebrow">{{ sett('careers_section.eyebrow') }}</span>
         <h2>{{ sett('careers_section.heading_main') }} <span class="tealword">{{ sett('careers_section.heading_highlight') }}</span></h2>
       </div>
-      <a href="{{ route('booking.page') }}" class="btn btn-ghost">{{ __('front.submit_application') }}</a>
+      <a href="{{ route('careers.apply', $careerJobs->first()) }}" class="btn btn-ghost">{{ __('front.submit_application') }}</a>
     </div>
-    <div class="career-grid">
+    <div class="career-grid @if($careerJobs->count() === 1) career-grid--single @endif">
       @foreach($careerJobs as $job)
       <div class="job reveal @if(!$loop->first) d{{ $loop->iteration - 1 }} @endif">
         @if($job->type)<span class="job-type">{{ $job->type }}</span>@endif
@@ -576,7 +577,7 @@
         <p>{{ $job->description }}</p>
         <div class="job-foot">
           @if($job->location)<span class="loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>{{ $job->location }}</span>@endif
-          <a href="{{ route('booking.page') }}" class="job-apply">{{ __('front.apply_now') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="{{ route('careers.apply', $job) }}" class="job-apply">{{ __('front.apply_now') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
         </div>
       </div>
       @endforeach
@@ -643,6 +644,14 @@
   modal.querySelectorAll('[data-close]').forEach(el => {
     el.addEventListener('click', closeVideoModal);
   });
+})();
+
+(function () {
+  const btn = document.getElementById('faqChatBtn');
+  const toggle = document.getElementById('chatToggle');
+  if (!btn || !toggle) return;
+
+  btn.addEventListener('click', () => toggle.click());
 })();
 </script>
 @endpush

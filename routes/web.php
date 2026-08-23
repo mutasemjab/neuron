@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CareerApplicationController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
@@ -26,6 +27,9 @@ Route::group([
     Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 
     Route::get('/doctors/{doctor}', [DoctorController::class, 'show'])->name('doctors.show');
+
+    Route::get('/careers/{careerJob}/apply',  [CareerApplicationController::class, 'show'])->name('careers.apply');
+    Route::post('/careers/{careerJob}/apply', [CareerApplicationController::class, 'store'])->name('careers.apply.store');
 
     // Chatbot
     Route::post('/chatbot/message', [ChatbotController::class, 'message'])->name('chatbot.message');

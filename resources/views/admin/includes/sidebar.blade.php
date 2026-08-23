@@ -38,6 +38,13 @@
                     <span>{{ __('messages.contact_messages') }}</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.job-applications.index') }}"
+                    class="nav-link {{ request()->routeIs('admin.job-applications.*') ? 'active' : '' }}">
+                    <i class="nav-icon bi bi-person-badge"></i>
+                    <span>{{ __('messages.job_applications') }}</span>
+                </a>
+            </li>
         </ul>
 
         <div class="nav-label">{{ __('messages.content') }}</div>

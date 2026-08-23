@@ -33,6 +33,7 @@ class SiteSettingController extends Controller
                     'contact.address_short'  => ['label' => 'العنوان المختصر', 'type' => 'text', 'translatable' => true],
                     'contact.working_hours'  => ['label' => 'ساعات العمل', 'type' => 'text', 'translatable' => true],
                     'contact.branches_count' => ['label' => 'عدد الفروع', 'type' => 'text', 'translatable' => false],
+                    'contact.booking_notification_email' => ['label' => 'البريد الإلكتروني لإشعارات الحجوزات الجديدة', 'type' => 'text', 'translatable' => false],
                 ],
             ],
             'social' => [

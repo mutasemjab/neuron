@@ -55,6 +55,7 @@ return [
   'banners' => 'البانرات',
   'appointments' => 'طلبات الحجز',
   'contact_messages' => 'رسائل التواصل',
+  'job_applications' => 'طلبات التوظيف',
   'roles_permissions' => 'الأدوار والصلاحيات',
   'settings' => 'الإعدادات',
   'sign_out' => 'تسجيل الخروج',

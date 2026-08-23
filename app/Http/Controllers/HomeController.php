@@ -14,7 +14,9 @@ use App\Models\Stat;
 use App\Models\SubscriptionPlan;
 use App\Models\Testimonial;
 use App\Models\Video;
+use App\Mail\NewAppointmentNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -97,6 +99,15 @@ class HomeController extends Controller
         $validated['status'] = 'new';
 
         $appointment = \App\Models\Appointment::create($validated);
+
+        $notifyEmail = sett_raw('contact.booking_notification_email');
+        if ($notifyEmail) {
+            try {
+                Mail::to($notifyEmail)->send(new NewAppointmentNotification($appointment));
+            } catch (\Throwable $e) {
+                report($e);
+            }
+        }
 
         if ($request->wantsJson()) {
             return response()->json([

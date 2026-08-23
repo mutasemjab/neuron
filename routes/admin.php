@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\InsuranceCompanyController;
+use App\Http\Controllers\Admin\JobApplicationController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -98,6 +99,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('appointments/{appointment}',          [AppointmentController::class, 'show'])->name('admin.appointments.show');
         Route::post('appointments/{appointment}/status',  [AppointmentController::class, 'updateStatus'])->name('admin.appointments.status');
         Route::delete('appointments/{appointment}',       [AppointmentController::class, 'destroy'])->name('admin.appointments.destroy');
+
+        // ── Job Applications ─────────────────────────────────────────
+        Route::get('job-applications',                      [JobApplicationController::class, 'index'])->name('admin.job-applications.index');
+        Route::get('job-applications/{jobApplication}',      [JobApplicationController::class, 'show'])->name('admin.job-applications.show');
+        Route::post('job-applications/{jobApplication}/status', [JobApplicationController::class, 'updateStatus'])->name('admin.job-applications.status');
+        Route::delete('job-applications/{jobApplication}',   [JobApplicationController::class, 'destroy'])->name('admin.job-applications.destroy');
 
         // ── Banners ───────────────────────────────────────────────────
         Route::post('banners/{banner}/toggle', [BannerController::class, 'toggleActive'])->name('admin.banners.toggle');

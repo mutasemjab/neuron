@@ -65,7 +65,9 @@ class Doctor extends Model
 
     public function getTagsListAttribute(): array
     {
-        return array_values(array_filter(array_map('trim', explode(',', (string) $this->tags))));
+        $normalized = str_replace('،', ',', (string) $this->tags);
+
+        return array_values(array_filter(array_map('trim', explode(',', $normalized))));
     }
 
     public function publications()
