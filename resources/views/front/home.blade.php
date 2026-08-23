@@ -214,9 +214,7 @@
 @if($subscriptionPlans->isNotEmpty())
 <section class="plans" id="plans">
   <div class="wrap">
-    <div class="sec-head center reveal">
-      <span class="eyebrow">{{ sett('plans_section.eyebrow') }}</span>
-    </div>
+    
 
     <div class="plans-grid reveal d1">
       @foreach($subscriptionPlans as $plan)
