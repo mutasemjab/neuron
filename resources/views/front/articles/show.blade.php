@@ -6,7 +6,7 @@
 <style>
 /* Article page — scoped to this page only via the .ap- prefix. */
 
-.ap-wrap { max-width: 760px; margin: 0 auto; padding: 150px 28px 100px; }
+.ap-page { padding: 150px 0 100px; }
 
 .ap-crumbs { color: var(--muted); font-size: .85rem; margin-bottom: 18px; }
 .ap-crumbs a { color: var(--teal); text-decoration: none; }
@@ -58,7 +58,7 @@
 .ap-related { margin-top: 60px; padding-top: 50px; border-top: 1px solid var(--line); }
 .ap-related-title { font-size: 1.4rem; color: var(--ink); margin-bottom: 28px; }
 
-.ap-related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.ap-related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
 .ap-related-card {
   display: block;
@@ -89,8 +89,11 @@
 .ap-related-card:hover .ap-related-body h3 { color: var(--teal); }
 .ap-related-body p { color: var(--muted); font-size: .87rem; line-height: 1.6; }
 
+@media(max-width:900px) {
+  .ap-related-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media(max-width:600px) {
-  .ap-wrap { padding: 120px 20px 70px; }
+  .ap-page { padding: 120px 0 70px; }
   .ap-related-grid { grid-template-columns: 1fr; }
 }
 </style>
@@ -98,7 +101,8 @@
 
 @section('content')
 
-<div class="ap-wrap">
+<div class="ap-page">
+<div class="wrap">
 
   <div class="ap-crumbs">
     <a href="{{ route('home') }}">{{ __('front.nav_home') }}</a>
@@ -167,6 +171,7 @@
   </div>
   @endif
 
+</div>
 </div>
 
 @endsection
