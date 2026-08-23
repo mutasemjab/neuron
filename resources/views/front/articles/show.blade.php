@@ -45,8 +45,8 @@
 .ap-meta-item svg { width: 15px; height: 15px; color: var(--teal); }
 .ap-meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--line-2); }
 
-.ap-cover { border-radius: var(--r-lg); overflow: hidden; margin-bottom: 32px; }
-.ap-cover img { width: 100%; height: auto; display: block; }
+.ap-cover { border-radius: var(--r-lg); overflow: hidden; margin-bottom: 32px; height: 420px; }
+.ap-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .ap-content { font-size: 1.02rem; line-height: 2; color: var(--ink); }
 .ap-content p { margin-bottom: 22px; }
@@ -90,10 +90,12 @@
 .ap-related-body p { color: var(--muted); font-size: .87rem; line-height: 1.6; }
 
 @media(max-width:900px) {
+  .ap-cover { height: 320px; }
   .ap-related-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media(max-width:600px) {
   .ap-page { padding: 120px 0 70px; }
+  .ap-cover { height: 220px; }
   .ap-related-grid { grid-template-columns: 1fr; }
 }
 </style>
