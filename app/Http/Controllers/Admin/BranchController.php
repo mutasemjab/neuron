@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:branch-table')->only(['index']);
+        $this->middleware('permission:branch-add')->only(['create', 'store']);
+        $this->middleware('permission:branch-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:branch-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $branches = Branch::orderBy('order_index')->get();

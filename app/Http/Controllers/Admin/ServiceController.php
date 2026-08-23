@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:service-table')->only(['index']);
+        $this->middleware('permission:service-add')->only(['create', 'store']);
+        $this->middleware('permission:service-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:service-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $services = Service::orderBy('order_index')->get();

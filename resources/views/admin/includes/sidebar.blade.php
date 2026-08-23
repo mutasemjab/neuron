@@ -22,8 +22,10 @@
             </li>
         </ul>
 
+        @canany(['appointment-table', 'contact-message-table', 'job-application-table'])
         <div class="nav-label">{{ __('messages.bookings') }}</div>
         <ul>
+            @can('appointment-table')
             <li class="nav-item">
                 <a href="{{ route('admin.appointments.index') }}"
                     class="nav-link {{ request()->routeIs('admin.appointments.*') ? 'active' : '' }}">
@@ -31,6 +33,8 @@
                     <span>{{ __('messages.appointments') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('contact-message-table')
             <li class="nav-item">
                 <a href="{{ route('admin.contact_messages.index') }}"
                     class="nav-link {{ request()->routeIs('admin.contact_messages.*') ? 'active' : '' }}">
@@ -38,6 +42,8 @@
                     <span>{{ __('messages.contact_messages') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('job-application-table')
             <li class="nav-item">
                 <a href="{{ route('admin.job-applications.index') }}"
                     class="nav-link {{ request()->routeIs('admin.job-applications.*') ? 'active' : '' }}">
@@ -45,10 +51,14 @@
                     <span>{{ __('messages.job_applications') }}</span>
                 </a>
             </li>
+            @endcan
         </ul>
+        @endcanany
 
+        @canany(['doctor-table', 'service-table', 'branch-table', 'article-table', 'testimonial-table', 'faq-table', 'insurance-company-table', 'video-table', 'career-job-table', 'stat-table', 'banner-table', 'subscription-plan-table'])
         <div class="nav-label">{{ __('messages.content') }}</div>
         <ul>
+            @can('doctor-table')
             <li class="nav-item">
                 <a href="{{ route('admin.doctors.index') }}"
                     class="nav-link {{ request()->routeIs('admin.doctors.*') ? 'active' : '' }}">
@@ -56,6 +66,8 @@
                     <span>{{ __('messages.doctors') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('service-table')
             <li class="nav-item">
                 <a href="{{ route('admin.services.index') }}"
                     class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}">
@@ -63,6 +75,8 @@
                     <span>{{ __('messages.services') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('branch-table')
             <li class="nav-item">
                 <a href="{{ route('admin.branches.index') }}"
                     class="nav-link {{ request()->routeIs('admin.branches.*') ? 'active' : '' }}">
@@ -70,6 +84,8 @@
                     <span>{{ __('messages.branches') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('article-table')
             <li class="nav-item">
                 <a href="{{ route('admin.articles.index') }}"
                     class="nav-link {{ request()->routeIs('admin.articles.*') ? 'active' : '' }}">
@@ -77,6 +93,8 @@
                     <span>{{ __('messages.articles') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('testimonial-table')
             <li class="nav-item">
                 <a href="{{ route('admin.testimonials.index') }}"
                     class="nav-link {{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
@@ -84,6 +102,8 @@
                     <span>{{ __('messages.testimonials') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('faq-table')
             <li class="nav-item">
                 <a href="{{ route('admin.faqs.index') }}"
                     class="nav-link {{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}">
@@ -91,6 +111,8 @@
                     <span>{{ __('messages.faqs') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('insurance-company-table')
             <li class="nav-item">
                 <a href="{{ route('admin.insurance-companies.index') }}"
                     class="nav-link {{ request()->routeIs('admin.insurance-companies.*') ? 'active' : '' }}">
@@ -98,6 +120,8 @@
                     <span>{{ __('messages.insurance_companies') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('video-table')
             <li class="nav-item">
                 <a href="{{ route('admin.videos.index') }}"
                     class="nav-link {{ request()->routeIs('admin.videos.*') ? 'active' : '' }}">
@@ -105,6 +129,8 @@
                     <span>{{ __('messages.videos') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('career-job-table')
             <li class="nav-item">
                 <a href="{{ route('admin.career-jobs.index') }}"
                     class="nav-link {{ request()->routeIs('admin.career-jobs.*') ? 'active' : '' }}">
@@ -112,6 +138,8 @@
                     <span>{{ __('messages.career_jobs') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('stat-table')
             <li class="nav-item">
                 <a href="{{ route('admin.stats.index') }}"
                     class="nav-link {{ request()->routeIs('admin.stats.*') ? 'active' : '' }}">
@@ -119,6 +147,8 @@
                     <span>{{ __('messages.stats') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('banner-table')
             <li class="nav-item">
                 <a href="{{ route('admin.banners.index') }}"
                     class="nav-link {{ request()->routeIs('admin.banners.*') ? 'active' : '' }}">
@@ -126,6 +156,8 @@
                     <span>{{ __('messages.banners') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('subscription-plan-table')
             <li class="nav-item">
                 <a href="{{ route('admin.subscription-plans.index') }}"
                     class="nav-link {{ request()->routeIs('admin.subscription-plans.*') ? 'active' : '' }}">
@@ -133,8 +165,11 @@
                     <span>{{ __('messages.subscription_plans') }}</span>
                 </a>
             </li>
+            @endcan
         </ul>
+        @endcanany
 
+        @can('subscription-order-table')
         <div class="nav-label">{{ __('messages.bookings') }}</div>
         <ul>
             <li class="nav-item">
@@ -145,7 +180,9 @@
                 </a>
             </li>
         </ul>
+        @endcan
 
+        @can('chatbot-table')
         <div class="nav-label">الشات بوت</div>
         <ul>
             <li class="nav-item">
@@ -156,9 +193,12 @@
                 </a>
             </li>
         </ul>
+        @endcan
 
+        @canany(['employee-table', 'role-table', 'setting-edit'])
         <div class="nav-label">{{ __('messages.system') }}</div>
         <ul>
+            @can('employee-table')
             <li class="nav-item">
                 <a href="{{ route('admin.employee.index') }}"
                     class="nav-link {{ request()->routeIs('admin.employee.*') ? 'active' : '' }}">
@@ -166,6 +206,8 @@
                     <span>{{ __('messages.Employee') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('role-table')
             <li class="nav-item">
                 <a href="{{ route('admin.role.index') }}"
                     class="nav-link {{ request()->routeIs('admin.role.*') ? 'active' : '' }}">
@@ -173,6 +215,8 @@
                     <span>{{ __('messages.roles_permissions') }}</span>
                 </a>
             </li>
+            @endcan
+            @can('setting-edit')
             <li class="nav-item">
                 <a href="{{ route('admin.site-settings.edit') }}"
                     class="nav-link {{ request()->routeIs('admin.site-settings.*') ? 'active' : '' }}">
@@ -180,7 +224,9 @@
                     <span>{{ __('messages.site_settings') }}</span>
                 </a>
             </li>
+            @endcan
         </ul>
+        @endcanany
 
     </nav>
 

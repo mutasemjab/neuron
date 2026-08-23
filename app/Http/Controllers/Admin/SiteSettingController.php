@@ -115,15 +115,7 @@ class SiteSettingController extends Controller
                     'insurance_section.paragraph'        => ['label' => 'الفقرة', 'type' => 'textarea', 'translatable' => true],
                 ],
             ],
-            'plans_section' => [
-                'label'  => 'عنوان قسم باقات الاشتراك',
-                'fields' => [
-                    'plans_section.eyebrow'         => ['label' => 'العنوان الفرعي الصغير', 'type' => 'text', 'translatable' => true],
-                    'plans_section.heading_main'     => ['label' => 'العنوان الرئيسي', 'type' => 'text', 'translatable' => true],
-                    'plans_section.heading_highlight'=> ['label' => 'الجزء المميز من العنوان', 'type' => 'text', 'translatable' => true],
-                    'plans_section.paragraph'        => ['label' => 'الفقرة', 'type' => 'textarea', 'translatable' => true],
-                ],
-            ],
+          
             'videos_section' => [
                 'label'  => 'عنوان قسم الفيديوهات',
                 'fields' => [
@@ -223,6 +215,11 @@ class SiteSettingController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function __construct()
+    {
+        $this->middleware('permission:setting-edit');
     }
 
     public function edit()

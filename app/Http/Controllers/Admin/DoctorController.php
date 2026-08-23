@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:doctor-table')->only(['index']);
+        $this->middleware('permission:doctor-add')->only(['create', 'store']);
+        $this->middleware('permission:doctor-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:doctor-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $doctors = Doctor::orderBy('order_index')->get();

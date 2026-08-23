@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class SubscriptionPlanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:subscription-plan-table')->only(['index']);
+        $this->middleware('permission:subscription-plan-add')->only(['create', 'store']);
+        $this->middleware('permission:subscription-plan-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:subscription-plan-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $subscriptionPlans = SubscriptionPlan::orderBy('order_index')->get();

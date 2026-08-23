@@ -106,4 +106,23 @@ return [
   'keep_signed_in'           => 'Keep me signed in',
   'sign_in_admin_btn'        => 'Sign In',
   'all_rights_reserved'      => 'All rights reserved',
+
+  // Roles & permissions
+  'role'          => 'Role',
+  'new_role'      => 'New Role',
+  'create_role'   => 'Create Role',
+  'edit_role'     => 'Edit Role',
+  'permission'    => 'Permission',
+  'permissions'   => 'Permissions',
+  'name_field'    => 'Name',
+  'action'        => 'Actions',
+  'update'        => 'Update',
+  'success'       => 'Done successfully.',
+
+  // Employees
+  'employee_title'   => 'Employees',
+  'new_employee'     => 'New Employee',
+  'create_employee'  => 'Add Employee',
+  'edit_employee'    => 'Edit Employee',
+  'user_name_col'    => 'Username',
 ];

@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class StatController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:stat-table')->only(['index']);
+        $this->middleware('permission:stat-add')->only(['create', 'store']);
+        $this->middleware('permission:stat-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:stat-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $stats = Stat::orderBy('section')->orderBy('order_index')->get()->groupBy('section');

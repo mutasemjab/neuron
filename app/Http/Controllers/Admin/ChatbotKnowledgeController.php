@@ -11,6 +11,14 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ChatbotKnowledgeController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:chatbot-table')->only(['index', 'show', 'downloadTemplate']);
+        $this->middleware('permission:chatbot-add')->only(['create', 'store', 'import']);
+        $this->middleware('permission:chatbot-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:chatbot-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $entries = ChatbotKnowledge::orderBy('order_index')->orderBy('category')->get();

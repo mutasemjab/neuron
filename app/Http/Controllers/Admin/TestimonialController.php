@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:testimonial-table')->only(['index']);
+        $this->middleware('permission:testimonial-add')->only(['create', 'store']);
+        $this->middleware('permission:testimonial-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:testimonial-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $testimonials = Testimonial::with('doctor')->orderBy('order_index')->get();

@@ -107,4 +107,23 @@ return [
   'keep_signed_in'           => 'إبقني مسجلاً للدخول',
   'sign_in_admin_btn'        => 'تسجيل الدخول',
   'all_rights_reserved'      => 'جميع الحقوق محفوظة',
+
+  // Roles & permissions
+  'role'          => 'الدور',
+  'new_role'      => 'دور جديد',
+  'create_role'   => 'إنشاء دور',
+  'edit_role'     => 'تعديل الدور',
+  'permission'    => 'صلاحية',
+  'permissions'   => 'الصلاحيات',
+  'name_field'    => 'الاسم',
+  'action'        => 'إجراءات',
+  'update'        => 'تحديث',
+  'success'       => 'تمت العملية بنجاح.',
+
+  // Employees
+  'employee_title'   => 'الموظفون',
+  'new_employee'     => 'موظف جديد',
+  'create_employee'  => 'إضافة موظف',
+  'edit_employee'    => 'تعديل الموظف',
+  'user_name_col'    => 'اسم المستخدم',
 ];

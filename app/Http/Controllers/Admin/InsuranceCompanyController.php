@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class InsuranceCompanyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:insurance-company-table')->only(['index']);
+        $this->middleware('permission:insurance-company-add')->only(['create', 'store']);
+        $this->middleware('permission:insurance-company-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:insurance-company-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $insuranceCompanies = InsuranceCompany::orderBy('order_index')->get();

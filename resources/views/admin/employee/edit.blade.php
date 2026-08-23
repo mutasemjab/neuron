@@ -1,105 +1,72 @@
 @extends('admin.layouts.app')
 @section('title', __('messages.edit_employee'))
 
-@push('styles')
-    <link href="{{ asset('assets/libs/dropzone/dropzone.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/libs/dropify/dropify.min.css') }}" rel="stylesheet" type="text/css" />
-@endpush
-
 @section('content')
-    <div class="container-fluid">
 
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title-box">
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a
-                                    href="{{ route('admin.employee.index') }}">{{ __('messages.employee_title') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('messages.Edit') }}</li>
-                        </ol>
-                    </div>
-                    <h4 class="page-title">{{ __('messages.edit_employee') }}</h4>
+<div class="page-header d-flex align-items-start justify-content-between flex-wrap gap-3">
+    <div><h1 class="page-title">{{ __('messages.edit_employee') }}</h1></div>
+    <a href="{{ route('admin.employee.index') }}" class="btn-outline-sm"><i class="bi bi-arrow-left"></i> رجوع</a>
+</div>
+
+@if($errors->any())
+    <div class="alert alert-danger mb-3">
+        <ul class="mb-0">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul>
+    </div>
+@endif
+
+<form action="{{ route('admin.employee.update', $admin->id) }}" method="POST">
+    @csrf
+    @method('PATCH')
+
+    <div class="panel-card mb-3">
+        <div class="panel-card-header"><h2 class="panel-card-title">{{ __('messages.employee_title') }}</h2></div>
+        <div class="panel-card-body">
+            <div class="row g-3">
+                <div class="col-12 col-md-6">
+                    <label class="form-label">{{ __('messages.name_field') }} <span class="text-danger">*</span></label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $admin->name) }}" required>
+                    @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="{{ route('admin.employee.update',$admin->id) }}" method="post" enctype="multipart/form-data">
-                            @csrf
-                            {{ method_field('PATCH') }}
-                            <div class="form-group">
-                                <label for="name">{{ __('messages.name_field') }} <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="text"
-                                        class="form-control @if ($errors->has('name')) is-invalid @endif"
-                                        id="name" placeholder="{{ __('messages.name_field') }}" value="{{ $admin->name }}" name="name">
-                                    @if ($errors->has('name'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="username">{{ __('messages.username_label') }} <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="username"
-                                        class="form-control @if ($errors->has('username')) is-invalid @endif"
-                                        id="username" placeholder="{{ __('messages.username_label') }}" value="{{ $admin->username }}" name="username">
-                                    @if ($errors->has('username'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('username') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password">{{ __('messages.password_label') }} <span class="text-danger">*</span></label>
-                                <div class="input-group">
-                                    <input type="password"
-                                        class="form-control @if ($errors->has('password')) is-invalid @endif"
-                                        id="password" placeholder="{{ __('messages.password_label') }}" value="" name="password">
-                                    @if ($errors->has('password'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="image">{{ __('messages.roles_permissions') }} :</label>
-                                @foreach ($roles as $role)
-                                    <br>
-                                    <input {{ in_array($role->id, old('roles') ? old('roles') : []) ? 'checked' : '' }}
-                                        class="ml-5" type="checkbox" name="roles[]" id="role_{{ $role->id }}"
-                                        value="{{ $role->id }}" {{in_array($role->id,$adminRole)? 'checked' : ''}}>
-                                    <label for="role_{{ $role->id }}"> {{ $role->name }}. </label>
-                                    <br>
-                                @endforeach
-                            </div>
-                            <hr>
-
-                            <div class="text-right">
-                                <button type="submit"
-                                    class="btn btn-success waves-effect waves-light">{{ __('messages.Save') }}</button>
-                                <a type="button" href="{{ route('admin.employee.index') }}"
-                                    class="btn btn-danger waves-effect waves-light m-l-10">{{ __('messages.Cancel') }}
-                                </a>
-                            </div>
-                        </form>
-                    </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label">{{ __('messages.username_label') }} <span class="text-danger">*</span></label>
+                    <input type="text" name="username" dir="ltr" class="form-control @error('username') is-invalid @enderror" value="{{ old('username', $admin->username) }}" required>
+                    @error('username')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label">البريد الإلكتروني <span class="text-danger">*</span></label>
+                    <input type="email" name="email" dir="ltr" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $admin->email) }}" required>
+                    @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                </div>
+                <div class="col-12 col-md-6">
+                    <label class="form-label">{{ __('messages.password_label') }}</label>
+                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="اتركه فارغاً لعدم التغيير">
+                    @error('password')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="panel-card">
+        <div class="panel-card-header"><h2 class="panel-card-title">الأدوار</h2></div>
+        <div class="panel-card-body">
+            <div class="d-flex flex-wrap gap-3">
+                @forelse($roles as $role)
+                <label class="d-flex align-items-center gap-2" style="cursor:pointer">
+                    <input type="checkbox" name="roles[]" value="{{ $role->id }}" {{ in_array($role->id, old('roles', $adminRole)) ? 'checked' : '' }}>
+                    {{ $role->name }}
+                </label>
+                @empty
+                <p class="text-muted mb-0">لا توجد أدوار — أنشئ دوراً أولاً من صفحة الأدوار والصلاحيات.</p>
+                @endforelse
+            </div>
+            @error('roles')<div class="text-danger mt-2" style="font-size:.85rem">{{ $message }}</div>@enderror
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <button type="submit" class="btn-primary-sm"><i class="bi bi-save"></i> {{ __('messages.Save') }}</button>
+        <a href="{{ route('admin.employee.index') }}" class="btn-outline-sm">{{ __('messages.Cancel') }}</a>
+    </div>
+</form>
+
 @endsection
-@push('scripts')
-    <script src="{{ asset('assets/libs/dropzone/dropzone.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/dropify/dropify.min.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/form-fileuploads.init.js') }}"></script>
-@endpush

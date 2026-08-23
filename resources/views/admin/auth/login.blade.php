@@ -7,22 +7,38 @@
     <title>{{ __('messages.admin_login_title') }} — {{ __('messages.edu_platform') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;800;900&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <style>
+        :root {
+            --ink: #0d1a19;
+            --muted: #6c7b79;
+            --paper: #ffffff;
+            --paper-2: #f4f8f7;
+            --teal: #2a807d;
+            --teal-deep: #1d5c5a;
+            --teal-darker: #123c3a;
+            --teal-light: #dcecea;
+            --teal-glow: rgba(42, 128, 125, .35);
+            --line: #e3ecea;
+            --line-2: #d3e0de;
+            --f-disp: 'Rubik', system-ui, sans-serif;
+            --f-body: 'Cairo', system-ui, sans-serif;
+        }
+
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: var(--f-body);
             min-height: 100vh;
             display: flex;
-            background: #f1f5f9;
+            background: var(--paper-2);
         }
 
         /* ── Left Panel ── */
         .l-panel {
             flex: 0 0 45%;
-            background: linear-gradient(145deg, #0f172a 0%, #1e3a8a 50%, #1d4ed8 100%);
+            background: linear-gradient(145deg, var(--teal-darker) 0%, var(--teal-deep) 55%, var(--teal) 100%);
             padding: 48px;
             display: flex;
             flex-direction: column;
@@ -56,21 +72,21 @@
             position: relative;
             z-index: 1;
         }
-        .l-brand-icon {
-            width: 44px; height: 44px;
-            background: rgba(255,255,255,.15);
+        .l-brand-badge {
+            background: #fff;
             border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; color: #fff;
-            border: 1px solid rgba(255,255,255,.2);
+            padding: 8px 14px;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 8px 22px rgba(0,0,0,.15);
         }
-        .l-brand-name {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -.02em;
+        .l-brand-badge img {
+            display: block;
+            height: 34px;
+            width: auto;
+            max-width: 150px;
+            object-fit: contain;
         }
-        .l-brand-name span { color: #93c5fd; }
 
         .l-hero { position: relative; z-index: 1; }
 
@@ -84,11 +100,12 @@
             padding: 5px 14px;
             font-size: .75rem;
             font-weight: 600;
-            color: #bfdbfe;
+            color: #bce7e4;
             margin-bottom: 20px;
         }
 
         .l-title {
+            font-family: var(--f-disp);
             font-size: 2rem;
             font-weight: 800;
             color: #fff;
@@ -96,11 +113,11 @@
             letter-spacing: -.03em;
             margin-bottom: 12px;
         }
-        .l-title span { color: #93c5fd; }
+        .l-title span { color: #7fd8d3; }
 
         .l-subtitle {
             font-size: .9rem;
-            color: rgba(255,255,255,.65);
+            color: rgba(255,255,255,.7);
             line-height: 1.6;
             margin-bottom: 32px;
         }
@@ -110,17 +127,18 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: rgba(255,255,255,.85);
+            color: rgba(255,255,255,.9);
             font-size: .875rem;
             font-weight: 500;
         }
         .l-features li .feat-icon {
             width: 32px; height: 32px;
-            background: rgba(255,255,255,.1);
+            background: rgba(255,255,255,.12);
             border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
             font-size: .85rem;
             flex-shrink: 0;
+            color: #fff;
         }
 
         .l-stats {
@@ -134,6 +152,7 @@
             flex-direction: column;
         }
         .l-stat-val {
+            font-family: var(--f-disp);
             font-size: 1.4rem;
             font-weight: 800;
             color: #fff;
@@ -141,7 +160,7 @@
         }
         .l-stat-lbl {
             font-size: .72rem;
-            color: rgba(255,255,255,.55);
+            color: rgba(255,255,255,.6);
             font-weight: 500;
         }
         .l-stat-divider {
@@ -157,12 +176,19 @@
             align-items: center;
             justify-content: center;
             padding: 48px 40px;
+            background: var(--paper);
         }
 
         .r-wrap {
             width: 100%;
             max-width: 400px;
         }
+
+        .r-logo {
+            display: none;
+            margin-bottom: 24px;
+        }
+        .r-logo img { display: block; height: 40px; width: auto; max-width: 160px; object-fit: contain; }
 
         .r-header { margin-bottom: 32px; }
         .r-eyebrow {
@@ -171,18 +197,18 @@
             gap: 8px;
             font-size: .78rem;
             font-weight: 600;
-            color: #2563eb;
+            color: var(--teal);
             text-transform: uppercase;
             letter-spacing: .08em;
             margin-bottom: 10px;
         }
         .r-eyebrow .dot {
             width: 6px; height: 6px;
-            background: #2563eb;
+            background: var(--teal);
             border-radius: 50%;
         }
-        .r-title { font-size: 1.6rem; font-weight: 800; color: #0f172a; letter-spacing: -.03em; }
-        .r-sub   { font-size: .855rem; color: #64748b; margin-top: 6px; }
+        .r-title { font-family: var(--f-disp); font-size: 1.6rem; font-weight: 800; color: var(--ink); letter-spacing: -.03em; }
+        .r-sub   { font-size: .855rem; color: var(--muted); margin-top: 6px; }
 
         /* Alert */
         .alert-err {
@@ -205,7 +231,7 @@
             display: block;
             font-size: .82rem;
             font-weight: 600;
-            color: #374151;
+            color: var(--ink);
             margin-bottom: 7px;
         }
         .input-wrap { position: relative; }
@@ -214,26 +240,26 @@
             left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: #9ca3af;
+            color: var(--muted);
             font-size: .95rem;
             pointer-events: none;
         }
         .form-input {
             width: 100%;
             padding: 11px 14px 11px 42px;
-            border: 1.5px solid #e5e7eb;
+            border: 1.5px solid var(--line-2);
             border-radius: 10px;
             font-size: .875rem;
             font-family: inherit;
-            color: #111827;
+            color: var(--ink);
             background: #fff;
             transition: all .2s ease;
             outline: none;
         }
         .form-input::placeholder { color: #9ca3af; }
         .form-input:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px var(--teal-glow);
         }
         .form-input.is-invalid { border-color: #ef4444; }
         .form-input.is-invalid:focus { box-shadow: 0 0 0 3px rgba(239,68,68,.12); }
@@ -246,12 +272,12 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: #9ca3af;
+            color: var(--muted);
             cursor: pointer;
             font-size: .95rem;
             padding: 2px;
         }
-        .pw-toggle:hover { color: #2563eb; }
+        .pw-toggle:hover { color: var(--teal); }
 
         .invalid-feedback { font-size: .78rem; color: #ef4444; margin-top: 5px; display: block; }
 
@@ -264,19 +290,19 @@
         .form-check input[type="checkbox"] {
             width: 16px; height: 16px;
             border-radius: 4px;
-            accent-color: #2563eb;
+            accent-color: var(--teal);
             cursor: pointer;
         }
         .form-check label {
             font-size: .845rem;
-            color: #6b7280;
+            color: var(--muted);
             cursor: pointer;
         }
 
         .btn-login {
             width: 100%;
             padding: 12px;
-            background: #2563eb;
+            background: var(--teal);
             color: #fff;
             border: none;
             border-radius: 10px;
@@ -292,8 +318,8 @@
             letter-spacing: -.01em;
         }
         .btn-login:hover {
-            background: #1d4ed8;
-            box-shadow: 0 4px 14px rgba(37,99,235,.4);
+            background: var(--teal-deep);
+            box-shadow: 0 4px 14px var(--teal-glow);
             transform: translateY(-1px);
         }
         .btn-login:active { transform: translateY(0); box-shadow: none; }
@@ -304,7 +330,7 @@
             font-size: .78rem;
             color: #9ca3af;
         }
-        .r-footer a { color: #2563eb; font-weight: 500; text-decoration: none; }
+        .r-footer a { color: var(--teal); font-weight: 500; text-decoration: none; }
 
         /* Responsive */
         @media (max-width: 900px) { .l-panel { flex: 0 0 40%; padding: 36px 32px; } }
@@ -312,6 +338,7 @@
             body { display: block; }
             .l-panel { display: none; }
             .r-panel { min-height: 100vh; padding: 32px 20px; }
+            .r-logo { display: block; }
         }
 
         @if($dir === 'rtl')
@@ -327,8 +354,9 @@
 <div class="l-panel">
 
     <div class="l-brand">
-        <div class="l-brand-icon"><i class="bi bi-heart-pulse-fill"></i></div>
-        <div class="l-brand-name">{{ sett('identity.site_name') }} <span>{{ __('messages.brand_suffix') }}</span></div>
+        <div class="l-brand-badge">
+            <img src="{{ asset_v('assets_front/images/logo.png') }}" alt="{{ sett('identity.site_name') }}">
+        </div>
     </div>
 
     <div class="l-hero">
@@ -381,6 +409,10 @@
 {{-- RIGHT PANEL --}}
 <div class="r-panel">
     <div class="r-wrap">
+
+        <div class="r-logo">
+            <img src="{{ asset_v('assets_front/images/logo.png') }}" alt="{{ sett('identity.site_name') }}">
+        </div>
 
         <div class="r-header">
             <div class="r-eyebrow">

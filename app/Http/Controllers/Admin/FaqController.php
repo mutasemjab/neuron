@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:faq-table')->only(['index']);
+        $this->middleware('permission:faq-add')->only(['create', 'store']);
+        $this->middleware('permission:faq-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:faq-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $faqs = Faq::orderBy('order_index')->get();

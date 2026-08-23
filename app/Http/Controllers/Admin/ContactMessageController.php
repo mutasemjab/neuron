@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class ContactMessageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:contact-message-table')->only(['index', 'show']);
+        $this->middleware('permission:contact-message-reply')->only(['reply']);
+        $this->middleware('permission:contact-message-delete')->only(['destroy']);
+    }
+
     public function index(Request $request)
     {
         $messages = ContactMessage::when($request->status, fn ($q, $s) => $q->where('status', $s))

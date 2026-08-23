@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class CareerJobController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:career-job-table')->only(['index']);
+        $this->middleware('permission:career-job-add')->only(['create', 'store']);
+        $this->middleware('permission:career-job-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:career-job-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $jobs = CareerJob::orderBy('order_index')->get();

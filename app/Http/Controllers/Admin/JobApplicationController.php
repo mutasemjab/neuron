@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class JobApplicationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:job-application-table')->only(['index', 'show']);
+        $this->middleware('permission:job-application-status')->only(['updateStatus']);
+        $this->middleware('permission:job-application-delete')->only(['destroy']);
+    }
+
     public function index(Request $request)
     {
         $applications = JobApplication::with('careerJob')

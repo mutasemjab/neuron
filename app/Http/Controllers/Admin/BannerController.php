@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class BannerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:banner-table')->only(['index']);
+        $this->middleware('permission:banner-add')->only(['create', 'store']);
+        $this->middleware('permission:banner-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:banner-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $banners = Banner::get();

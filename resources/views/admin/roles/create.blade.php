@@ -2,93 +2,42 @@
 @section('title', __('messages.create_role'))
 
 @section('content')
-    <div class="container-fluid">
 
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title-box">
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
+<div class="page-header d-flex align-items-start justify-content-between flex-wrap gap-3">
+    <div><h1 class="page-title">{{ __('messages.create_role') }}</h1></div>
+    <a href="{{ route('admin.role.index') }}" class="btn-outline-sm"><i class="bi bi-arrow-left"></i> رجوع</a>
+</div>
 
-                            <li class="breadcrumb-item"><a
-                                    href="{{ route('admin.role.index') }}">{{ __('messages.role') }}</a>
-                            </li>
-                            <li class="breadcrumb-item active">{{ __('messages.create') }}</li>
-                        </ol>
-                    </div>
-                    <h4 class="page-title">{{ __('messages.create_role') }}</h4>
-                </div>
-            </div>
-        </div>
+@if($errors->any())
+    <div class="alert alert-danger mb-3">
+        <ul class="mb-0">@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul>
+    </div>
+@endif
 
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="{{ route('admin.role.store') }}" method="post">
-                            @csrf
-                            <div class="my-3">
-                                <input type="text"
-                                    class="form-control @if ($errors->has('name')) is-invalid @endif" id="name"
-                                    placeholder=" {{ __('messages.name_field') }}" value="{{ old('name') }}" name="name">
-                                @error('name')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                                <span class="emsg text-danger"></span>
-                            </div>
-                            <h1>{{ __('messages.permission') }}</h1>
-                            <div class="my-3">
-                                @foreach($data as $value)
-                                    <br>
-                                    <input {{in_array( $value->id,old('perms')? old('perms'): []) ? 'checked':''}} class="ml-5" type="checkbox" name="perms[]" id="perm_{{$value->id}}" value="{{ $value->id }}">
-                                    <label for="perm_{{$value->id}}"> {{ $value->name }}. </label>
-                                    <br>
-                                @endforeach
-                            </div>
-                            <div class="row" id="permissions">
-                                @error('perms')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                                <span class="emsg text-danger"></span>
-                            </div>
+<form action="{{ route('admin.role.store') }}" method="POST">
+    @csrf
 
-
-
-
-                            <div class="text-right">
-                                <button type="submit"
-                                    class="btn btn-success waves-effect waves-light">{{ __('messages.Save') }}</button>
-                                <a type="button" href="{{ route('admin.role.index') }}"
-                                    class="btn btn-danger waves-effect waves-light m-l-10">{{ __('messages.Cancel') }}
-                                </a>
-                            </div>
-
-
-                        </form>
-                    </div>
-                </div>
+    <div class="panel-card mb-3">
+        <div class="panel-card-body">
+            <div class="col-12 col-md-6">
+                <label class="form-label">{{ __('messages.name_field') }} <span class="text-danger">*</span></label>
+                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
+                @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
         </div>
     </div>
-@endsection
 
-@push('scripts')
-    <script>
-        $('#guard_name').change(function(e) {
-            guard_name = $('#guard_name').val();
-            e.preventDefault();
-            $.ajax({
-                type: "GET",
-                url: "/admin" + '/permissions/' + guard_name,
-                success: function(response) {
-                    $('#permissions').empty();
-                    $.each(response, function(i, val) {
-                        $('#permissions').append(
-                            '<div class="col-8"><input type="checkbox" class="mx-2" name="permissions[]" value=' +
-                            val.id + '>' + val.name + '</div>');
-                    });
-                }
-            });
-        });
-    </script>
-@endpush
+    <div class="panel-card">
+        <div class="panel-card-header"><h2 class="panel-card-title">{{ __('messages.permissions') }}</h2></div>
+        <div class="panel-card-body">
+            @include('admin.roles._permission_groups', ['checked' => old('perms', [])])
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <button type="submit" class="btn-primary-sm"><i class="bi bi-save"></i> {{ __('messages.Save') }}</button>
+        <a href="{{ route('admin.role.index') }}" class="btn-outline-sm">{{ __('messages.Cancel') }}</a>
+    </div>
+</form>
+
+@endsection

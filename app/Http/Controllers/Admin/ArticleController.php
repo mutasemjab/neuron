@@ -9,6 +9,14 @@ use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:article-table')->only(['index']);
+        $this->middleware('permission:article-add')->only(['create', 'store']);
+        $this->middleware('permission:article-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:article-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $articles = Article::latest('id')->get();

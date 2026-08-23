@@ -46,14 +46,8 @@
                 <a href="{{ route('home') }}#home">{{ __('front.nav_home') }}</a>
                 <a href="{{ route('home') }}#about">{{ __('front.nav_about') }}</a>
                 <a href="{{ route('home') }}#team">{{ __('front.nav_team') }}</a>
-                <div class="has-drop">
-                    <a href="{{ route('home') }}#svc-list">{{ __('front.nav_services') }}</a>
-                    <div class="drop">
-                        @foreach ($navServices as $navService)
-                            <a href="{{ route('home') }}#services">{{ $navService->title }}</a>
-                        @endforeach
-                    </div>
-                </div>
+                <a href="{{ route('home') }}#svc-list">{{ __('front.nav_services') }}</a>
+
                 <a href="{{ route('home') }}#insurance">{{ __('front.Approved Insurance') }}</a>
                 <a href="{{ route('home') }}#videos">{{ __('front.nav_videos') }}</a>
 

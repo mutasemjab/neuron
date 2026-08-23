@@ -2,89 +2,70 @@
 @section('title', __('messages.role'))
 
 @section('content')
-    <!-- Start Content-->
-    <div class="container-fluid">
 
-        <div class="row">
-            <div class="col-12">
-                <div class="page-title-box">
-                    <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">{{ env('APP_NAME') }}</a></li>
-                            <li class="breadcrumb-item active">{{ __('messages.role') }}</li>
-                        </ol>
-                    </div>
-                    <h4 class="page-title">{{ __('messages.role') }}</h4>
-                </div>
+<div class="page-header d-flex align-items-start justify-content-between flex-wrap gap-3">
+    <div>
+        <h1 class="page-title">{{ __('messages.roles_permissions') }}</h1>
+        <p class="page-sub">إدارة الأدوار وصلاحيات الوصول للوحة التحكم</p>
+    </div>
+    @can('role-add')
+    <a href="{{ route('admin.role.create') }}" class="btn-primary-sm">
+        <i class="bi bi-plus-lg"></i> {{ __('messages.new_role') }}
+    </a>
+    @endcan
+</div>
+
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show mb-3">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
+<div class="panel-card">
+    <div class="panel-card-body p-0">
+        @if($data->isEmpty())
+            <div class="text-center py-5 text-muted">
+                <i class="bi bi-shield-check" style="font-size:2.5rem;opacity:.3"></i>
+                <p class="mt-2">لا توجد أدوار بعد</p>
             </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row mb-2">
-                                <div class="col-md-12">
-
-                                </div>
-                            <div class="col-sm-4">
-
-                                {{ $data->links() }}
-
+        @else
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>{{ __('messages.name_field') }}</th>
+                        <th>{{ __('messages.permissions') }}</th>
+                        <th style="width:130px">{{ __('messages.action') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data as $role)
+                    <tr>
+                        <td style="font-weight:500">{{ $role->name }}</td>
+                        <td><span class="badge bg-light text-dark border">{{ $role->permissions->count() }} صلاحية</span></td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                @can('role-edit')
+                                <a href="{{ route('admin.role.edit', $role->id) }}" class="btn-outline-sm"><i class="bi bi-pencil"></i></a>
+                                @endcan
+                                @can('role-delete')
+                                <form action="{{ route('admin.role.delete') }}" method="POST" onsubmit="return confirm('هل أنت متأكد من الحذف؟')">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $role->id }}">
+                                    <button type="submit" class="btn-danger-sm"><i class="bi bi-trash"></i></button>
+                                </form>
+                                @endcan
                             </div>
-                            <div class="col-sm-8">
-                                <div class="text-sm-right">
-                                    <a type="button" href="{{ route("admin.role.create") }}"
-                                        class="btn btn-primary waves-effect waves-light mb-2 text-white">{{ __('messages.new_role') }}
-                                    </a>
-                                </div>
-                            </div><!-- end col-->
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table table-centered table-nowrap table-hover mb-0">
-                                <thead class="thead-light">
-
-                                    <tr>
-                                         <th>{{ __('messages.name_field') }}</th>
-                                        <th>{{ __('messages.permissions') }}</th>
-                                         <th style="width: 82px;">{{ __('messages.action') }}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($data as $value)
-                                        <tr>
-                                            <td><span class="font-weight-bold">{{ $value->name }}</span></td>
-                                            <td>
-                                                @foreach ($value->permissions as $permission)
-                                                    {{ $permission->name }}<br>
-                                                @endforeach
-                                            </td>
-                                             <td>
-                                                <a class="btn btn-sm btn-outline-info"
-                                                    href="{{ route("admin.role.edit",  $value->id) }}"><i
-                                                        class="mdi mdi-pencil-box"></i> {{ __('messages.Edit') }}</a>
-                                              <a class="btn btn-sm btn-outline-danger" href="javascript:void(0)"
-                                                   @if (env('Environment') == 'sendbox') onclick="myFunction()" @else onclick="Delete('{{ $value->id }}','{{ route('admin.role.delete') }}')" @endif><i
-                                                        class="mdi mdi-trash-can"></i>{{ __('messages.Delete') }}</a>
-
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div> <!-- end card-body-->
-                </div> <!-- end card-->
-            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    </div> <!-- container -->
-@endsection
+        <div class="p-3">{{ $data->links() }}</div>
+        @endif
+    </div>
+</div>
 
-@push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.3/dist/sweetalert2.min.js"></script>
-    <script src="{{ asset('assets/js/category.js') }}"></script>
-@endpush
+@endsection

@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class VideoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:video-table')->only(['index']);
+        $this->middleware('permission:video-add')->only(['create', 'store']);
+        $this->middleware('permission:video-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:video-delete')->only(['destroy']);
+    }
+
     public function index()
     {
         $videos = Video::orderBy('order_index')->get();

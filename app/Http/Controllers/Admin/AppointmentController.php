@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:appointment-table')->only(['index', 'show']);
+        $this->middleware('permission:appointment-status')->only(['updateStatus']);
+        $this->middleware('permission:appointment-delete')->only(['destroy']);
+    }
+
     public function index(Request $request)
     {
         $appointments = Appointment::with(['branch', 'doctor'])

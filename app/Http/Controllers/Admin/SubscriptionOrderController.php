@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class SubscriptionOrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:subscription-order-table')->only(['index', 'show']);
+        $this->middleware('permission:subscription-order-delete')->only(['destroy']);
+    }
+
     public function index(Request $request)
     {
         $subscriptionOrders = SubscriptionOrder::with('plan')
