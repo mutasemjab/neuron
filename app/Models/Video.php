@@ -31,4 +31,21 @@ class Video extends Model
     {
         return uploaded_image($this->thumbnail, 'videos');
     }
+
+    /**
+     * YouTube embed URL, if video_url is a recognizable YouTube link — null otherwise
+     * (caller falls back to opening video_url directly).
+     */
+    public function getEmbedUrlAttribute(): ?string
+    {
+        if (! $this->video_url) {
+            return null;
+        }
+
+        if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/', $this->video_url, $m)) {
+            return "https://www.youtube.com/embed/{$m[1]}";
+        }
+
+        return null;
+    }
 }

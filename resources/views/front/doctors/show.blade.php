@@ -664,31 +664,6 @@
                         </div>
                     @endif
 
-
-
-                    @if ($doctor->publications->isNotEmpty())
-                        <div class="doc-card reveal" style="background:var(--paper-2)">
-                            <div class="doc-card-title">
-                                <div class="doc-card-icon-wrap">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                                    </svg>
-                                </div>
-                                {{ app()->getLocale() === 'ar' ? 'عدد الأبحاث' : 'Publications' }}
-                            </div>
-                            <div style="text-align:center;padding:10px 0">
-                                <div
-                                    style="font-family:var(--f-num);font-size:3rem;font-weight:900;color:var(--teal);line-height:1">
-                                    {{ $doctor->publications->count() }}
-                                </div>
-                                <div style="color:var(--muted);font-size:.88rem;margin-top:6px">
-                                    {{ app()->getLocale() === 'ar' ? 'بحث ومنشور علمي' : 'Research Papers' }}
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
                 </div>{{-- end .doc-aside --}}
 
             </div>

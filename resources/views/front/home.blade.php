@@ -216,8 +216,6 @@
   <div class="wrap">
     <div class="sec-head center reveal">
       <span class="eyebrow">{{ sett('plans_section.eyebrow') }}</span>
-      <h2>{{ sett('plans_section.heading_main') }} <span class="tealword">{{ sett('plans_section.heading_highlight') }}</span></h2>
-      <p>{{ sett('plans_section.paragraph') }}</p>
     </div>
 
     <div class="plans-grid reveal d1">
@@ -266,8 +264,35 @@
       <div class="ins-card"><b>{{ $company->name }}</b>@if($company->subtitle)<small>{{ $company->subtitle }}</small>@endif</div>
       @endforeach
     </div>
+    @if($insuranceCompanies->count() > 4)
+    <div class="ins-more-wrap reveal d2">
+      <button type="button" class="btn btn-ghost" id="insMoreBtn">
+        <span>{{ app()->getLocale() === 'ar' ? 'عرض المزيد' : 'Show More' }}</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+    @endif
   </div>
 </section>
+
+@if($insuranceCompanies->count() > 4)
+<!-- ============ INSURANCE — FULL LIST MODAL ============ -->
+<div class="modal" id="insModal">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-card ins-modal-card">
+    <button class="modal-close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="modal-body">
+      <h3>{{ sett('insurance_section.heading_main') }} {{ sett('insurance_section.heading_highlight') }}</h3>
+      <p class="modal-sub">{{ sett('insurance_section.paragraph') }}</p>
+      <div class="ins-modal-grid">
+        @foreach($insuranceCompanies as $company)
+        <div class="ins-card"><b>{{ $company->name }}</b>@if($company->subtitle)<small>{{ $company->subtitle }}</small>@endif</div>
+        @endforeach
+      </div>
+    </div>
+  </div>
+</div>
+@endif
 
 <!-- ============ VIDEOS ============ -->
 @if($videos->isNotEmpty())
@@ -282,28 +307,37 @@
 
     <div class="vid-grid reveal d1">
       @if($mainVideo)
-      <a class="vid main" href="{{ $mainVideo->video_url ?: '#' }}" target="_blank" rel="noopener">
+      <button type="button" class="vid main" data-video-url="{{ $mainVideo->embed_url }}" data-fallback-url="{{ $mainVideo->video_url }}">
         <div class="ph" data-label="{{ $mainVideo->title }}">
           @if($mainVideo->thumbnail)<img data-src="{{ $mainVideo->thumbnail_url }}" alt="{{ $mainVideo->title }}">@endif
         </div>
         <span class="vid-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
         <div class="vid-info">@if($mainVideo->tag)<span class="tag">{{ $mainVideo->tag }}</span>@endif<h3>{{ $mainVideo->title }}</h3></div>
-      </a>
+      </button>
       @endif
       <div class="vid-col">
         @foreach($smallVideos as $video)
-        <a class="vid small" href="{{ $video->video_url ?: '#' }}" target="_blank" rel="noopener">
+        <button type="button" class="vid small" data-video-url="{{ $video->embed_url }}" data-fallback-url="{{ $video->video_url }}">
           <div class="ph" data-label="{{ $video->title }}">
             @if($video->thumbnail)<img data-src="{{ $video->thumbnail_url }}" alt="{{ $video->title }}">@endif
           </div>
           <span class="vid-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
           <div class="vid-info">@if($video->tag)<span class="tag">{{ $video->tag }}</span>@endif<h3>{{ $video->title }}</h3></div>
-        </a>
+        </button>
         @endforeach
       </div>
     </div>
   </div>
 </section>
+
+<!-- ============ VIDEO PLAYER MODAL ============ -->
+<div class="modal" id="videoModal">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-card video-modal-card">
+    <button class="modal-close" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="video-modal-frame" id="videoModalFrame"></div>
+  </div>
+</div>
 @endif
 
 <!-- ============ LOCATIONS ============ -->
@@ -415,7 +449,10 @@
               <div class="testi-author">
                 <div class="testi-av-wrap">
                   <div class="av ph" data-label="{{ $tInitials }}">
-                    @if($testimonial->avatar)<img data-src="{{ $testimonial->avatar_url }}" alt="{{ $testimonial->patient_name }}">@endif
+                    @if($testimonial->avatar)<img data-src="{{ $testimonial->avatar_url }}" alt="{{ $testimonial->patient_name }}">
+                    @else
+                    <img data-src="{{ asset('assets_front/images/patient.png') }}" alt="{{ $testimonial->patient_name }}">
+                    @endif
                   </div>
                   <span class="testi-verified-dot" title="{{ app()->getLocale() === 'ar' ? 'مريض موثق' : 'Verified Patient' }}">
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
@@ -567,3 +604,45 @@
 
 
 @endsection
+
+@push('scripts')
+<script>
+(function () {
+  const btn   = document.getElementById('insMoreBtn');
+  const modal = document.getElementById('insModal');
+  if (!btn || !modal) return;
+
+  btn.addEventListener('click', () => modal.classList.add('open'));
+  modal.querySelectorAll('[data-close]').forEach(el => {
+    el.addEventListener('click', () => modal.classList.remove('open'));
+  });
+})();
+
+(function () {
+  const modal = document.getElementById('videoModal');
+  const frame = document.getElementById('videoModalFrame');
+  if (!modal || !frame) return;
+
+  function closeVideoModal() {
+    modal.classList.remove('open');
+    frame.innerHTML = '';
+  }
+
+  document.querySelectorAll('[data-video-url]').forEach(el => {
+    el.addEventListener('click', () => {
+      const embedUrl = el.dataset.videoUrl;
+      if (embedUrl) {
+        frame.innerHTML = '<iframe src="' + embedUrl + '?autoplay=1&rel=0" title="video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+        modal.classList.add('open');
+      } else if (el.dataset.fallbackUrl) {
+        window.open(el.dataset.fallbackUrl, '_blank', 'noopener');
+      }
+    });
+  });
+
+  modal.querySelectorAll('[data-close]').forEach(el => {
+    el.addEventListener('click', closeVideoModal);
+  });
+})();
+</script>
+@endpush

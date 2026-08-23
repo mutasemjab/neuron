@@ -1802,6 +1802,9 @@ body.nav-open .burger span:nth-child(3) {
   font-weight: 700;
   font-size: 1.3rem;
   color: var(--ink);
+  text-align: center;
+  width: 100%;
+  padding: 0 14px;
   transition: color .35s var(--ease), transform .35s var(--ease)
 }
 
@@ -1810,8 +1813,14 @@ body.nav-open .burger span:nth-child(3) {
   font-size: .68rem;
   color: var(--muted);
   margin-top: 4px;
+  text-align: center;
+  width: 100%;
+  padding: 0 10px;
   transition: color .35s var(--ease)
 }
+
+/* show only the first 2 rows; the rest are reachable via the "show more" modal */
+.ins-grid .ins-card:nth-child(n+13) { display: none; }
 
 .ins-card:hover b {
   color: var(--teal);
@@ -1827,12 +1836,54 @@ body.nav-open .burger span:nth-child(3) {
   .ins-grid {
     grid-template-columns: repeat(3, 1fr)
   }
+  .ins-grid .ins-card:nth-child(n+7) { display: none; }
 }
 
 @media(max-width:480px) {
   .ins-grid {
     grid-template-columns: repeat(2, 1fr)
   }
+  .ins-grid .ins-card:nth-child(n+5) { display: none; }
+}
+
+/* ── "Show more" button + full-list modal ─────────────── */
+.ins-more-wrap { display:flex; justify-content:center; margin-top:30px; }
+
+.ins-modal-card { display:block; max-width:960px; }
+
+/* ── Video player modal ────────────────────────────────── */
+.video-modal-card { display:block; max-width:960px; background:#000; }
+.video-modal-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background:#000;
+}
+.video-modal-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-modal-card .modal-close {
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+.video-modal-card .modal-close:hover { background: var(--teal); }
+
+.ins-modal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media(max-width:700px) {
+  .ins-modal-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media(max-width:480px) {
+  .ins-modal-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ==================== VIDEOS ==================== */
@@ -1854,10 +1905,21 @@ body.nav-open .burger span:nth-child(3) {
 
 .vid {
   position: relative;
+  display: block;
+  width: 100%;
   border-radius: var(--r-lg);
   overflow: hidden;
   cursor: pointer;
-  isolation: isolate
+  isolation: isolate;
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  text-align: start;
+  font: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .vid.main {
