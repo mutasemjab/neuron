@@ -167,6 +167,17 @@ document.querySelectorAll('[data-service]').forEach(el=>{
   el.addEventListener('click',()=>{document.querySelector('.svc-list')?.scrollIntoView({behavior:'smooth'});});
 });
 
+/* ============ SERVICES SHOW MORE ============ */
+(()=>{
+  const btn=document.getElementById('svcMoreBtn');
+  if(!btn)return;
+  btn.addEventListener('click',()=>{
+    const isOpen=btn.classList.toggle('open');
+    document.querySelectorAll('.svc-row--hidden').forEach(r=>{r.style.display=isOpen?'grid':'none';});
+    btn.querySelector('span').textContent=isOpen?btn.dataset.labelLess:btn.dataset.labelMore;
+  });
+})();
+
 /* ============ BOOKING FORM(S) ============ */
 document.querySelectorAll('form.book-ajax-form').forEach(bookForm=>{
   const successEl=bookForm.parentElement.querySelector('.form-success');

@@ -22,11 +22,13 @@ return [
 
     'topbar_branches' => 'فروع في المملكة',
     'topbar_hours'    => 'السبت – الخميس',
-
+     'testimonials' => 'آراء المرضى',
     // ── Buttons / CTAs ───────────────────────────────────────────────
     'book_now'            => 'احجز موعدك الآن',
     'subscribe_now'       => 'اشترك الآن',
     'explore_services'    => 'استكشف خدماتنا',
+    'svc_show_more'       => 'عرض جميع الخدمات',
+    'svc_show_less'       => 'عرض أقل',
     'read_details'        => 'اقرأ التفاصيل',
     'read_article'        => 'اقرأ المقال',
     'all_articles'        => 'كل المقالات',
@@ -42,7 +44,7 @@ return [
     'related_articles'    => 'مقالات ذات صلة',
     'testi_treated_by'    => 'الطبيب المعالج',
     'testi_procedure'     => 'الإجراء',
-
+    'Approved Insurance' => 'التأمينات المعتمدة',
     // ── Doctor modal ─────────────────────────────────────────────────
     'modal_bio'         => 'نبذة',
     'modal_certs'       => 'الشهادات والخبرات',

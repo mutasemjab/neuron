@@ -44,6 +44,7 @@ return [
   'branches' => 'الفروع',
   'faqs' => 'الأسئلة الشائعة',
   'insurance_companies' => 'شركات التأمين',
+  'Approved Insurance' => 'التأمينات المعتمدة',
   'videos' => 'الفيديوهات',
   'subscription_plans' => 'باقات الاشتراك',
   'subscription_orders' => 'طلبات الاشتراك',

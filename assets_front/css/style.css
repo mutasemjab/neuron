@@ -1496,6 +1496,46 @@ body.nav-open .burger span:nth-child(3) {
   color: #fff
 }
 
+.svc-row--hidden {
+  display: none
+}
+
+.svc-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px
+}
+
+.svc-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,.25);
+  color: #fff;
+  font-size: .95rem;
+  font-weight: 600;
+  padding: 14px 32px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .3s, border-color .3s
+}
+
+.svc-more-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform .35s var(--ease)
+}
+
+.svc-more-btn:hover {
+  background: var(--teal);
+  border-color: var(--teal)
+}
+
+.svc-more-btn.open svg {
+  transform: rotate(180deg)
+}
+
 /* ==================== SUBSCRIPTION PLANS ==================== */
 .plans {
   padding: 110px 0;

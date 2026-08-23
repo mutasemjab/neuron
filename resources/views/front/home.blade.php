@@ -179,7 +179,7 @@
 </section>
 
 <!-- ============ SERVICES DETAIL LIST ============ -->
-<section class="svc-list">
+<section class="svc-list" id="svc-list">
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">{{ sett('svc_list_section.eyebrow') }}</span>
@@ -187,15 +187,26 @@
       <p>{{ sett('svc_list_section.paragraph') }}</p>
     </div>
 
-    <div class="svc-rows reveal d1">
+    <div class="svc-rows reveal d1" id="svcRows">
       @foreach($services as $service)
-      <div class="svc-row" data-service="{{ $service->id }}">
+      <div class="svc-row{{ $loop->iteration > 3 ? ' svc-row--hidden' : '' }}" data-service="{{ $service->id }}">
         <span class="n">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
         <div class="t"><h3>{{ $service->title }}</h3><p>{{ $service->description }}</p></div>
         <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></span>
       </div>
       @endforeach
     </div>
+
+    @if($services->count() > 3)
+    <div class="svc-more-wrap reveal d2">
+      <button class="svc-more-btn" id="svcMoreBtn"
+        data-label-more="{{ __('front.svc_show_more') }}"
+        data-label-less="{{ __('front.svc_show_less') }}">
+        <span>{{ __('front.svc_show_more') }}</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+    @endif
   </div>
 </section>
 

@@ -22,11 +22,14 @@ return [
 
     'topbar_branches' => 'branches in the Kingdom',
     'topbar_hours'    => 'Sat – Thu',
-
+ 'Approved Insurance' => 'Approved Insurance',
+   'testimonials' => 'Testimonials',
     // ── Buttons / CTAs ───────────────────────────────────────────────
     'book_now'            => 'Book Your Appointment',
     'subscribe_now'       => 'Subscribe Now',
     'explore_services'    => 'Explore Our Services',
+    'svc_show_more'       => 'View All Services',
+    'svc_show_less'       => 'Show Less',
     'read_details'        => 'Read Details',
     'read_article'        => 'Read Article',
     'all_articles'        => 'All Articles',

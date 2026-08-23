@@ -269,18 +269,7 @@
         <h1>{{ $doctor->name }}</h1>
         <p class="doc-hero-subtitle">{{ $doctor->title }}</p>
 
-        @if($doctor->tags_list)
-        <div class="doc-hero-tags">
-          @foreach($doctor->tags_list as $tag)
-            <span class="doc-tag">{{ $tag }}</span>
-          @endforeach
-        </div>
-        @endif
-
-        <a href="{{ route('booking.page') }}" class="btn btn-primary">
-          <span>{{ __('front.book_with_doctor') }}</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
-        </a>
+    
       </div>
 
       <div class="doc-hero-img">
