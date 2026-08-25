@@ -355,7 +355,7 @@
 
     <div class="l-brand">
         <div class="l-brand-badge">
-            <img src="<?php echo e(asset_v('assets_front/images/logo.png')); ?>" alt="<?php echo e(sett('identity.site_name')); ?>">
+            <img src="<?php echo e(asset_v('assets_front/images/logonav.png')); ?>" alt="<?php echo e(sett('identity.site_name')); ?>">
         </div>
     </div>
 

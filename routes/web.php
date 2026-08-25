@@ -22,6 +22,9 @@ Route::group([
     Route::get('/book-appointment', [HomeController::class, 'bookingPage'])->name('booking.page');
     Route::post('/contact',       [HomeController::class, 'contact'])->name('contact.store');
     Route::post('/appointments',  [HomeController::class, 'storeAppointment'])->name('appointments.store');
+    Route::post('/consultations', [HomeController::class, 'storeConsultation'])->name('consultations.store');
+    Route::view('/privacy-policy', 'front.privacy_policy')->name('privacy.policy');
+    Route::view('/terms', 'front.terms')->name('terms.conditions');
 
     Route::get('/articles',           [ArticleController::class, 'index'])->name('articles.index');
     Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');

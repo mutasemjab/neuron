@@ -57,7 +57,7 @@
                             <div class="col-12 col-md-6">
                                 <label class="form-label">{{ $def['label'] }} (عربي)</label>
                                 @if($def['type'] === 'textarea')
-                                    <textarea name="settings[{{ $key }}][ar]" rows="3" class="form-control">{{ old("settings.$key.ar", $current->value_ar ?? '') }}</textarea>
+                                    <textarea name="settings[{{ $key }}][ar]" rows="{{ $def['rows'] ?? 3 }}" class="form-control">{{ old("settings.$key.ar", $current->value_ar ?? '') }}</textarea>
                                 @else
                                     <input type="text" name="settings[{{ $key }}][ar]" class="form-control"
                                            value="{{ old("settings.$key.ar", $current->value_ar ?? '') }}">
@@ -66,7 +66,7 @@
                             <div class="col-12 col-md-6">
                                 <label class="form-label">{{ $def['label'] }} (English)</label>
                                 @if($def['type'] === 'textarea')
-                                    <textarea name="settings[{{ $key }}][en]" rows="3" class="form-control" dir="ltr">{{ old("settings.$key.en", $current->value_en ?? '') }}</textarea>
+                                    <textarea name="settings[{{ $key }}][en]" rows="{{ $def['rows'] ?? 3 }}" class="form-control" dir="ltr">{{ old("settings.$key.en", $current->value_en ?? '') }}</textarea>
                                 @else
                                     <input type="text" name="settings[{{ $key }}][en]" class="form-control" dir="ltr"
                                            value="{{ old("settings.$key.en", $current->value_en ?? '') }}">

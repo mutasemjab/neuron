@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\CareerJobController;
+use App\Http\Controllers\Admin\ClosedDateController;
+use App\Http\Controllers\Admin\ConsultationController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DoctorController;
@@ -105,6 +107,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::get('job-applications/{jobApplication}',      [JobApplicationController::class, 'show'])->name('admin.job-applications.show');
         Route::post('job-applications/{jobApplication}/status', [JobApplicationController::class, 'updateStatus'])->name('admin.job-applications.status');
         Route::delete('job-applications/{jobApplication}',   [JobApplicationController::class, 'destroy'])->name('admin.job-applications.destroy');
+
+        // ── Online Consultations (outside Jordan) ─────────────────────
+        Route::get('consultations',                       [ConsultationController::class, 'index'])->name('admin.consultations.index');
+        Route::get('consultations/{consultation}',        [ConsultationController::class, 'show'])->name('admin.consultations.show');
+        Route::post('consultations/{consultation}/status',[ConsultationController::class, 'updateStatus'])->name('admin.consultations.status');
+        Route::delete('consultations/{consultation}',     [ConsultationController::class, 'destroy'])->name('admin.consultations.destroy');
+
+        // ── Closed Dates (holidays for domestic booking calendar) ────
+        Route::get('closed-dates',              [ClosedDateController::class, 'index'])->name('admin.closed-dates.index');
+        Route::post('closed-dates',             [ClosedDateController::class, 'store'])->name('admin.closed-dates.store');
+        Route::delete('closed-dates/{closedDate}', [ClosedDateController::class, 'destroy'])->name('admin.closed-dates.destroy');
 
         // ── Banners ───────────────────────────────────────────────────
         Route::post('banners/{banner}/toggle', [BannerController::class, 'toggleActive'])->name('admin.banners.toggle');

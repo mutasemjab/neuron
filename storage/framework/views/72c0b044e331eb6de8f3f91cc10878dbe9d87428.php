@@ -18,7 +18,7 @@
         
         <div class="foot-brand">
           <a href="<?php echo e(route('home')); ?>" class="foot-logo-link">
-            <img src="<?php echo e(asset_v('assets_front/images/logo.png')); ?>" alt="<?php echo e(sett('identity.site_name')); ?>" class="foot-logo-img">
+            <img src="<?php echo e(asset_v('assets_front/images/logonav.png')); ?>" alt="<?php echo e(sett('identity.site_name')); ?>" class="foot-logo-img">
           </a>
           <p class="foot-brand-desc"><?php echo e(sett('footer.about_text')); ?></p>
           <a href="<?php echo e(route('booking.page')); ?>" class="foot-book-cta">
@@ -116,9 +116,9 @@
       <div class="foot-bottom">
         <span class="foot-copy">© <?php echo e(now()->year); ?> <?php echo e(sett('footer.copyright_brand')); ?>. <?php echo e(sett('footer.rights_text')); ?>.</span>
         <div class="foot-legal">
-          <a href="#"><?php echo e(__('front.footer_privacy')); ?></a>
+          <a href="<?php echo e(route('privacy.policy')); ?>"><?php echo e(__('front.footer_privacy')); ?></a>
           <span class="foot-dot"></span>
-          <a href="#"><?php echo e(__('front.footer_terms')); ?></a>
+          <a href="<?php echo e(route('terms.conditions')); ?>"><?php echo e(__('front.footer_terms')); ?></a>
         </div>
       </div>
     </div>

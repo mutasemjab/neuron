@@ -3,7 +3,7 @@
     {{-- Brand --}}
     <div class="sidebar-brand">
         <div class="brand-icon">
-            <i class="bi bi-heart-pulse-fill"></i>
+            <img src="{{ asset_v('assets_front/images/logo.png') }}" alt="{{ sett('identity.site_name') }}">
         </div>
         <span class="brand-text">{{ __('messages.edu_platform') }}</span>
     </div>
@@ -22,7 +22,7 @@
             </li>
         </ul>
 
-        @canany(['appointment-table', 'contact-message-table', 'job-application-table'])
+        @canany(['appointment-table', 'consultation-table', 'contact-message-table', 'job-application-table', 'closed-date-table'])
         <div class="nav-label">{{ __('messages.bookings') }}</div>
         <ul>
             @can('appointment-table')
@@ -31,6 +31,24 @@
                     class="nav-link {{ request()->routeIs('admin.appointments.*') ? 'active' : '' }}">
                     <i class="nav-icon bi bi-calendar-check"></i>
                     <span>{{ __('messages.appointments') }}</span>
+                </a>
+            </li>
+            @endcan
+            @can('consultation-table')
+            <li class="nav-item">
+                <a href="{{ route('admin.consultations.index') }}"
+                    class="nav-link {{ request()->routeIs('admin.consultations.*') ? 'active' : '' }}">
+                    <i class="nav-icon bi bi-camera-video"></i>
+                    <span>الاستشارات الأونلاين</span>
+                </a>
+            </li>
+            @endcan
+            @can('closed-date-table')
+            <li class="nav-item">
+                <a href="{{ route('admin.closed-dates.index') }}"
+                    class="nav-link {{ request()->routeIs('admin.closed-dates.*') ? 'active' : '' }}">
+                    <i class="nav-icon bi bi-calendar-x"></i>
+                    <span>العطل والأيام المغلقة</span>
                 </a>
             </li>
             @endcan

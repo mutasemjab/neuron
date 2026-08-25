@@ -144,6 +144,75 @@ class SiteSettingSeeder extends Seeder
             ['footer.about_text', 'مركز متخصص في تشخيص وعلاج أمراض العمود الفقري والأعصاب في المملكة الأردنية الهاشمية، بأحدث التقنيات وأعلى معايير الرعاية.', 'A specialized center for diagnosing and treating spine and nerve conditions in the Hashemite Kingdom of Jordan, using the latest technology and the highest standards of care.', 'footer'],
             ['footer.copyright_brand', 'عيادة نيورون', 'Neuron Clinic', 'footer'],
             ['footer.rights_text', 'جميع الحقوق محفوظة', 'All rights reserved', 'footer'],
+
+            // legal pages
+            ['legal.privacy_title', 'سياسة الخصوصية', 'Privacy Policy', 'legal_pages'],
+            ['legal.privacy_content',
+                "## مقدمة\n"
+                ."تحترم عيادات نيورون خصوصية زوارها ومرضاها، وتلتزم بحماية بياناتهم الشخصية والطبية. توضّح هذه السياسة كيف نجمع بياناتك ونستخدمها ونحميها عند استخدامك لموقعنا الإلكتروني أو خدماتنا، بما في ذلك حجز المواعيد وطلبات الاستشارة الأونلاين.\n"
+                ."## البيانات التي نجمعها\n"
+                ."بيانات التعريف الأساسية: الاسم، رقم الهاتف، البريد الإلكتروني، بلد الإقامة، تاريخ الميلاد.\n"
+                ."البيانات الطبية التي تزوّدنا بها طواعية: وصف الحالة، التقارير والصور الطبية المرفقة.\n"
+                ."تفاصيل الحجز أو طلب الاستشارة: الفرع، التاريخ والوقت المفضّل، طريقة الدفع.\n"
+                ."## كيف نستخدم بياناتك\n"
+                ."التواصل معك لتأكيد المواعيد أو تنسيق الاستشارات الأونلاين.\n"
+                ."مراجعة المعلومات الطبية المرفقة من قبل الطاقم الطبي المختص لأغراض تقديم الاستشارة أو الرعاية الطبية.\n"
+                ."تحسين خدماتنا وتجربة المستخدم على الموقع.\n"
+                ."## حماية البيانات\n"
+                ."نتّخذ إجراءات تقنية وتنظيمية معقولة لحماية بياناتك من الوصول أو الاستخدام أو الإفصاح غير المصرّح به. لا نشارك بياناتك الطبية أو الشخصية مع أي جهة خارجية إلا بالقدر اللازم لتقديم الخدمة الطبية المطلوبة أو عند وجود التزام قانوني بذلك.\n"
+                ."## حقوقك\n"
+                ."يحق لك الاستفسار عن البيانات التي نحتفظ بها بخصوصك، أو طلب تصحيحها أو حذفها، من خلال التواصل معنا عبر بيانات الاتصال المتوفرة على الموقع.\n"
+                ."## التواصل معنا\n"
+                ."لأي استفسار يتعلق بهذه السياسة أو بياناتك، يمكنك التواصل معنا عبر معلومات الاتصال الموضحة في صفحة \"تواصل معنا\" على الموقع.",
+                "## Introduction\n"
+                ."Neuron Clinics respects the privacy of our visitors and patients and is committed to protecting their personal and medical data. This policy explains how we collect, use, and protect your information when you use our website or services, including appointment booking and online consultation requests.\n"
+                ."## Information We Collect\n"
+                ."Basic identification details: name, phone number, email address, country of residence, date of birth.\n"
+                ."Medical information you voluntarily provide: description of your condition, attached medical reports and imaging.\n"
+                ."Booking or consultation details: branch, preferred date and time, payment method.\n"
+                ."## How We Use Your Information\n"
+                ."To contact you to confirm appointments or arrange online consultations.\n"
+                ."To allow our medical staff to review attached medical information for the purpose of providing consultation or care.\n"
+                ."To improve our services and website experience.\n"
+                ."## Data Protection\n"
+                ."We take reasonable technical and organizational measures to protect your data from unauthorized access, use, or disclosure. We do not share your personal or medical information with third parties except as necessary to provide the requested medical service or where required by law.\n"
+                ."## Your Rights\n"
+                ."You may request information about the data we hold about you, or request its correction or deletion, by contacting us through the contact details available on the website.\n"
+                ."## Contact Us\n"
+                ."For any questions regarding this policy or your data, please contact us via the contact information on our \"Contact Us\" page.",
+                'legal_pages'],
+
+            ['legal.terms_title', 'الشروط والأحكام', 'Terms & Conditions', 'legal_pages'],
+            ['legal.terms_content',
+                "## مقدمة\n"
+                ."يُعتبر استخدامك لموقع عيادات نيورون الإلكتروني وخدماته موافقةً منك على الشروط والأحكام الموضحة أدناه. يرجى قراءتها بعناية قبل استخدام الموقع أو تقديم طلب حجز أو استشارة.\n"
+                ."## استخدام الموقع\n"
+                ."الموقع مخصص لتقديم معلومات عامة عن خدمات عيادات نيورون، وتمكين المرضى من حجز المواعيد وتقديم طلبات الاستشارة الأونلاين. يلتزم المستخدم بتقديم معلومات صحيحة ودقيقة عند تعبئة أي نموذج على الموقع.\n"
+                ."## طبيعة طلبات الحجز والاستشارة\n"
+                ."إرسال طلب حجز موعد أو طلب استشارة أونلاين عبر الموقع لا يعني تأكيد الموعد تلقائيًا. سيقوم فريق عيادات نيورون بالتواصل مع مقدّم الطلب لتأكيد الموعد أو الاستشارة واستكمال التفاصيل اللازمة.\n"
+                ."## إخلاء المسؤولية الطبية\n"
+                ."المحتوى المنشور على الموقع لأغراض تعريفية وتثقيفية عامة، ولا يُعتبر بديلاً عن الاستشارة الطبية المباشرة مع طبيب مختص. يجب على المريض دائمًا مراجعة الطبيب المعالج للحصول على تشخيص أو خطة علاج دقيقة لحالته.\n"
+                ."## الملكية الفكرية\n"
+                ."جميع المحتويات المنشورة على الموقع، بما في ذلك النصوص والشعارات والصور، هي ملك لعيادات نيورون ولا يجوز نسخها أو إعادة استخدامها دون إذن خطي مسبق.\n"
+                ."## التعديلات على الشروط\n"
+                ."تحتفظ عيادات نيورون بحقها في تعديل هذه الشروط والأحكام في أي وقت، ويُعتبر استمرار استخدامك للموقع بعد نشر أي تعديل موافقةً ضمنية على الشروط المعدّلة.\n"
+                ."## التواصل معنا\n"
+                ."لأي استفسار يتعلق بهذه الشروط، يمكنك التواصل معنا عبر معلومات الاتصال الموضحة في صفحة \"تواصل معنا\" على الموقع.",
+                "## Introduction\n"
+                ."By using the Neuron Clinics website and its services, you agree to the terms and conditions outlined below. Please read them carefully before using the website or submitting a booking or consultation request.\n"
+                ."## Use of the Website\n"
+                ."This website is intended to provide general information about Neuron Clinics' services and to enable patients to book appointments and submit online consultation requests. Users agree to provide accurate and truthful information when filling out any form on the website.\n"
+                ."## Nature of Booking and Consultation Requests\n"
+                ."Submitting an appointment booking or online consultation request through the website does not automatically confirm the appointment. The Neuron Clinics team will contact the requester to confirm the appointment or consultation and complete the necessary details.\n"
+                ."## Medical Disclaimer\n"
+                ."Content published on the website is for general informational and educational purposes only and is not a substitute for direct medical consultation with a qualified physician. Patients should always consult their treating physician for an accurate diagnosis or treatment plan.\n"
+                ."## Intellectual Property\n"
+                ."All content published on the website, including text, logos, and images, is the property of Neuron Clinics and may not be copied or reused without prior written permission.\n"
+                ."## Changes to These Terms\n"
+                ."Neuron Clinics reserves the right to modify these terms and conditions at any time. Continued use of the website after any changes are published constitutes acceptance of the revised terms.\n"
+                ."## Contact Us\n"
+                ."For any questions regarding these terms, please contact us via the contact information on our \"Contact Us\" page.",
+                'legal_pages'],
         ];
 
         foreach ($rows as [$key, $ar, $en, $group]) {

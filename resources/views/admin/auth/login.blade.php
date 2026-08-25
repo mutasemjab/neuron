@@ -355,7 +355,7 @@
 
     <div class="l-brand">
         <div class="l-brand-badge">
-            <img src="{{ asset_v('assets_front/images/logo.png') }}" alt="{{ sett('identity.site_name') }}">
+            <img src="{{ asset_v('assets_front/images/logonav.png') }}" alt="{{ sett('identity.site_name') }}">
         </div>
     </div>
 

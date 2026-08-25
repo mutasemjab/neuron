@@ -77,6 +77,8 @@ class RoleController extends Controller
             'appointment'            => 'طلبات الحجز',
             'job-application'        => 'طلبات التوظيف',
             'contact-message'        => 'رسائل التواصل',
+            'consultation'           => 'طلبات الاستشارة الأونلاين',
+            'closed-date'            => 'العطل والأيام المغلقة',
             'setting'                => 'الإعدادات',
         ];
 

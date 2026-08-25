@@ -57,7 +57,7 @@
                             <div class="col-12 col-md-6">
                                 <label class="form-label"><?php echo e($def['label']); ?> (عربي)</label>
                                 <?php if($def['type'] === 'textarea'): ?>
-                                    <textarea name="settings[<?php echo e($key); ?>][ar]" rows="3" class="form-control"><?php echo e(old("settings.$key.ar", $current->value_ar ?? '')); ?></textarea>
+                                    <textarea name="settings[<?php echo e($key); ?>][ar]" rows="<?php echo e($def['rows'] ?? 3); ?>" class="form-control"><?php echo e(old("settings.$key.ar", $current->value_ar ?? '')); ?></textarea>
                                 <?php else: ?>
                                     <input type="text" name="settings[<?php echo e($key); ?>][ar]" class="form-control"
                                            value="<?php echo e(old("settings.$key.ar", $current->value_ar ?? '')); ?>">
@@ -66,7 +66,7 @@
                             <div class="col-12 col-md-6">
                                 <label class="form-label"><?php echo e($def['label']); ?> (English)</label>
                                 <?php if($def['type'] === 'textarea'): ?>
-                                    <textarea name="settings[<?php echo e($key); ?>][en]" rows="3" class="form-control" dir="ltr"><?php echo e(old("settings.$key.en", $current->value_en ?? '')); ?></textarea>
+                                    <textarea name="settings[<?php echo e($key); ?>][en]" rows="<?php echo e($def['rows'] ?? 3); ?>" class="form-control" dir="ltr"><?php echo e(old("settings.$key.en", $current->value_en ?? '')); ?></textarea>
                                 <?php else: ?>
                                     <input type="text" name="settings[<?php echo e($key); ?>][en]" class="form-control" dir="ltr"
                                            value="<?php echo e(old("settings.$key.en", $current->value_en ?? '')); ?>">

@@ -125,4 +125,28 @@ return [
   'create_employee'  => 'Add Employee',
   'edit_employee'    => 'Edit Employee',
   'user_name_col'    => 'Username',
+  'contact_messages_title' => 'Contact Messages',
+'manage_contact_desc' => 'Manage and respond to contact messages.',
+
+'new_status' => 'New',
+'read_status' => 'Read',
+'replied_status' => 'Replied',
+'closed_status' => 'Closed',
+
+'search_contact_ph' => 'Search by name, email, subject...',
+
+'All Status' => 'All Status',
+
+'sender' => 'Sender',
+'subject_label' => 'Subject',
+'message_label' => 'Message',
+'date' => 'Date',
+'Status' => 'Status',
+'Actions' => 'Actions',
+
+'view_reply' => 'View & Reply',
+'close_message_confirm' => 'Are you sure you want to close this message?',
+'close_message' => 'Close Message',
+
+'no_messages_found' => 'No messages found.',
 ];

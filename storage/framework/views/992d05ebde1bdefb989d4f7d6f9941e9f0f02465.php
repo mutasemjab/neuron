@@ -3,7 +3,7 @@
     
     <div class="sidebar-brand">
         <div class="brand-icon">
-            <i class="bi bi-heart-pulse-fill"></i>
+            <img src="<?php echo e(asset_v('assets_front/images/logo.png')); ?>" alt="<?php echo e(sett('identity.site_name')); ?>">
         </div>
         <span class="brand-text"><?php echo e(__('messages.edu_platform')); ?></span>
     </div>
@@ -22,7 +22,7 @@
             </li>
         </ul>
 
-        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['appointment-table', 'contact-message-table', 'job-application-table'])): ?>
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any(['appointment-table', 'consultation-table', 'contact-message-table', 'job-application-table', 'closed-date-table'])): ?>
         <div class="nav-label"><?php echo e(__('messages.bookings')); ?></div>
         <ul>
             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('appointment-table')): ?>
@@ -31,6 +31,24 @@
                     class="nav-link <?php echo e(request()->routeIs('admin.appointments.*') ? 'active' : ''); ?>">
                     <i class="nav-icon bi bi-calendar-check"></i>
                     <span><?php echo e(__('messages.appointments')); ?></span>
+                </a>
+            </li>
+            <?php endif; ?>
+            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('consultation-table')): ?>
+            <li class="nav-item">
+                <a href="<?php echo e(route('admin.consultations.index')); ?>"
+                    class="nav-link <?php echo e(request()->routeIs('admin.consultations.*') ? 'active' : ''); ?>">
+                    <i class="nav-icon bi bi-camera-video"></i>
+                    <span>الاستشارات الأونلاين</span>
+                </a>
+            </li>
+            <?php endif; ?>
+            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('closed-date-table')): ?>
+            <li class="nav-item">
+                <a href="<?php echo e(route('admin.closed-dates.index')); ?>"
+                    class="nav-link <?php echo e(request()->routeIs('admin.closed-dates.*') ? 'active' : ''); ?>">
+                    <i class="nav-icon bi bi-calendar-x"></i>
+                    <span>العطل والأيام المغلقة</span>
                 </a>
             </li>
             <?php endif; ?>

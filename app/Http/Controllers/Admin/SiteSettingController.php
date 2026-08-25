@@ -33,7 +33,8 @@ class SiteSettingController extends Controller
                     'contact.address_short'  => ['label' => 'العنوان المختصر', 'type' => 'text', 'translatable' => true],
                     'contact.working_hours'  => ['label' => 'ساعات العمل', 'type' => 'text', 'translatable' => true],
                     'contact.branches_count' => ['label' => 'عدد الفروع', 'type' => 'text', 'translatable' => false],
-                    'contact.booking_notification_email' => ['label' => 'البريد الإلكتروني لإشعارات الحجوزات الجديدة', 'type' => 'text', 'translatable' => false],
+                    'contact.domestic_notification_emails'      => ['label' => 'إشعارات حجوزات "داخل الأردن" (بريد أو أكثر، مفصولة بفاصلة)', 'type' => 'text', 'translatable' => false],
+                    'contact.international_notification_emails' => ['label' => 'إشعارات "الاستشارة الأونلاين" (بريد أو أكثر، مفصولة بفاصلة)', 'type' => 'text', 'translatable' => false],
                 ],
             ],
             'social' => [
@@ -214,6 +215,15 @@ class SiteSettingController extends Controller
                     'footer.about_text'      => ['label' => 'نص عن العيادة', 'type' => 'textarea', 'translatable' => true],
                     'footer.copyright_brand' => ['label' => 'اسم العلامة في حقوق النشر', 'type' => 'text', 'translatable' => true],
                     'footer.rights_text'     => ['label' => 'نص جميع الحقوق محفوظة', 'type' => 'text', 'translatable' => true],
+                ],
+            ],
+            'legal_pages' => [
+                'label'  => 'الصفحات القانونية',
+                'fields' => [
+                    'legal.privacy_title'   => ['label' => 'عنوان صفحة سياسة الخصوصية', 'type' => 'text', 'translatable' => true],
+                    'legal.privacy_content' => ['label' => 'محتوى سياسة الخصوصية — سطر لكل فقرة، وابدأ السطر بـ ## لجعله عنوان فرعي', 'type' => 'textarea', 'translatable' => true, 'rows' => 16],
+                    'legal.terms_title'     => ['label' => 'عنوان صفحة الشروط والأحكام', 'type' => 'text', 'translatable' => true],
+                    'legal.terms_content'   => ['label' => 'محتوى الشروط والأحكام — سطر لكل فقرة، وابدأ السطر بـ ## لجعله عنوان فرعي', 'type' => 'textarea', 'translatable' => true, 'rows' => 16],
                 ],
             ],
         ];

@@ -39,7 +39,7 @@
         <div class="wrap">
             <a href="<?php echo e(route('home')); ?>" class="logo" aria-label="<?php echo e(sett('identity.site_name')); ?>">
 
-                <span class="logo-txt"><img src="<?php echo e(asset_v('assets_front/images/logo.png')); ?>" alt=""></span>
+                <span class="logo-txt"><img src="<?php echo e(asset_v('assets_front/images/logonav.png')); ?>" alt=""></span>
             </a>
 
             <div class="nav-links">
@@ -55,7 +55,7 @@
 
                 <a href="<?php echo e(route('home')); ?>#locations"><?php echo e(__('front.nav_locations')); ?></a>
                 <a href="<?php echo e(route('home')); ?>#faq"><?php echo e(__('front.nav_faq')); ?></a>
-                <a href="<?php echo e(route('home')); ?>#testimonials"><?php echo e(__('front.testimonials')); ?></a>
+                <a href="<?php echo e(route('home')); ?>#testi"><?php echo e(__('front.testimonials')); ?></a>
                 <a href="<?php echo e(route('home')); ?>#careers"><?php echo e(__('front.nav_careers')); ?></a>
             </div>
 
@@ -86,7 +86,7 @@
 
     <a href="<?php echo e(route('home')); ?>#locations"><?php echo e(__('front.nav_locations')); ?></a>
     <a href="<?php echo e(route('home')); ?>#faq"><?php echo e(__('front.nav_faq')); ?></a>
-    <a href="<?php echo e(route('home')); ?>#testimonials"><?php echo e(__('front.testimonials')); ?></a>
+    <a href="<?php echo e(route('home')); ?>#testi"><?php echo e(__('front.testimonials')); ?></a>
     <a href="<?php echo e(route('home')); ?>#careers"><?php echo e(__('front.nav_careers')); ?></a>
     <a href="<?php echo e(route('booking.page')); ?>" class="btn btn-primary"><span><?php echo e(__('front.book_now')); ?></span></a>
 </div>

@@ -1,21 +1,21 @@
 /* ================================================================
-   Admin Panel — EduPlatform
-   Theme: Blue  (#2563eb)
+   Admin Panel — Neuron Clinic
+   Theme: Teal  (#2a807d)
 ================================================================ */
 
 :root {
-    --primary:          #2563eb;
-    --primary-dark:     #1d4ed8;
-    --primary-light:    #eff6ff;
-    --primary-rgb:      37, 99, 235;
+    --primary:          #2a807d;
+    --primary-dark:     #1d5c5a;
+    --primary-light:    #dcecea;
+    --primary-rgb:      42, 128, 125;
 
     --sidebar-width:    260px;
     --navbar-h:         64px;
-    --sidebar-bg:       #0f172a;
+    --sidebar-bg:       #0f2c2a;
     --sidebar-text:     #94a3b8;
     --sidebar-hover:    rgba(255,255,255,0.05);
-    --sidebar-active-bg:rgba(37,99,235,0.15);
-    --sidebar-active:   #60a5fa;
+    --sidebar-active-bg:rgba(42,128,125,0.2);
+    --sidebar-active:   #7fd8d3;
     --sidebar-border:   rgba(255,255,255,0.06);
 
     --bg:       #f1f5f9;
@@ -77,17 +77,22 @@ ul { list-style: none; }
 .brand-icon {
     width: 36px; height: 36px;
     border-radius: 10px;
-    background: var(--primary);
+    background: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem; color: #fff;
     flex-shrink: 0;
+    overflow: hidden;
+}
+.brand-icon img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    padding: 3px;
 }
 
 .brand-text {
     font-size: 1rem; font-weight: 700; letter-spacing: -.02em;
     color: #f1f5f9; white-space: nowrap;
 }
-.brand-text span { color: #60a5fa; }
+.brand-text span { color: #7fd8d3; }
 
 /* Nav scroll area */
 .sidebar-nav {
@@ -374,7 +379,7 @@ ul { list-style: none; }
 .pill-success { background: #dcfce7; color: #16a34a; }
 .pill-warning { background: #fef9c3; color: #a16207; }
 .pill-danger  { background: #fee2e2; color: #dc2626; }
-.pill-info    { background: #dbeafe; color: #2563eb; }
+.pill-info    { background: #dcecea; color: #2a807d; }
 .pill-neutral { background: var(--bg);  color: var(--muted); }
 
 /* ── Avatars ─────────────────────────────────────────────────── */

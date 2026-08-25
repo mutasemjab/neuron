@@ -115,9 +115,9 @@
       <div class="foot-bottom">
         <span class="foot-copy">© {{ now()->year }} {{ sett('footer.copyright_brand') }}. {{ sett('footer.rights_text') }}.</span>
         <div class="foot-legal">
-          <a href="#">{{ __('front.footer_privacy') }}</a>
+          <a href="{{ route('privacy.policy') }}">{{ __('front.footer_privacy') }}</a>
           <span class="foot-dot"></span>
-          <a href="#">{{ __('front.footer_terms') }}</a>
+          <a href="{{ route('terms.conditions') }}">{{ __('front.footer_terms') }}</a>
         </div>
       </div>
     </div>

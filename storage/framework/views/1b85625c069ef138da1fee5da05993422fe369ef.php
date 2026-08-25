@@ -214,9 +214,7 @@
 <?php if($subscriptionPlans->isNotEmpty()): ?>
 <section class="plans" id="plans">
   <div class="wrap">
-    <div class="sec-head center reveal">
-      <span class="eyebrow"><?php echo e(sett('plans_section.eyebrow')); ?></span>
-    </div>
+    
 
     <div class="plans-grid reveal d1">
       <?php $__currentLoopData = $subscriptionPlans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $plan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -571,7 +569,6 @@
         <span class="eyebrow"><?php echo e(sett('careers_section.eyebrow')); ?></span>
         <h2><?php echo e(sett('careers_section.heading_main')); ?> <span class="tealword"><?php echo e(sett('careers_section.heading_highlight')); ?></span></h2>
       </div>
-      <a href="<?php echo e(route('careers.apply', $careerJobs->first())); ?>" class="btn btn-ghost"><?php echo e(__('front.submit_application')); ?></a>
     </div>
     <div class="career-grid <?php if($careerJobs->count() === 1): ?> career-grid--single <?php endif; ?>">
       <?php $__currentLoopData = $careerJobs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $job): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

@@ -38,6 +38,8 @@ class PermissionSeeder extends Seeder
             'appointment-table', 'appointment-status', 'appointment-delete',
             'job-application-table', 'job-application-status', 'job-application-delete',
             'contact-message-table', 'contact-message-reply', 'contact-message-delete',
+            'consultation-table', 'consultation-status', 'consultation-delete',
+            'closed-date-table', 'closed-date-add', 'closed-date-delete',
 
             // Settings
             'setting-edit',

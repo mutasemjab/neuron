@@ -126,4 +126,28 @@ return [
   'create_employee'  => 'إضافة موظف',
   'edit_employee'    => 'تعديل الموظف',
   'user_name_col'    => 'اسم المستخدم',
+  'contact_messages_title' => 'رسائل التواصل',
+'manage_contact_desc' => 'إدارة والرد على رسائل التواصل.',
+
+'new_status' => 'جديد',
+'read_status' => 'مقروء',
+'replied_status' => 'تم الرد',
+'closed_status' => 'مغلق',
+
+'search_contact_ph' => 'ابحث بالاسم أو البريد الإلكتروني أو الموضوع...',
+
+'All Status' => 'كل الحالات',
+
+'sender' => 'المرسل',
+'subject_label' => 'الموضوع',
+'message_label' => 'الرسالة',
+'date' => 'التاريخ',
+'Status' => 'الحالة',
+'Actions' => 'الإجراءات',
+
+'view_reply' => 'عرض والرد',
+'close_message_confirm' => 'هل أنت متأكد من إغلاق هذه الرسالة؟',
+'close_message' => 'إغلاق الرسالة',
+
+'no_messages_found' => 'لم يتم العثور على رسائل.',
 ];
