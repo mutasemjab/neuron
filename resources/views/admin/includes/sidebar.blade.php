@@ -248,6 +248,12 @@
                     <span>سياسة الخصوصية والشروط</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.site-settings.edit') }}#tab-contact" class="nav-link">
+                    <i class="nav-icon bi bi-envelope-check"></i>
+                    <span>إشعارات الحجوزات بالبريد</span>
+                </a>
+            </li>
             @endcan
         </ul>
         @endcanany
