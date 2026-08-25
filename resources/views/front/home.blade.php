@@ -565,7 +565,6 @@
         <span class="eyebrow">{{ sett('careers_section.eyebrow') }}</span>
         <h2>{{ sett('careers_section.heading_main') }} <span class="tealword">{{ sett('careers_section.heading_highlight') }}</span></h2>
       </div>
-      <a href="{{ route('careers.apply', $careerJobs->first()) }}" class="btn btn-ghost">{{ __('front.submit_application') }}</a>
     </div>
     <div class="career-grid @if($careerJobs->count() === 1) career-grid--single @endif">
       @foreach($careerJobs as $job)

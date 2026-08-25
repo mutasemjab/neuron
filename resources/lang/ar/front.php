@@ -36,7 +36,7 @@ return [
     'book_with_doctor'    => 'احجز مع الطبيب',
     'call_us'             => 'اتصل بنا',
     'submit_application'  => 'قدّم سيرتك الذاتية',
-    'apply_now'           => 'تقديم',
+    'apply_now'           => 'التقديم الآن',
     'know_our_team'       => 'تعرّف على الكادر الطبي',
     'prev'                => 'السابق',
     'next'                => 'التالي',

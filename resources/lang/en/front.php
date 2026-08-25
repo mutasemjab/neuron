@@ -37,7 +37,7 @@ return [
     'book_with_doctor'    => 'Book With This Doctor',
     'call_us'             => 'Call Us',
     'submit_application'  => 'Submit Your CV',
-    'apply_now'           => 'Apply',
+    'apply_now'           => 'Apply Now',
     'know_our_team'       => 'Meet Our Medical Team',
     'prev'                => 'Previous',
     'next'                => 'Next',

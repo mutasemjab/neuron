@@ -1223,14 +1223,17 @@ body.nav-open .burger span:nth-child(3) {
 }
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   position: relative;
   z-index: 2
 }
 
 .stat {
+  flex: 1 1 220px;
+  max-width: 260px;
   text-align: center;
   padding: 30px 16px;
   border-radius: var(--r-lg);
@@ -4130,8 +4133,7 @@ body.nav-open .burger span:nth-child(3) {
   .about-grid,
   .loc-grid,
   .faq-grid,
-  .vid-grid,
-  .stats-grid {
+  .vid-grid {
     grid-template-columns: 1fr
   }
 
@@ -4140,7 +4142,6 @@ body.nav-open .burger span:nth-child(3) {
   }
 
   .stats-grid {
-    grid-template-columns: 1fr 1fr;
     gap: 14px
   }
 
