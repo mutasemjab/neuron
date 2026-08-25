@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CareerApplicationController;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\ConsultationCheckoutController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SitemapController;
@@ -41,5 +42,9 @@ Route::group([
     // Subscription plan checkout (Bank al Etihad)
     Route::post('/subscriptions/{subscriptionPlan}/checkout', [SubscriptionCheckoutController::class, 'store'])->name('subscriptions.checkout');
     Route::post('/subscriptions/orders/{subscriptionOrder}/result', [SubscriptionCheckoutController::class, 'result'])->name('subscriptions.result');
+
+    // Online consultation payment (Bank al Etihad)
+    Route::post('/consultations/{consultation}/checkout', [ConsultationCheckoutController::class, 'store'])->name('consultations.checkout');
+    Route::post('/consultations/{consultation}/result',   [ConsultationCheckoutController::class, 'result'])->name('consultations.result');
 
 });

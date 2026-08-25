@@ -46,6 +46,20 @@
     </div>
 
     <div class="col-12 col-lg-4">
+        <div class="panel-card mb-3">
+            <div class="panel-card-header"><h2 class="panel-card-title">الدفع الإلكتروني</h2></div>
+            <div class="panel-card-body">
+                @php
+                    $payLabels = ['completed'=>'مدفوع','pending'=>'لم يُدفع بعد','declined'=>'مرفوض','failed'=>'فشل الدفع'];
+                    $payColors = ['completed'=>'success','pending'=>'secondary','declined'=>'danger','failed'=>'danger'];
+                @endphp
+                <span class="badge bg-{{ $payColors[$consultation->payment_status] ?? 'secondary' }} mb-2">{{ $payLabels[$consultation->payment_status] ?? $consultation->payment_status }}</span>
+                @if($consultation->amount)
+                    <p class="mb-0">{{ number_format($consultation->amount, 2) }} {{ $consultation->currency }}</p>
+                @endif
+            </div>
+        </div>
+
         <div class="panel-card">
             <div class="panel-card-header"><h2 class="panel-card-title">حالة الطلب</h2></div>
             <div class="panel-card-body">

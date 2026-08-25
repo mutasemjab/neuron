@@ -125,6 +125,7 @@ class SiteSettingSeeder extends Seeder
             ['booking_page.subtext', 'املأ بياناتك وسيتواصل معك فريق المواعيد لتأكيد الحجز وتحديد الطبيب المناسب لحالتك.', 'Fill in your details and our appointments team will contact you to confirm the booking and assign the right doctor for your case.', 'booking_page'],
             ['booking_page.price', '20 دينار أردني', '20 JOD', 'booking_page'],
             ['booking_page.price_note', 'قابل للخصم من شركات التأمين المعتمدة', 'Deductible through approved insurance providers', 'booking_page'],
+            ['booking_page.price_amount', '20.00', '20.00', 'booking_page'],
 
             // careers section
             ['careers_section.eyebrow', 'انضم إلينا', 'Join Us', 'careers_section'],

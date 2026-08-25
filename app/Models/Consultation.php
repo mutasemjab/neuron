@@ -11,6 +11,7 @@ class Consultation extends Model
         'country_of_residence', 'date_of_birth',
         'preferred_days', 'preferred_periods', 'condition_description',
         'attachments', 'privacy_consent', 'status',
+        'amount', 'currency', 'checkout_token', 'payment_status', 'gateway_response',
     ];
 
     protected $casts = [
@@ -19,6 +20,7 @@ class Consultation extends Model
         'preferred_periods'=> 'array',
         'attachments'      => 'array',
         'privacy_consent'  => 'boolean',
+        'amount'           => 'decimal:2',
     ];
 
     public function getAttachmentUrlsAttribute(): array

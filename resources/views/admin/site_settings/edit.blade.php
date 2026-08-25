@@ -95,3 +95,17 @@
 </form>
 
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var hash = window.location.hash;
+    if (!hash) return;
+    var trigger = document.querySelector('[data-bs-target="' + hash + '"]');
+    if (trigger) {
+        new bootstrap.Tab(trigger).show();
+        trigger.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+});
+</script>
+@endpush

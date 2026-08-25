@@ -41,6 +41,7 @@
                         <th>البريد الإلكتروني</th>
                         <th>الهاتف</th>
                         <th>بلد الإقامة</th>
+                        <th style="width:110px">الدفع</th>
                         <th style="width:120px">الحالة</th>
                         <th style="width:100px">إجراءات</th>
                     </tr>
@@ -52,6 +53,11 @@
                         <td dir="ltr">{{ $consultation->email }}</td>
                         <td dir="ltr">{{ $consultation->phone_country_code }} {{ $consultation->phone }}</td>
                         <td>{{ $consultation->country_of_residence }}</td>
+                        <td>
+                            <span class="badge bg-{{ ['completed'=>'success','pending'=>'secondary','declined'=>'danger','failed'=>'danger'][$consultation->payment_status] ?? 'secondary' }}">
+                                {{ ['completed'=>'مدفوع','pending'=>'لم يُدفع','declined'=>'مرفوض','failed'=>'فشل'][$consultation->payment_status] ?? $consultation->payment_status }}
+                            </span>
+                        </td>
                         <td>
                             <span class="badge bg-{{ ['new'=>'primary','contacted'=>'warning','scheduled'=>'success','closed'=>'secondary'][$consultation->status] ?? 'secondary' }}">{{ $consultation->status }}</span>
                         </td>

@@ -196,8 +196,10 @@ document.querySelectorAll('form.book-ajax-form').forEach(bookForm=>{
       });
 
       if(res.ok){
+        const data=await res.json().catch(()=>({}));
         bookForm.style.display='none';
         successEl?.classList.add('show');
+        bookForm.dispatchEvent(new CustomEvent('bookform:success',{detail:data,bubbles:true}));
       }else if(res.status===422){
         const data=await res.json();
         Object.entries(data.errors||{}).forEach(([field,messages])=>{

@@ -111,6 +111,32 @@
 .field-hint { font-size:.78rem; color:var(--muted); margin-top:2px; display:block; }
 .field-hint a { color: var(--teal); font-weight:700; }
 
+/* ── Price badge ───────────────────────────────────────── */
+.book-price-badge {
+  display:flex; align-items:center; gap:16px;
+  background: linear-gradient(135deg, var(--teal-deep), var(--teal-darker));
+  color:#fff;
+  border-radius: var(--r-md);
+  padding:18px 22px;
+  margin-bottom: 26px;
+}
+.book-price-badge svg { width:30px;height:30px; flex-shrink:0; opacity:.9; }
+.book-price-badge .bp-label { display:block; color:rgba(255,255,255,.75); font-size:.78rem; font-weight:700; margin-bottom:2px; }
+.book-price-badge .bp-value { color:#fff; font-size:1.4rem; font-weight:900; font-family:var(--f-num); line-height:1.2; }
+.book-price-badge .bp-note { display:block; color:rgba(255,255,255,.75); font-size:.76rem; margin-top:3px; }
+
+/* ── Post-submission payment box ─────────────────────────── */
+.consult-pay-box {
+  margin-top:24px; padding-top:24px; border-top:1px solid var(--line);
+}
+.consult-pay-price {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  margin-bottom:16px; font-size:1rem; color:var(--ink);
+}
+.consult-pay-price strong { color:var(--teal-deep); font-size:1.3rem; font-family:var(--f-num); }
+.consult-pay-loading { text-align:center; padding:20px 0; color:var(--muted); font-size:.9rem; }
+.consult-pay-result p { text-align:center; font-weight:700; font-size:1rem; }
+
 /* ── Phone with country-code select ───────────────────── */
 .phone-group { display:flex; gap:8px; }
 .phone-group select { flex: 0 0 128px; }
@@ -448,7 +474,18 @@
           <p>{{ $isAr ? 'أدخل بياناتك وأرفق التقارير والصور الطبية المتوفرة، وسيتواصل معك فريق عيادات نيورون عبر البريد الإلكتروني لاستكمال التفاصيل وتنسيق موعد الاستشارة الأونلاين.' : 'Submit your information and any available medical reports and imaging. The Neuron Clinics team will contact you by email to complete the necessary details and arrange your online consultation.' }}</p>
         </div>
 
-        <form class="book-ajax-form" action="{{ route('consultations.store') }}" method="POST" enctype="multipart/form-data">
+        @if(sett('booking_page.price'))
+        <div class="book-price-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M15 9.5c0-1.4-1.3-2.5-3-2.5s-3 1.1-3 2.5 1.3 2 3 2 3 .6 3 2-1.3 2.5-3 2.5-3-1.1-3-2.5"/></svg>
+          <div>
+            <span class="bp-label">{{ $isAr ? 'سعر الاستشارة الأونلاين' : 'Online Consultation Price' }}</span>
+            <span class="bp-value">{{ sett('booking_page.price') }}</span>
+            @if(sett('booking_page.price_note'))<span class="bp-note">{{ sett('booking_page.price_note') }}</span>@endif
+          </div>
+        </div>
+        @endif
+
+        <form class="book-ajax-form" id="consultForm" action="{{ route('consultations.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
 
           <div class="form-row">
@@ -539,6 +576,25 @@
           <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
           <h3>{{ $isAr ? 'تم استلام طلب الاستشارة بنجاح' : 'Your Consultation Request Has Been Received' }}</h3>
           <p>{{ $isAr ? 'شكرًا لتواصلك مع عيادات نيورون. سيتواصل معك فريقنا عبر البريد الإلكتروني لاستكمال التفاصيل وتزويدك بالمواعيد المتاحة للاستشارة.' : 'Thank you for contacting Neuron Clinics. Our team will contact you by email to complete the necessary details and provide you with the available consultation times.' }}</p>
+
+          @if(sett_raw('booking_page.price_amount'))
+          <div class="consult-pay-box" id="consultPayBox">
+            <div class="consult-pay-price">
+              <span>{{ $isAr ? 'سعر الاستشارة' : 'Consultation Price' }}:</span>
+              <strong>{{ sett('booking_page.price') ?: sett_raw('booking_page.price_amount') . ' JOD' }}</strong>
+            </div>
+            <button type="button" class="btn btn-primary btn-lg" id="consultPayBtn" style="width:100%;justify-content:center">
+              <span>{{ $isAr ? 'ادفع الآن' : 'Pay Now' }}</span>
+            </button>
+            <p class="field-hint" style="text-align:center;margin-top:10px">{{ $isAr ? 'الدفع الآن اختياري، ويمكنك أيضاً الدفع لاحقاً عند تواصل فريقنا معك.' : 'Paying now is optional — you can also pay later when our team contacts you.' }}</p>
+          </div>
+
+          <div class="consult-pay-loading" id="consultPayLoading" style="display:none"></div>
+          <div id="consultPayFormWrap" style="display:none">
+            <div id="consultPaymentForm"></div>
+          </div>
+          <div class="consult-pay-result" id="consultPayResult" style="display:none"></div>
+          @endif
         </div>
       </div>
     </div>
@@ -674,6 +730,102 @@
 
   render();
 })();
+
+/* ============ CONSULTATION ONLINE PAYMENT (Bank al Etihad) ============ */
+@if(sett_raw('booking_page.price_amount'))
+(function () {
+  const consultForm = document.getElementById('consultForm');
+  const payBox       = document.getElementById('consultPayBox');
+  const payBtn       = document.getElementById('consultPayBtn');
+  const loadingEl    = document.getElementById('consultPayLoading');
+  const formWrap     = document.getElementById('consultPayFormWrap');
+  const resultEl     = document.getElementById('consultPayResult');
+  if (!consultForm || !payBtn) return;
+
+  const cfg = {
+    checkoutUrlTemplate: @json(route('consultations.checkout', ['consultation' => '__ID__'])),
+    resultUrlTemplate:   @json(route('consultations.result', ['consultation' => '__ID__'])),
+    csrf: @json(csrf_token()),
+    i18n: {
+      processing: @json($isAr ? 'يتم تجهيز الدفع الآمن...' : 'Preparing secure payment...'),
+      paying:     @json($isAr ? 'يتم تنفيذ الدفع...' : 'Processing payment...'),
+      success:    @json($isAr ? 'تم الدفع بنجاح، شكرًا لك.' : 'Payment successful, thank you.'),
+      failed:     @json($isAr ? 'تعذّر إتمام الدفع. يمكنك المحاولة مرة أخرى لاحقًا.' : 'Payment could not be completed. You can try again later.'),
+      initFailed: @json($isAr ? 'تعذّر بدء عملية الدفع، حاول مرة أخرى.' : 'Could not start the payment, please try again.'),
+    },
+  };
+
+  let consultationId = null;
+  consultForm.addEventListener('bookform:success', (e) => {
+    consultationId = e.detail && e.detail.consultation_id;
+  });
+
+  function loadPaymentSdk(url, integrity) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = url;
+      script.async = true;
+      if (integrity) { script.integrity = integrity; script.crossOrigin = 'anonymous'; }
+      script.onload = resolve;
+      script.onerror = () => reject(new Error('Failed to load payment SDK'));
+      document.body.appendChild(script);
+    });
+  }
+
+  function showResult(success) {
+    payBox.style.display = 'none';
+    loadingEl.style.display = 'none';
+    formWrap.style.display = 'none';
+    resultEl.style.display = 'block';
+    resultEl.innerHTML = '<p style="color:' + (success ? 'var(--teal-deep)' : '#dc2626') + '">' + (success ? cfg.i18n.success : cfg.i18n.failed) + '</p>';
+
+    if (consultationId) {
+      fetch(cfg.resultUrlTemplate.replace('__ID__', consultationId), {
+        method: 'POST',
+        headers: { 'X-CSRF-TOKEN': cfg.csrf, 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: success ? 'COMPLETED' : 'DECLINED' }),
+      }).catch(() => {});
+    }
+  }
+
+  payBtn.addEventListener('click', async () => {
+    if (!consultationId) return;
+    payBtn.disabled = true;
+    payBox.style.display = 'none';
+    loadingEl.style.display = 'block';
+    loadingEl.textContent = cfg.i18n.processing;
+
+    try {
+      const res = await fetch(cfg.checkoutUrlTemplate.replace('__ID__', consultationId), {
+        method: 'POST',
+        headers: { 'X-CSRF-TOKEN': cfg.csrf, 'Accept': 'application/json' },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || cfg.i18n.initFailed);
+
+      await loadPaymentSdk(data.clientLibrary, data.clientLibraryIntegrity);
+      const accept = await window.Accept(data.token);
+      const up = await accept.unifiedPayments();
+
+      loadingEl.style.display = 'none';
+      formWrap.style.display = 'block';
+
+      const transientToken = await up.show({ containers: { paymentSelection: '#consultPaymentForm' } });
+
+      formWrap.style.display = 'none';
+      loadingEl.style.display = 'block';
+      loadingEl.textContent = cfg.i18n.paying;
+
+      const result = await up.complete(transientToken);
+      showResult(result && result.status === 'COMPLETED');
+    } catch (err) {
+      showResult(false);
+    } finally {
+      payBtn.disabled = false;
+    }
+  });
+})();
+@endif
 
 /* ============ MULTI FILE UPLOAD LIST (consultation attachments) ============ */
 (function () {

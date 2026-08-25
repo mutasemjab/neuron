@@ -187,8 +187,9 @@ class HomeController extends Controller
 
         if ($request->wantsJson()) {
             return response()->json([
-                'success' => true,
-                'message' => $isAr ? 'تم استلام طلب الاستشارة بنجاح.' : 'Your consultation request has been received successfully.',
+                'success'         => true,
+                'message'         => $isAr ? 'تم استلام طلب الاستشارة بنجاح.' : 'Your consultation request has been received successfully.',
+                'consultation_id' => $consultation->id,
             ]);
         }
 

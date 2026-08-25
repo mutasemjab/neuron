@@ -242,6 +242,12 @@
                     <span>{{ __('messages.site_settings') }}</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.site-settings.edit') }}#tab-legal_pages" class="nav-link">
+                    <i class="nav-icon bi bi-file-earmark-text"></i>
+                    <span>سياسة الخصوصية والشروط</span>
+                </a>
+            </li>
             @endcan
         </ul>
         @endcanany

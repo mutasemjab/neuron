@@ -181,8 +181,9 @@ class SiteSettingController extends Controller
                     'booking_page.eyebrow'    => ['label' => 'العنوان الفرعي الصغير', 'type' => 'text', 'translatable' => true],
                     'booking_page.heading'    => ['label' => 'العنوان الرئيسي', 'type' => 'text', 'translatable' => true],
                     'booking_page.subtext'    => ['label' => 'الفقرة التعريفية', 'type' => 'textarea', 'translatable' => true],
-                    'booking_page.price'      => ['label' => 'سعر الحجز', 'type' => 'text', 'translatable' => true],
-                    'booking_page.price_note' => ['label' => 'ملاحظة توضيحية عن السعر', 'type' => 'text', 'translatable' => true],
+                    'booking_page.price'        => ['label' => 'سعر الحجز (نص للعرض، مثال: "20 دينار أردني")', 'type' => 'text', 'translatable' => true],
+                    'booking_page.price_note'   => ['label' => 'ملاحظة توضيحية عن السعر', 'type' => 'text', 'translatable' => true],
+                    'booking_page.price_amount' => ['label' => 'سعر الحجز بالأرقام فقط (دينار أردني، للدفع الإلكتروني — مثال: 20.00)', 'type' => 'text', 'translatable' => false],
                 ],
             ],
             'careers_section' => [
