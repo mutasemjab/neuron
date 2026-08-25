@@ -55,7 +55,7 @@
 
                 <a href="{{ route('home') }}#locations">{{ __('front.nav_locations') }}</a>
                 <a href="{{ route('home') }}#faq">{{ __('front.nav_faq') }}</a>
-                <a href="{{ route('home') }}#testimonials">{{ __('front.testimonials') }}</a>
+                <a href="{{ route('home') }}#testi">{{ __('front.testimonials') }}</a>
                 <a href="{{ route('home') }}#careers">{{ __('front.nav_careers') }}</a>
             </div>
 
@@ -86,7 +86,7 @@
 
     <a href="{{ route('home') }}#locations">{{ __('front.nav_locations') }}</a>
     <a href="{{ route('home') }}#faq">{{ __('front.nav_faq') }}</a>
-    <a href="{{ route('home') }}#testimonials">{{ __('front.testimonials') }}</a>
+    <a href="{{ route('home') }}#testi">{{ __('front.testimonials') }}</a>
     <a href="{{ route('home') }}#careers">{{ __('front.nav_careers') }}</a>
     <a href="{{ route('booking.page') }}" class="btn btn-primary"><span>{{ __('front.book_now') }}</span></a>
 </div>
