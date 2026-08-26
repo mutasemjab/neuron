@@ -87,6 +87,15 @@
             <input type="email" name="email" dir="ltr" required placeholder="name@example.com">
           </div>
           <div class="field full" style="margin-bottom:18px">
+            <label>{{ app()->getLocale() === 'ar' ? 'الفرع' : 'Branch' }} <span class="req">*</span></label>
+            <select name="branch_id" required>
+              <option value="">{{ app()->getLocale() === 'ar' ? 'اختر الفرع' : 'Select branch' }}</option>
+              @foreach($branches as $branch)
+              <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="field full" style="margin-bottom:18px">
             <label>{{ app()->getLocale() === 'ar' ? 'السيرة الذاتية (CV)' : 'Resume (CV)' }}</label>
             <input type="file" name="cv" accept=".pdf,.doc,.docx">
             <span class="field-hint">{{ app()->getLocale() === 'ar' ? 'PDF أو Word — بحد أقصى 10MB (اختياري)' : 'PDF or Word — max 10MB (optional)' }}</span>

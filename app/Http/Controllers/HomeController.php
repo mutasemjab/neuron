@@ -151,7 +151,16 @@ class HomeController extends Controller
             'preferred_periods.*'    => 'in:morning,afternoon',
             'condition_description'  => 'required|string|max:3000',
             'attachments'            => 'nullable|array|max:5',
-            'attachments.*'          => 'file|mimes:pdf,jpg,jpeg,png|max:10240',
+            'attachments.*'          => [
+                'file',
+                'max:51200',
+                function ($attribute, $value, $fail) use ($isAr) {
+                    $ext = strtolower($value->getClientOriginalExtension());
+                    if (! in_array($ext, ['pdf', 'jpg', 'jpeg', 'png', 'dcm', 'zip'])) {
+                        $fail($isAr ? 'صيغة الملف غير مدعومة.' : 'Unsupported file type.');
+                    }
+                },
+            ],
             'privacy_consent'        => 'accepted',
         ]);
 

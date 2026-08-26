@@ -17,7 +17,7 @@ class JobApplicationController extends Controller
 
     public function index(Request $request)
     {
-        $applications = JobApplication::with('careerJob')
+        $applications = JobApplication::with(['careerJob', 'branch'])
             ->when($request->status, fn ($q, $s) => $q->where('status', $s))
             ->when($request->search, fn ($q, $s) => $q
                 ->where('name', 'like', "%{$s}%")
@@ -40,7 +40,7 @@ class JobApplicationController extends Controller
 
     public function show(JobApplication $jobApplication)
     {
-        $jobApplication->load('careerJob');
+        $jobApplication->load(['careerJob', 'branch']);
 
         return view('admin.job_applications.show', compact('jobApplication'));
     }

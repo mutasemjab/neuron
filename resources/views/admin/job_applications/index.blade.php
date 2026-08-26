@@ -40,6 +40,7 @@
                         <th>الاسم</th>
                         <th>الهاتف</th>
                         <th>البريد الإلكتروني</th>
+                        <th>الفرع</th>
                         <th>الوظيفة</th>
                         <th style="width:120px">الحالة</th>
                         <th style="width:130px">إجراءات</th>
@@ -51,6 +52,7 @@
                         <td style="font-weight:500">{{ $application->name }}</td>
                         <td dir="ltr">{{ $application->phone }}</td>
                         <td dir="ltr">{{ $application->email }}</td>
+                        <td>{{ $application->branch->name_ar ?? '—' }}</td>
                         <td>{{ $application->careerJob->title_ar ?? '—' }}</td>
                         <td>
                             <span class="badge bg-{{ ['new'=>'primary','reviewed'=>'info','contacted'=>'warning','rejected'=>'secondary'][$application->status] ?? 'secondary' }}">{{ $application->status }}</span>

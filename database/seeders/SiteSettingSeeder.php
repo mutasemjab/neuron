@@ -119,6 +119,12 @@ class SiteSettingSeeder extends Seeder
             ['booking_section.feat3_title', 'دفع مرن', 'Flexible Payment', 'booking_section'],
             ['booking_section.feat3_text', 'دفع إلكتروني مسبق أو عند الوصول للعيادة.', 'Pay online in advance or upon arrival at the clinic.', 'booking_section'],
 
+            // booking choice cards (domestic / international)
+            ['booking_choice.domestic_title', 'داخل الأردن', 'Inside Jordan', 'booking_choice'],
+            ['booking_choice.domestic_text', 'احجز موعدك في أحد فروعنا داخل المملكة بخطوات بسيطة وسريعة.', 'Book your appointment at one of our branches inside the Kingdom in a few quick steps.', 'booking_choice'],
+            ['booking_choice.international_title', 'خارج الأردن', 'Outside Jordan', 'booking_choice'],
+            ['booking_choice.international_text', 'احجز استشارتك الأونلاين وأرفق تقاريرك الطبية ليطّلع عليها فريقنا مسبقاً.', 'Book an online consultation and attach your medical reports for our team to review in advance.', 'booking_choice'],
+
             // booking page (general, no doctor selection)
             ['booking_page.eyebrow', 'احجز موعدك', 'Book Your Appointment', 'booking_page'],
             ['booking_page.heading', 'احجز موعد طبي مع الدكتور', 'Book a Medical Appointment', 'booking_page'],

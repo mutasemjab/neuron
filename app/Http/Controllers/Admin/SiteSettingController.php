@@ -175,6 +175,15 @@ class SiteSettingController extends Controller
                     'booking_section.feat3_text'  => ['label' => 'ميزة 3 - نص', 'type' => 'text', 'translatable' => true],
                 ],
             ],
+            'booking_choice' => [
+                'label'  => 'بطاقات اختيار نوع الحجز (داخل/خارج الأردن)',
+                'fields' => [
+                    'booking_choice.domestic_title'      => ['label' => 'داخل الأردن - العنوان', 'type' => 'text', 'translatable' => true],
+                    'booking_choice.domestic_text'        => ['label' => 'داخل الأردن - الوصف', 'type' => 'textarea', 'translatable' => true],
+                    'booking_choice.international_title' => ['label' => 'خارج الأردن - العنوان', 'type' => 'text', 'translatable' => true],
+                    'booking_choice.international_text'   => ['label' => 'خارج الأردن - الوصف', 'type' => 'textarea', 'translatable' => true],
+                ],
+            ],
             'booking_page' => [
                 'label'  => 'صفحة الحجز العامة',
                 'fields' => [

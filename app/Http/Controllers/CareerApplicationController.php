@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use App\Models\CareerJob;
 use App\Models\JobApplication;
 use Illuminate\Http\Request;
@@ -12,7 +13,9 @@ class CareerApplicationController extends Controller
     {
         abort_unless($careerJob->is_active, 404);
 
-        return view('front.careers.apply', compact('careerJob'));
+        $branches = Branch::active()->get();
+
+        return view('front.careers.apply', compact('careerJob', 'branches'));
     }
 
     public function store(Request $request, CareerJob $careerJob)
@@ -20,11 +23,12 @@ class CareerApplicationController extends Controller
         $isAr = app()->getLocale() === 'ar';
 
         $validated = $request->validate([
-            'name'    => 'required|string|max:150',
-            'phone'   => 'required|string|max:30',
-            'email'   => 'required|email|max:200',
-            'cv'      => 'nullable|file|mimes:pdf,doc,docx|max:10240',
-            'message' => 'nullable|string|max:2000',
+            'name'      => 'required|string|max:150',
+            'phone'     => 'required|string|max:30',
+            'email'     => 'required|email|max:200',
+            'branch_id' => 'required|exists:branches,id',
+            'cv'        => 'nullable|file|mimes:pdf,doc,docx|max:10240',
+            'message'   => 'nullable|string|max:2000',
         ]);
 
         if ($request->hasFile('cv')) {

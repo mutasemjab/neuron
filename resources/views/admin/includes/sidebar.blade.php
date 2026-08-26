@@ -3,7 +3,7 @@
     {{-- Brand --}}
     <div class="sidebar-brand">
         <div class="brand-icon">
-            <img src="{{ asset_v('assets_front/images/logo.png') }}" alt="{{ sett('identity.site_name') }}">
+            <img src="{{ asset_v('assets_front/images/logonav.png') }}" alt="{{ sett('identity.site_name') }}">
         </div>
         <span class="brand-text">{{ __('messages.edu_platform') }}</span>
     </div>

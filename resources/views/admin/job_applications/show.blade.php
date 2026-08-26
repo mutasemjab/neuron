@@ -25,6 +25,7 @@
                     <div class="col-md-6"><label class="form-label">الهاتف</label><p dir="ltr">{{ $jobApplication->phone }}</p></div>
                     <div class="col-md-6"><label class="form-label">البريد الإلكتروني</label><p dir="ltr">{{ $jobApplication->email }}</p></div>
                     <div class="col-md-6"><label class="form-label">الوظيفة المتقدم لها</label><p>{{ $jobApplication->careerJob->title_ar ?? '—' }}</p></div>
+                    <div class="col-md-6"><label class="form-label">الفرع</label><p>{{ $jobApplication->branch->name_ar ?? '—' }}</p></div>
                     <div class="col-12"><label class="form-label">الرسالة التعريفية</label><p>{{ $jobApplication->message ?: '—' }}</p></div>
                     @if($jobApplication->cv)
                     <div class="col-12">

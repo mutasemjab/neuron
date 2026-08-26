@@ -306,8 +306,8 @@
           <div class="book-choice-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
           </div>
-          <h3>{{ $isAr ? 'داخل الأردن' : 'Inside Jordan' }}</h3>
-          <p>{{ $isAr ? 'احجز موعدك في أحد فروعنا داخل المملكة بخطوات بسيطة وسريعة.' : 'Book your appointment at one of our branches inside the Kingdom in a few quick steps.' }}</p>
+          <h3>{{ sett('booking_choice.domestic_title') }}</h3>
+          <p>{{ sett('booking_choice.domestic_text') }}</p>
           <span class="book-choice-cta">
             {{ $isAr ? 'احجز الآن' : 'Book Now' }}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -318,8 +318,8 @@
           <div class="book-choice-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
           </div>
-          <h3>{{ $isAr ? 'خارج الأردن' : 'Outside Jordan' }}</h3>
-          <p>{{ $isAr ? 'احجز استشارتك الأونلاين وأرفق تقاريرك الطبية ليطّلع عليها فريقنا مسبقاً.' : 'Book an online consultation and attach your medical reports for our team to review in advance.' }}</p>
+          <h3>{{ sett('booking_choice.international_title') }}</h3>
+          <p>{{ sett('booking_choice.international_text') }}</p>
           <span class="book-choice-cta">
             {{ $isAr ? 'احجز الآن' : 'Book Now' }}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -555,8 +555,8 @@
 
           <div class="field full" style="margin-bottom:18px">
             <label>{{ $isAr ? 'التقارير والصور الطبية' : 'Medical Reports & Imaging' }}</label>
-            <input type="file" name="attachments[]" id="consultFiles" accept=".pdf,.jpg,.jpeg,.png" multiple>
-            <span class="field-hint">{{ $isAr ? 'يمكنك إرفاق التقارير الطبية، نتائج الفحوصات وصور الأشعة المتوفرة لمساعدة الطبيب في مراجعة حالتك. الصيغ المدعومة: PDF – JPG – JPEG – PNG، حتى 5 ملفات وبحد أقصى 10MB لكل ملف.' : 'You may upload available medical reports, test results, and imaging to assist the physician in reviewing your case. Supported formats: PDF – JPG – JPEG – PNG, up to 5 files, 10MB max per file.' }}</span>
+            <input type="file" name="attachments[]" id="consultFiles" accept=".pdf,.jpg,.jpeg,.png,.dcm,.zip" multiple>
+            <span class="field-hint">{{ $isAr ? 'يمكنك إرفاق التقارير الطبية، نتائج الفحوصات وصور الأشعة المتوفرة لمساعدة الطبيب في مراجعة حالتك. الصيغ المدعومة: PDF – JPG – JPEG – PNG – DICOM (.dcm) – ZIP، حتى 5 ملفات وبحد أقصى 50MB لكل ملف.' : 'You may upload available medical reports, test results, and imaging to assist the physician in reviewing your case. Supported formats: PDF – JPG – JPEG – PNG – DICOM (.dcm) – ZIP, up to 5 files, 50MB max per file.' }}</span>
             <div class="file-list" id="consultFileList"></div>
           </div>
 
@@ -838,8 +838,10 @@
     Array.from(input.files).forEach(file => {
       const row = document.createElement('div');
       row.className = 'file-list-item';
-      const sizeKb = Math.round(file.size / 1024);
-      row.innerHTML = '<span>' + file.name + ' (' + sizeKb + 'KB)</span>';
+      const sizeLabel = file.size >= 1024 * 1024
+        ? (file.size / (1024 * 1024)).toFixed(1) + 'MB'
+        : Math.round(file.size / 1024) + 'KB';
+      row.innerHTML = '<span>' + file.name + ' (' + sizeLabel + ')</span>';
       list.appendChild(row);
     });
   });
