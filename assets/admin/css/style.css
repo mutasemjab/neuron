@@ -470,10 +470,6 @@ html[dir="rtl"] .sidebar {
     right: 0;
 }
 
-html[dir="rtl"] .sidebar-brand {
-    flex-direction: row-reverse;
-}
-
 html[dir="rtl"] .nav-link.active::after {
     left: auto;
     right: -8px;
