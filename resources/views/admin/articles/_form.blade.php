@@ -25,7 +25,7 @@
                 <input type="text" name="category_en" dir="ltr" class="form-control" value="{{ old('category_en', $a->category_en ?? '') }}" placeholder="Back Pain">
             </div>
 
- <div class="row" style="row-gap: 150px;">
+ <div class="row" style="row-gap: 100px;">
 
     <div class="col-12 col-md-6">
         <label class="form-label">
