@@ -25,48 +25,95 @@
                 <input type="text" name="category_en" dir="ltr" class="form-control" value="{{ old('category_en', $a->category_en ?? '') }}" placeholder="Back Pain">
             </div>
 
-       <div class="col-12 col-md-6 mb-4">
-    <label class="form-label">مقتطف (عربي) <span class="text-danger">*</span></label>
-    <div id="editor_excerpt_ar" class="rte-editor rte-editor-sm" dir="rtl">
-        {!! old('excerpt_ar', $a->excerpt_ar ?? '') !!}
-    </div>
-    <textarea name="excerpt_ar" class="rte-source @error('excerpt_ar') is-invalid @enderror">{{ old('excerpt_ar', $a->excerpt_ar ?? '') }}</textarea>
-    @error('excerpt_ar')
-        <div class="invalid-feedback d-block">{{ $message }}</div>
-    @enderror
-</div>
+ <div class="row" style="row-gap: 50px;">
 
-<div class="col-12 col-md-6 mb-4">
-    <label class="form-label">Excerpt (English) <span class="text-danger">*</span></label>
-    <div id="editor_excerpt_en" class="rte-editor rte-editor-sm" dir="ltr">
-        {!! old('excerpt_en', $a->excerpt_en ?? '') !!}
-    </div>
-    <textarea name="excerpt_en" class="rte-source @error('excerpt_en') is-invalid @enderror">{{ old('excerpt_en', $a->excerpt_en ?? '') }}</textarea>
-    @error('excerpt_en')
-        <div class="invalid-feedback d-block">{{ $message }}</div>
-    @enderror
-</div>
+    <div class="col-12 col-md-6">
+        <label class="form-label">
+            مقتطف (عربي) <span class="text-danger">*</span>
+        </label>
 
-<div class="col-12 col-md-6">
-    <label class="form-label">نص المقال (عربي) <span class="text-danger">*</span></label>
-    <div id="editor_body_ar" class="rte-editor" dir="rtl">
-        {!! old('body_ar', $a->body_ar ?? '') !!}
-    </div>
-    <textarea name="body_ar" class="rte-source @error('body_ar') is-invalid @enderror">{{ old('body_ar', $a->body_ar ?? '') }}</textarea>
-    @error('body_ar')
-        <div class="invalid-feedback d-block">{{ $message }}</div>
-    @enderror
-</div>
+        <div id="editor_excerpt_ar"
+             class="rte-editor rte-editor-sm"
+             dir="rtl">
+            {!! old('excerpt_ar', $a->excerpt_ar ?? '') !!}
+        </div>
 
-<div class="col-12 col-md-6">
-    <label class="form-label">Article Body (English) <span class="text-danger">*</span></label>
-    <div id="editor_body_en" class="rte-editor" dir="ltr">
-        {!! old('body_en', $a->body_en ?? '') !!}
+        <textarea name="excerpt_ar"
+                  class="rte-source @error('excerpt_ar') is-invalid @enderror">{{ old('excerpt_ar', $a->excerpt_ar ?? '') }}</textarea>
+
+        @error('excerpt_ar')
+            <div class="invalid-feedback d-block">
+                {{ $message }}
+            </div>
+        @enderror
     </div>
-    <textarea name="body_en" class="rte-source @error('body_en') is-invalid @enderror">{{ old('body_en', $a->body_en ?? '') }}</textarea>
-    @error('body_en')
-        <div class="invalid-feedback d-block">{{ $message }}</div>
-    @enderror
+
+
+    <div class="col-12 col-md-6">
+        <label class="form-label">
+            Excerpt (English) <span class="text-danger">*</span>
+        </label>
+
+        <div id="editor_excerpt_en"
+             class="rte-editor rte-editor-sm"
+             dir="ltr">
+            {!! old('excerpt_en', $a->excerpt_en ?? '') !!}
+        </div>
+
+        <textarea name="excerpt_en"
+                  class="rte-source @error('excerpt_en') is-invalid @enderror">{{ old('excerpt_en', $a->excerpt_en ?? '') }}</textarea>
+
+        @error('excerpt_en')
+            <div class="invalid-feedback d-block">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
+
+    <div class="col-12 col-md-6">
+        <label class="form-label">
+            نص المقال (عربي) <span class="text-danger">*</span>
+        </label>
+
+        <div id="editor_body_ar"
+             class="rte-editor"
+             dir="rtl">
+            {!! old('body_ar', $a->body_ar ?? '') !!}
+        </div>
+
+        <textarea name="body_ar"
+                  class="rte-source @error('body_ar') is-invalid @enderror">{{ old('body_ar', $a->body_ar ?? '') }}</textarea>
+
+        @error('body_ar')
+            <div class="invalid-feedback d-block">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
+
+    <div class="col-12 col-md-6">
+        <label class="form-label">
+            Article Body (English) <span class="text-danger">*</span>
+        </label>
+
+        <div id="editor_body_en"
+             class="rte-editor"
+             dir="ltr">
+            {!! old('body_en', $a->body_en ?? '') !!}
+        </div>
+
+        <textarea name="body_en"
+                  class="rte-source @error('body_en') is-invalid @enderror">{{ old('body_en', $a->body_en ?? '') }}</textarea>
+
+        @error('body_en')
+            <div class="invalid-feedback d-block">
+                {{ $message }}
+            </div>
+        @enderror
+    </div>
+
 </div>
 
             <div class="col-12">
