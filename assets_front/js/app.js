@@ -84,25 +84,26 @@ document.querySelectorAll('.faq-item').forEach(item=>{
   });
 });
 
-/* ============ TESTIMONIALS SLIDER ============ */
-(function(){
-  const track=document.getElementById('testiTrack');
+/* ============ SLIDER (testimonials, services) ============
+   Slide-flow direction and arrow positions are pinned to LTR regardless of
+   page language — see [dir="rtl"] .testi-stage / .serv-stage in CSS. */
+function initSlider(prefix,dotClass){
+  const track=document.getElementById(prefix+'Track');
   if(!track)return;
   const slides=track.children.length;
   if(slides<1)return;
-  const nav=document.getElementById('testiNav');
-  const counter=document.getElementById('testiCounter');
-  const prevBtn=document.getElementById('testiPrev');
-  const nextBtn=document.getElementById('testiNext');
+  const nav=document.getElementById(prefix+'Nav');
+  const counter=document.getElementById(prefix+'Counter');
+  const prevBtn=document.getElementById(prefix+'Prev');
+  const nextBtn=document.getElementById(prefix+'Next');
   const viewport=track.parentElement;
-  const isRTL=document.documentElement.dir==='rtl';
-  let cur=0,timer=null,dragging=false,dragStartX=0;
+  let cur=0,timer=null,dragStartX=0;
 
   /* Build dots */
   const dots=[];
   for(let i=0;i<slides;i++){
     const d=document.createElement('button');
-    d.className='testi-dot'+(i===0?' active':'');
+    d.className=dotClass+(i===0?' active':'');
     d.setAttribute('aria-label','Slide '+(i+1));
     d.addEventListener('click',()=>{stopTimer();go(i);startTimer();});
     nav.appendChild(d);dots.push(d);
@@ -110,9 +111,7 @@ document.querySelectorAll('.faq-item').forEach(item=>{
 
   function go(i){
     cur=(i+slides)%slides;
-    /* RTL: positive translateX to go forward, LTR: negative */
-    const dir=isRTL?1:-1;
-    track.style.transform=`translateX(${dir*cur*100}%)`;
+    track.style.transform=`translateX(${-cur*100}%)`;
     dots.forEach((d,idx)=>d.classList.toggle('active',idx===cur));
     if(counter)counter.textContent=(cur+1)+' / '+slides;
   }
@@ -133,13 +132,16 @@ document.querySelectorAll('.faq-item').forEach(item=>{
     const dx=e.changedTouches[0].clientX-dragStartX;
     if(Math.abs(dx)>50){
       stopTimer();
-      go(isRTL?(dx>0?cur-1:cur+1):(dx<0?cur+1:cur-1));
+      go(dx<0?cur+1:cur-1);
       startTimer();
     }
   });
 
   go(0);startTimer();
-})();
+}
+
+initSlider('testi','testi-dot');
+initSlider('serv','serv-dot');
 
 /* ============ LOCATIONS MAP ============ */
 const mapFrame=document.getElementById('mapFrame');

@@ -33,6 +33,7 @@
                 <thead>
                     <tr>
                         <th style="width:60px">#</th>
+                        <th style="width:80px">الشعار</th>
                         <th>الاسم (عربي)</th>
                         <th>Name (English)</th>
                         <th style="width:100px">الحالة</th>
@@ -43,6 +44,13 @@
                     @foreach($insuranceCompanies as $company)
                     <tr>
                         <td>{{ $company->order_index }}</td>
+                        <td>
+                            @if($company->logo)
+                                <img src="{{ $company->logo_url }}" style="height:36px;max-width:60px;object-fit:contain">
+                            @else
+                                <span class="text-muted">—</span>
+                            @endif
+                        </td>
                         <td>{{ $company->name_ar }}</td>
                         <td dir="ltr">{{ $company->name_en }}</td>
                         <td>

@@ -34,6 +34,7 @@ class InsuranceCompanyController extends Controller
             'name_en'     => 'required|string|max:150',
             'subtitle_ar' => 'nullable|string|max:150',
             'subtitle_en' => 'nullable|string|max:150',
+            'logo'        => 'nullable|image|mimes:jpg,jpeg,png,webp,svg|max:4096',
             'order_index' => 'nullable|integer',
         ];
     }
@@ -43,6 +44,10 @@ class InsuranceCompanyController extends Controller
         $data = $request->validate($this->rules());
         $data['is_active']   = $request->boolean('is_active', true);
         $data['order_index'] = $data['order_index'] ?? 0;
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = uploadImage('assets/uploads/insurance', $request->file('logo'));
+        }
 
         InsuranceCompany::create($data);
 
@@ -59,6 +64,10 @@ class InsuranceCompanyController extends Controller
         $data = $request->validate($this->rules());
         $data['is_active']   = $request->boolean('is_active');
         $data['order_index'] = $data['order_index'] ?? 0;
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = uploadImage('assets/uploads/insurance', $request->file('logo'));
+        }
 
         $insurance_company->update($data);
 

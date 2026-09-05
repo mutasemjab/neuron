@@ -14,6 +14,7 @@ class ArticleController extends Controller
         $this->middleware('permission:article-table')->only(['index']);
         $this->middleware('permission:article-add')->only(['create', 'store']);
         $this->middleware('permission:article-edit')->only(['edit', 'update', 'toggleActive']);
+        $this->middleware('permission:article-add|article-edit')->only(['uploadEditorImage']);
         $this->middleware('permission:article-delete')->only(['destroy']);
     }
 
@@ -33,8 +34,8 @@ class ArticleController extends Controller
         return [
             'title_ar'             => 'required|string|max:200',
             'title_en'             => 'required|string|max:200',
-            'excerpt_ar'           => 'required|string|max:500',
-            'excerpt_en'           => 'required|string|max:500',
+            'excerpt_ar'           => 'required|string|max:2000',
+            'excerpt_en'           => 'required|string|max:2000',
             'body_ar'              => 'required|string',
             'body_en'              => 'required|string',
             'category_ar'          => 'nullable|string|max:100',
@@ -99,6 +100,19 @@ class ArticleController extends Controller
     {
         $article->update(['is_active' => ! $article->is_active]);
         return back()->with('success', 'تم تحديث الحالة.');
+    }
+
+    public function uploadEditorImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpg,jpeg,png,webp,gif|max:4096',
+        ]);
+
+        $filename = uploadImage('assets/uploads/articles', $request->file('image'));
+
+        return response()->json([
+            'location' => uploaded_image($filename, 'articles'),
+        ]);
     }
 
     private function uniqueSlug(string $source): string

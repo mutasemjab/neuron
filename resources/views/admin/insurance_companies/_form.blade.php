@@ -25,6 +25,14 @@
                 <input type="text" name="subtitle_en" dir="ltr" class="form-control" value="{{ old('subtitle_en', $c->subtitle_en ?? '') }}">
             </div>
 
+            <div class="col-12 col-md-6">
+                <label class="form-label">شعار الشركة (يظهر بدل الاسم في الموقع)</label>
+                @if($c && $c->logo)
+                    <div class="mb-2"><img src="{{ $c->logo_url }}" style="height:60px;max-width:160px;object-fit:contain;border-radius:6px;border:1px solid #e2e8f0;padding:6px;background:#fff"></div>
+                @endif
+                <input type="file" name="logo" accept="image/*" class="form-control">
+            </div>
+
             <div class="col-md-4">
                 <label class="form-label">ترتيب العرض</label>
                 <input type="number" name="order_index" class="form-control" value="{{ old('order_index', $c->order_index ?? 0) }}">

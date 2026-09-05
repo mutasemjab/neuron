@@ -58,6 +58,7 @@ class DoctorController extends Controller
             'publications.*.title_en'       => 'nullable|string|max:500',
             'publications.*.year'           => 'nullable|integer|min:1900|max:2100',
             'publications.*.url'            => 'nullable|url|max:500',
+            'publications.*.order_index'    => 'nullable|integer',
         ];
     }
 
@@ -129,7 +130,7 @@ class DoctorController extends Controller
                 'title_en'    => trim($row['title_en'] ?? '') ?: null,
                 'year'        => !empty($row['year']) ? (int) $row['year'] : null,
                 'url'         => trim($row['url'] ?? '') ?: null,
-                'order_index' => $i,
+                'order_index' => isset($row['order_index']) && $row['order_index'] !== '' ? (int) $row['order_index'] : $i,
             ]);
         }
     }

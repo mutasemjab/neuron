@@ -16,7 +16,7 @@
 
 <div class="row g-3">
 <div class="col-12 col-xl-9">
-<form action="{{ route('admin.insurance-companies.update', $insuranceCompany->id) }}" method="POST">
+<form action="{{ route('admin.insurance-companies.update', $insuranceCompany->id) }}" method="POST" enctype="multipart/form-data">
 @csrf @method('PUT')
 @include('admin.insurance_companies._form')
 </form>

@@ -9,7 +9,7 @@ class InsuranceCompany extends Model
 {
     use Translatable;
 
-    protected $fillable = ['name_ar', 'name_en', 'subtitle_ar', 'subtitle_en', 'order_index', 'is_active'];
+    protected $fillable = ['name_ar', 'name_en', 'subtitle_ar', 'subtitle_en', 'logo', 'order_index', 'is_active'];
 
     protected $casts = [
         'is_active'   => 'boolean',
@@ -21,5 +21,10 @@ class InsuranceCompany extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true)->orderBy('order_index');
+    }
+
+    public function getLogoUrlAttribute(): ?string
+    {
+        return uploaded_image($this->logo, 'insurance');
     }
 }

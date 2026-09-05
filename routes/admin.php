@@ -86,6 +86,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['lo
         Route::resource('stats', StatController::class, ['as' => 'admin']);
 
         Route::post('articles/{article}/toggle', [ArticleController::class, 'toggleActive'])->name('admin.articles.toggle');
+        Route::post('articles-editor-image', [ArticleController::class, 'uploadEditorImage'])->name('admin.articles.editor-image');
         Route::resource('articles', ArticleController::class, ['as' => 'admin']);
 
         Route::post('subscription-plans/{subscription_plan}/toggle', [SubscriptionPlanController::class, 'toggleActive'])->name('admin.subscription-plans.toggle');

@@ -31,7 +31,7 @@
             <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>{{ $article->read_minutes }} {{ __('front.min_read') }}</span>
           </div>
           <h3>{{ $article->title }}</h3>
-          <p>{{ $article->excerpt }}</p>
+          <p>{{ $article->excerpt_plain }}</p>
           <span class="art-read">{{ __('front.read_article') }}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
           </span>

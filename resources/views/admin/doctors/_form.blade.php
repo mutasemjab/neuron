@@ -173,6 +173,11 @@
                         <label class="form-label">رابط البحث (URL)</label>
                         <input type="url" name="publications[{{ $i }}][url]" dir="ltr" class="form-control" value="{{ $pub['url'] ?? '' }}" placeholder="https://...">
                     </div>
+                    <div class="col-12 col-md-3">
+                        <label class="form-label">ترتيب العرض</label>
+                        <input type="number" name="publications[{{ $i }}][order_index]" class="form-control" value="{{ $pub['order_index'] ?? $i }}">
+                        <small class="text-muted d-block mt-1">الرقم الأصغر يظهر أولاً</small>
+                    </div>
                 </div>
             </div>
             @empty
@@ -210,6 +215,11 @@
                 <label class="form-label">رابط البحث (URL)</label>
                 <input type="url" name="publications[__IDX__][url]" dir="ltr" class="form-control" placeholder="https://...">
             </div>
+            <div class="col-12 col-md-3">
+                <label class="form-label">ترتيب العرض</label>
+                <input type="number" name="publications[__IDX__][order_index]" class="form-control" value="__ORDER__">
+                <small class="text-muted d-block mt-1">الرقم الأصغر يظهر أولاً</small>
+            </div>
         </div>
     </div>
 </template>
@@ -230,7 +240,8 @@
     refreshEmpty();
 
     addBtn.addEventListener('click', function () {
-        const html = tmpl.innerHTML.replaceAll('__IDX__', idx++);
+        const nextOrder = list.querySelectorAll('.pub-row').length;
+        const html = tmpl.innerHTML.replaceAll('__IDX__', idx++).replaceAll('__ORDER__', nextOrder);
         const div  = document.createElement('div');
         div.innerHTML = html;
         const row = div.firstElementChild;

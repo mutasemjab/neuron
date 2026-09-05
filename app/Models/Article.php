@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Concerns\Translatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Article extends Model
 {
@@ -37,6 +38,15 @@ class Article extends Model
     public function getImageUrlAttribute(): ?string
     {
         return uploaded_image($this->image, 'articles');
+    }
+
+    /**
+     * Plain-text excerpt for card/teaser contexts — the rich-text excerpt may contain
+     * links/formatting that shouldn't be rendered raw inside a nested <a> card wrapper.
+     */
+    public function getExcerptPlainAttribute(): string
+    {
+        return Str::limit(trim(strip_tags((string) $this->excerpt)), 160);
     }
 
     public function getRouteKeyName(): string

@@ -64,29 +64,59 @@
 </section>
 <div class="trust"></div>
 
-<!-- ============ SERVICES (featured cards) ============ -->
+<!-- ============ SERVICES (slider — styled like the testimonials section) ============ -->
 <section class="services" id="services">
+
+  {{-- Layered background decorations --}}
+  <div class="serv-orb serv-orb-1" aria-hidden="true"></div>
+  <div class="serv-orb serv-orb-2" aria-hidden="true"></div>
+
   <div class="wrap">
-    <div class="sec-head reveal">
+    <div class="sec-head center reveal">
       <span class="eyebrow">{{ sett('services_section.eyebrow') }}</span>
       <h2>{{ sett('services_section.heading_main') }} <span class="tealword">{{ sett('services_section.heading_highlight') }}</span></h2>
       <p>{{ sett('services_section.paragraph') }}</p>
     </div>
 
-    <div class="serv-grid">
-      @foreach($featuredServices as $service)
-      <div class="serv-card reveal @if(!$loop->first) d{{ $loop->iteration - 1 }} @endif" data-service="{{ $service->id }}">
-        <div class="ph" data-label="{{ $service->title }}">
-          @if($service->image)<img data-src="{{ $service->image_url }}" alt="{{ $service->title }}">@endif
-        </div>
-        <div class="body">
-          <span class="serv-num">/ {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
-          <h3>{{ $service->title }}</h3>
-          <p>{{ $service->description }}</p>
-          <span class="serv-more">{{ __('front.read_details') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+    {{-- Slider container --}}
+    <div class="serv-stage reveal d1">
+
+      {{-- Arrow: previous --}}
+      <button class="serv-arrow serv-arrow-prev" id="servPrev" aria-label="{{ app()->getLocale() === 'ar' ? 'السابق' : 'Previous' }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+
+      {{-- Slides --}}
+      <div class="serv-viewport">
+        <div class="serv-track" id="servTrack">
+          @foreach($featuredServices as $service)
+          <div class="serv-slide">
+            <div class="serv-card" data-service="{{ $service->id }}">
+              <div class="ph" data-label="{{ $service->title }}">
+                @if($service->image)<img data-src="{{ $service->image_url }}" alt="{{ $service->title }}">@endif
+              </div>
+              <div class="body">
+                <span class="serv-num">/ {{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                <h3>{{ $service->title }}</h3>
+                <p>{{ $service->description }}</p>
+                <span class="serv-more">{{ __('front.read_details') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
+              </div>
+            </div>
+          </div>
+          @endforeach
         </div>
       </div>
-      @endforeach
+
+      {{-- Arrow: next --}}
+      <button class="serv-arrow serv-arrow-next" id="servNext" aria-label="{{ app()->getLocale() === 'ar' ? 'التالي' : 'Next' }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    {{-- Progress dots + counter --}}
+    <div class="serv-footer reveal d2">
+      <div class="serv-nav" id="servNav"></div>
+      <span class="serv-counter" id="servCounter"></span>
     </div>
   </div>
 </section>
@@ -259,7 +289,14 @@
     </div>
     <div class="ins-grid reveal d1">
       @foreach($insuranceCompanies as $company)
-      <div class="ins-card"><b>{{ $company->name }}</b>@if($company->subtitle)<small>{{ $company->subtitle }}</small>@endif</div>
+      <div class="ins-card">
+        @if($company->logo)
+          <img class="ins-logo" src="{{ $company->logo_url }}" alt="{{ $company->name }}" loading="lazy">
+        @else
+          <b>{{ $company->name }}</b>
+        @endif
+        @if($company->subtitle)<small>{{ $company->subtitle }}</small>@endif
+      </div>
       @endforeach
     </div>
     @if($insuranceCompanies->count() > 4)
@@ -284,7 +321,14 @@
       <p class="modal-sub">{{ sett('insurance_section.paragraph') }}</p>
       <div class="ins-modal-grid">
         @foreach($insuranceCompanies as $company)
-        <div class="ins-card"><b>{{ $company->name }}</b>@if($company->subtitle)<small>{{ $company->subtitle }}</small>@endif</div>
+        <div class="ins-card">
+          @if($company->logo)
+            <img class="ins-logo" src="{{ $company->logo_url }}" alt="{{ $company->name }}" loading="lazy">
+          @else
+            <b>{{ $company->name }}</b>
+          @endif
+          @if($company->subtitle)<small>{{ $company->subtitle }}</small>@endif
+        </div>
         @endforeach
       </div>
     </div>
@@ -397,7 +441,7 @@
     <div class="testi-stage reveal d1">
 
       {{-- Arrow: previous --}}
-      <button class="testi-arrow testi-arrow-prev" id="testiPrev" aria-label="{{ app()->getLocale() === 'ar' ? 'التالي' : 'Previous' }}">
+      <button class="testi-arrow testi-arrow-prev" id="testiPrev" aria-label="{{ app()->getLocale() === 'ar' ? 'السابق' : 'Previous' }}">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
 
@@ -473,7 +517,7 @@
       </div>
 
       {{-- Arrow: next --}}
-      <button class="testi-arrow testi-arrow-next" id="testiNext" aria-label="{{ app()->getLocale() === 'ar' ? 'السابق' : 'Next' }}">
+      <button class="testi-arrow testi-arrow-next" id="testiNext" aria-label="{{ app()->getLocale() === 'ar' ? 'التالي' : 'Next' }}">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
@@ -515,7 +559,7 @@
         <div class="art-body">
           <div class="art-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>{{ $article->published_at?->translatedFormat('d M Y') }}</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>{{ $article->read_minutes }} {{ __('front.min_read') }}</span></div>
           <h3>{{ $article->title }}</h3>
-          <p>{{ $article->excerpt }}</p>
+          <p>{{ $article->excerpt_plain }}</p>
           <span class="art-read">{{ __('front.read_article') }} <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg></span>
         </div>
         </a>

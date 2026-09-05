@@ -1,6 +1,6 @@
 @extends('layouts.front')
 @section('title', ($article->meta_title ?: $article->title) . ' — ' . sett('identity.site_name'))
-@section('meta_description', $article->meta_description ?: $article->excerpt)
+@section('meta_description', $article->meta_description ?: $article->excerpt_plain)
 
 @push('styles')
 <style>
@@ -32,6 +32,8 @@
 }
 
 .ap-lead { color: var(--ink-soft); font-size: 1.08rem; line-height: 1.8; margin-bottom: 20px; }
+.ap-lead p { margin: 0; }
+.ap-lead p + p { margin-top: 12px; }
 
 .ap-meta {
   display: flex;
@@ -51,6 +53,13 @@
 .ap-content { font-size: 1.02rem; line-height: 2; color: var(--ink); }
 .ap-content p { margin-bottom: 22px; }
 .ap-content p:last-child { margin-bottom: 0; }
+.ap-content h2, .ap-content h3 { color: var(--ink); line-height: 1.4; margin: 34px 0 16px; }
+.ap-content h2:first-child, .ap-content h3:first-child { margin-top: 0; }
+.ap-content a, .ap-lead a { color: var(--teal); text-decoration: underline; }
+.ap-content ul, .ap-content ol { margin: 0 0 22px; padding-inline-start: 1.4em; }
+.ap-content li { margin-bottom: 8px; }
+.ap-content blockquote { border-inline-start: 3px solid var(--teal); margin: 0 0 22px; padding: 4px 20px; color: var(--ink-soft); font-style: italic; }
+.ap-content img { max-width: 100%; height: auto; border-radius: var(--r); margin: 8px 0 22px; display: block; }
 
 .ap-cta { margin-top: 36px; padding-top: 32px; border-top: 1px solid var(--line); }
 
@@ -116,7 +125,7 @@
 
   <h1 class="ap-title">{{ $article->title }}</h1>
 
-  @if($article->excerpt)<p class="ap-lead">{{ $article->excerpt }}</p>@endif
+  @if($article->excerpt)<div class="ap-lead">{!! $article->excerpt !!}</div>@endif
 
   <div class="ap-meta">
     <span class="ap-meta-item">
@@ -137,10 +146,7 @@
   @endif
 
   <div class="ap-content">
-    @foreach(explode("\n", $article->body) as $paragraph)
-      @continue(trim($paragraph) === '')
-      <p>{{ $paragraph }}</p>
-    @endforeach
+    {!! $article->body !!}
   </div>
 
   <div class="ap-cta">
@@ -165,7 +171,7 @@
         </div>
         <div class="ap-related-body">
           <h3>{{ $related->title }}</h3>
-          <p>{{ $related->excerpt }}</p>
+          <p>{{ $related->excerpt_plain }}</p>
         </div>
       </a>
       @endforeach

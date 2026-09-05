@@ -27,24 +27,28 @@
 
             <div class="col-12 col-md-6">
                 <label class="form-label">مقتطف (عربي) <span class="text-danger">*</span></label>
-                <textarea name="excerpt_ar" rows="2" class="form-control @error('excerpt_ar') is-invalid @enderror" required>{{ old('excerpt_ar', $a->excerpt_ar ?? '') }}</textarea>
-                @error('excerpt_ar')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <div id="editor_excerpt_ar" class="rte-editor rte-editor-sm" dir="rtl">{!! old('excerpt_ar', $a->excerpt_ar ?? '') !!}</div>
+                <textarea name="excerpt_ar" class="rte-source @error('excerpt_ar') is-invalid @enderror">{{ old('excerpt_ar', $a->excerpt_ar ?? '') }}</textarea>
+                @error('excerpt_ar')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
             </div>
             <div class="col-12 col-md-6">
                 <label class="form-label">Excerpt (English) <span class="text-danger">*</span></label>
-                <textarea name="excerpt_en" dir="ltr" rows="2" class="form-control @error('excerpt_en') is-invalid @enderror" required>{{ old('excerpt_en', $a->excerpt_en ?? '') }}</textarea>
-                @error('excerpt_en')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <div id="editor_excerpt_en" class="rte-editor rte-editor-sm" dir="ltr">{!! old('excerpt_en', $a->excerpt_en ?? '') !!}</div>
+                <textarea name="excerpt_en" class="rte-source @error('excerpt_en') is-invalid @enderror">{{ old('excerpt_en', $a->excerpt_en ?? '') }}</textarea>
+                @error('excerpt_en')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-12 col-md-6">
                 <label class="form-label">نص المقال (عربي) <span class="text-danger">*</span></label>
-                <textarea name="body_ar" rows="8" class="form-control @error('body_ar') is-invalid @enderror" required>{{ old('body_ar', $a->body_ar ?? '') }}</textarea>
-                @error('body_ar')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <div id="editor_body_ar" class="rte-editor" dir="rtl">{!! old('body_ar', $a->body_ar ?? '') !!}</div>
+                <textarea name="body_ar" class="rte-source @error('body_ar') is-invalid @enderror">{{ old('body_ar', $a->body_ar ?? '') }}</textarea>
+                @error('body_ar')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
             </div>
             <div class="col-12 col-md-6">
                 <label class="form-label">Article Body (English) <span class="text-danger">*</span></label>
-                <textarea name="body_en" dir="ltr" rows="8" class="form-control @error('body_en') is-invalid @enderror" required>{{ old('body_en', $a->body_en ?? '') }}</textarea>
-                @error('body_en')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <div id="editor_body_en" class="rte-editor" dir="ltr">{!! old('body_en', $a->body_en ?? '') !!}</div>
+                <textarea name="body_en" class="rte-source @error('body_en') is-invalid @enderror">{{ old('body_en', $a->body_en ?? '') }}</textarea>
+                @error('body_en')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
             </div>
 
             <div class="col-12">
@@ -99,3 +103,83 @@
 </div>
 
 <button type="submit" class="btn-primary-sm"><i class="bi bi-save"></i> حفظ المقال</button>
+
+@push('styles')
+<link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet">
+<style>
+.rte-source { position:absolute; width:1px; height:1px; padding:0; margin:0; border:0; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+.rte-editor { background:#fff; border-radius:0 0 6px 6px; }
+.rte-editor .ql-editor { min-height:220px; font-size:1rem; }
+.rte-editor-sm .ql-editor { min-height:70px; }
+.rte-editor .ql-toolbar { border-radius:6px 6px 0 0; }
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+<script>
+(function () {
+    const uploadUrl = @json(route('admin.articles.editor-image'));
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    function imageHandler() {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.addEventListener('change', () => {
+            const file = input.files[0];
+            if (!file) return;
+            const quill = this.quill;
+            const range = quill.getSelection(true);
+            const formData = new FormData();
+            formData.append('image', file);
+            fetch(uploadUrl, {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': csrfToken, 'Accept': 'application/json' },
+                body: formData,
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.location) quill.insertEmbed(range.index, 'image', data.location, 'user');
+                })
+                .catch(() => alert('تعذر رفع الصورة.'));
+        });
+        input.click();
+    }
+
+    const smallToolbar = [['bold', 'italic', 'underline'], [{ color: [] }], ['link'], ['clean']];
+    const fullToolbar = [
+        [{ header: [2, 3, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ color: [] }, { background: [] }],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['blockquote', 'link', 'image'],
+        ['clean'],
+    ];
+
+    function initEditor(editorId, toolbar, withImage) {
+        const container = document.getElementById(editorId);
+        if (!container) return;
+        const source = container.nextElementSibling;
+
+        const quill = new Quill(container, {
+            theme: 'snow',
+            modules: {
+                toolbar: withImage ? { container: toolbar, handlers: { image: imageHandler } } : toolbar,
+            },
+        });
+
+        quill.on('text-change', () => { source.value = quill.root.innerHTML; });
+
+        container.closest('form').addEventListener('submit', () => {
+            source.value = quill.root.innerHTML;
+        });
+    }
+
+    initEditor('editor_excerpt_ar', smallToolbar, false);
+    initEditor('editor_excerpt_en', smallToolbar, false);
+    initEditor('editor_body_ar', fullToolbar, true);
+    initEditor('editor_body_en', fullToolbar, true);
+})();
+</script>
+@endpush
