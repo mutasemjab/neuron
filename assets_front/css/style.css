@@ -921,8 +921,7 @@ body.nav-open .burger span:nth-child(3) {
 /* ==================== SERVICES (slider — styled like the testimonials section) ==================== */
 .services {
   padding: 120px 0 100px;
-  background: linear-gradient(145deg, var(--teal-darker) 0%, #091918 45%, #0e2e2c 70%, var(--teal-deep) 100%);
-  color: #fff;
+  background: #fff;
   overflow: hidden;
   position: relative
 }
@@ -937,22 +936,22 @@ body.nav-open .burger span:nth-child(3) {
 .serv-orb-1 {
   width: 500px; height: 500px;
   top: -120px; inset-inline-start: -100px;
-  background: radial-gradient(circle, rgba(42,128,125,.22) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(42,128,125,.07) 0%, transparent 70%);
   animation: orbFloat 14s ease-in-out infinite
 }
 
 .serv-orb-2 {
   width: 380px; height: 380px;
   bottom: -80px; inset-inline-end: -60px;
-  background: radial-gradient(circle, rgba(61,180,176,.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(61,180,176,.05) 0%, transparent 70%);
   animation: orbFloat 18s ease-in-out infinite reverse
 }
 
 .services .wrap { position: relative; z-index: 2 }
-.services .eyebrow { color: #7fd8d3 }
-.services .eyebrow::before { background: #7fd8d3 }
-.services .sec-head h2 { color: #fff }
-.services .sec-head p { color: rgba(255,255,255,.65) }
+.services .eyebrow { color: var(--teal) }
+.services .eyebrow::before { background: var(--teal) }
+.services .sec-head h2 { color: var(--ink) }
+.services .sec-head p { color: var(--ink-soft) }
 
 /* Stage (slider + arrows) */
 .serv-stage {
@@ -985,16 +984,15 @@ body.nav-open .burger span:nth-child(3) {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: rgba(255,255,255,.09);
-  border: 1.5px solid rgba(255,255,255,.18);
-  color: #fff;
+  background: #f4f8f8;
+  border: 1.5px solid rgba(42,128,125,.18);
+  color: var(--teal);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   cursor: pointer;
-  transition: all .35s var(--ease);
-  backdrop-filter: blur(8px)
+  transition: all .35s var(--ease)
 }
 
 .serv-arrow:hover {
@@ -1020,9 +1018,9 @@ body.nav-open .burger span:nth-child(3) {
   min-height: 360px;
   cursor: pointer;
   box-shadow:
-    0 0 0 1px rgba(42,128,125,.06),
-    0 24px 80px -16px rgba(6,18,17,.55),
-    0 8px 32px -8px rgba(42,128,125,.2);
+    0 0 0 1px rgba(42,128,125,.1),
+    0 16px 48px -12px rgba(42,128,125,.15),
+    0 4px 16px -4px rgba(0,0,0,.06);
   animation: cardEntry .7s var(--ease) both;
   transition: transform .4s var(--ease)
 }
@@ -1116,7 +1114,7 @@ body.nav-open .burger span:nth-child(3) {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255,255,255,.2);
+  background: rgba(42,128,125,.18);
   cursor: pointer;
   transition: all .4s var(--ease);
   border: none
@@ -1129,11 +1127,11 @@ body.nav-open .burger span:nth-child(3) {
   box-shadow: 0 0 12px rgba(42,128,125,.7)
 }
 
-.serv-dot:hover:not(.active) { background: rgba(255,255,255,.4) }
+.serv-dot:hover:not(.active) { background: rgba(42,128,125,.35) }
 
 .serv-counter {
   font-size: .82rem;
-  color: rgba(255,255,255,.35);
+  color: var(--ink-soft);
   font-family: var(--f-num);
   min-width: 48px;
   text-align: center
@@ -1936,9 +1934,12 @@ body.nav-open .burger span:nth-child(3) {
 }
 
 .ins-card .ins-logo {
-  max-width: 78%;
-  max-height: 56%;
-  object-fit: contain;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--r);
   transition: transform .35s var(--ease)
 }
 
