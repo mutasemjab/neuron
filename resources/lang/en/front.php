@@ -3,8 +3,8 @@
 return [
 
     // ── Meta ─────────────────────────────────────────────────────────
-    'page_title'       => 'Neuron Clinic | Specialized Spine & Nerve Treatment Center',
-    'meta_description' => 'Neuron Clinic - a specialized medical center for diagnosing and treating spine and nerve conditions using the latest endoscopic and minimally-invasive techniques in Jordan.',
+    'page_title'       => 'Neuron Clinics | Specialized Spine & Nerve Treatment Center',
+    'meta_description' => 'Neuron Clinics - a specialized medical center for diagnosing and treating spine and nerve conditions using the latest endoscopic and minimally-invasive techniques in Jordan.',
 
     // ── Navigation ───────────────────────────────────────────────────
     'nav_home'      => 'Home',

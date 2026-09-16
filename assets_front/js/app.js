@@ -87,7 +87,7 @@ document.querySelectorAll('.faq-item').forEach(item=>{
 /* ============ SLIDER (testimonials, services) ============
    Slide-flow direction and arrow positions are pinned to LTR regardless of
    page language — see [dir="rtl"] .testi-stage / .serv-stage in CSS. */
-function initSlider(prefix,dotClass){
+function initSlider(prefix,dotClass,interval=7000){
   const track=document.getElementById(prefix+'Track');
   if(!track)return;
   const slides=track.children.length;
@@ -116,7 +116,7 @@ function initSlider(prefix,dotClass){
     if(counter)counter.textContent=(cur+1)+' / '+slides;
   }
 
-  function startTimer(){timer=setInterval(()=>go(cur+1),7000);}
+  function startTimer(){timer=setInterval(()=>go(cur+1),interval);}
   function stopTimer(){clearInterval(timer);}
 
   if(prevBtn)prevBtn.addEventListener('click',()=>{stopTimer();go(cur-1);startTimer();});
@@ -140,7 +140,7 @@ function initSlider(prefix,dotClass){
   go(0);startTimer();
 }
 
-initSlider('testi','testi-dot');
+initSlider('testi','testi-dot',2000);
 initSlider('serv','serv-dot');
 
 /* ============ LOCATIONS MAP ============ */

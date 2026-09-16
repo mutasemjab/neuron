@@ -62,7 +62,6 @@
   </div>
   
 </section>
-<div class="trust"></div>
 
 <!-- ============ SERVICES (slider — styled like the testimonials section) ============ -->
 <section class="services" id="services">
