@@ -180,6 +180,18 @@ document.querySelectorAll('[data-service]').forEach(el=>{
   });
 })();
 
+/* ============ CAREERS SHOW MORE ============ */
+(()=>{
+  const btn=document.getElementById('careersMoreBtn');
+  if(!btn)return;
+  const hiddenJobs=document.querySelectorAll('.job--hidden');
+  btn.addEventListener('click',()=>{
+    const isOpen=btn.classList.toggle('open');
+    hiddenJobs.forEach(j=>j.classList.toggle('job--hidden',!isOpen));
+    btn.querySelector('span').textContent=isOpen?btn.dataset.labelLess:btn.dataset.labelMore;
+  });
+})();
+
 /* ============ BOOKING FORM(S) ============ */
 document.querySelectorAll('form.book-ajax-form').forEach(bookForm=>{
   const successEl=bookForm.parentElement.querySelector('.form-success');

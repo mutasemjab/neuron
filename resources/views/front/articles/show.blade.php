@@ -146,7 +146,7 @@
   @endif
 
   <div class="ap-content">
-    {!! $article->body !!}
+    {!! $article->body_for_display !!}
   </div>
 
   <div class="ap-cta">

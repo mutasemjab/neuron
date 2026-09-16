@@ -58,10 +58,11 @@ class ArticleController extends Controller
             $data['image'] = uploadImage('assets/uploads/articles', $request->file('image'));
         }
 
-        $data['slug']         = $this->uniqueSlug($data['title_en'] ?: $data['title_ar']);
-        $data['read_minutes'] = $data['read_minutes'] ?? 5;
-        $data['published_at'] = $data['published_at'] ?? now();
-        $data['is_active']    = $request->boolean('is_active', true);
+        $data['slug']              = $this->uniqueSlug($data['title_en'] ?: $data['title_ar']);
+        $data['read_minutes']      = $data['read_minutes'] ?? 5;
+        $data['published_at']      = $data['published_at'] ?? now();
+        $data['is_active']         = $request->boolean('is_active', true);
+        $data['show_body_images']  = $request->boolean('show_body_images', true);
 
         Article::create($data);
 
@@ -81,9 +82,10 @@ class ArticleController extends Controller
             $data['image'] = uploadImage('assets/uploads/articles', $request->file('image'));
         }
 
-        $data['read_minutes'] = $data['read_minutes'] ?? 5;
-        $data['published_at'] = $data['published_at'] ?? $article->published_at;
-        $data['is_active']    = $request->boolean('is_active');
+        $data['read_minutes']      = $data['read_minutes'] ?? 5;
+        $data['published_at']      = $data['published_at'] ?? $article->published_at;
+        $data['is_active']         = $request->boolean('is_active');
+        $data['show_body_images']  = $request->boolean('show_body_images');
 
         $article->update($data);
 

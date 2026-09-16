@@ -138,6 +138,13 @@
                     <label class="form-check-label" for="is_active">منشور</label>
                 </div>
             </div>
+            <div class="col-md-4 d-flex align-items-center">
+                <div class="form-check form-switch mt-3">
+                    <input class="form-check-input" type="checkbox" name="show_body_images" value="1" id="show_body_images" @checked(old('show_body_images', $a->show_body_images ?? true))>
+                    <label class="form-check-label" for="show_body_images">عرض الصور داخل نص المقال</label>
+                </div>
+                <small class="text-muted d-block">إذا ألغيت التفعيل، تختفي الصور المرفقة داخل نص المقال من صفحة المقال بالموقع (مع بقاء باقي النص).</small>
+            </div>
 
         </div>
     </div>

@@ -612,7 +612,7 @@
     </div>
     <div class="career-grid @if($careerJobs->count() === 1) career-grid--single @endif">
       @foreach($careerJobs as $job)
-      <div class="job reveal @if(!$loop->first) d{{ $loop->iteration - 1 }} @endif">
+      <div class="job reveal @if(!$loop->first) d{{ $loop->iteration - 1 }} @endif @if($loop->iteration > 3) job--hidden @endif">
         @if($job->type)<span class="job-type">{{ $job->type }}</span>@endif
         <h3>{{ $job->title }}</h3>
         <p>{{ $job->description }}</p>
@@ -623,6 +623,16 @@
       </div>
       @endforeach
     </div>
+    @if($careerJobs->count() > 3)
+    <div class="career-more-wrap reveal d2">
+      <button type="button" class="btn btn-ghost" id="careersMoreBtn"
+        data-label-more="{{ app()->getLocale() === 'ar' ? 'عرض المزيد' : 'Show More' }}"
+        data-label-less="{{ app()->getLocale() === 'ar' ? 'عرض أقل' : 'Show Less' }}">
+        <span>{{ app()->getLocale() === 'ar' ? 'عرض المزيد' : 'Show More' }}</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+    @endif
   </div>
 </section>
 @endif
