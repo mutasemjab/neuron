@@ -15,12 +15,12 @@ class Article extends Model
         'body_ar', 'body_en', 'category_ar', 'category_en', 'image',
         'read_minutes', 'meta_title_ar', 'meta_title_en',
         'meta_description_ar', 'meta_description_en', 'published_at', 'is_active',
-        'show_body_images',
+        'show_cover_image',
     ];
 
     protected $casts = [
         'is_active'         => 'boolean',
-        'show_body_images'  => 'boolean',
+        'show_cover_image'  => 'boolean',
         'read_minutes'      => 'integer',
         'published_at'      => 'datetime',
     ];
@@ -49,21 +49,6 @@ class Article extends Model
     public function getExcerptPlainAttribute(): string
     {
         return Str::limit(trim(strip_tags((string) $this->excerpt)), 160);
-    }
-
-    /**
-     * Article body HTML for the show page — with inline <img> tags stripped
-     * when the admin has turned off "show images" for this article.
-     */
-    public function getBodyForDisplayAttribute(): string
-    {
-        $html = (string) $this->body;
-
-        if (! $this->show_body_images) {
-            $html = preg_replace('/<img\b[^>]*>/i', '', $html);
-        }
-
-        return $html;
     }
 
     public function getRouteKeyName(): string

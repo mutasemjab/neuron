@@ -140,10 +140,10 @@
             </div>
             <div class="col-md-4 d-flex align-items-center">
                 <div class="form-check form-switch mt-3">
-                    <input class="form-check-input" type="checkbox" name="show_body_images" value="1" id="show_body_images" @checked(old('show_body_images', $a->show_body_images ?? true))>
-                    <label class="form-check-label" for="show_body_images">عرض الصور داخل نص المقال</label>
+                    <input class="form-check-input" type="checkbox" name="show_cover_image" value="1" id="show_cover_image" @checked(old('show_cover_image', $a->show_cover_image ?? true))>
+                    <label class="form-check-label" for="show_cover_image">عرض صورة الغلاف (Cover)</label>
                 </div>
-                <small class="text-muted d-block">إذا ألغيت التفعيل، تختفي الصور المرفقة داخل نص المقال من صفحة المقال بالموقع (مع بقاء باقي النص).</small>
+                <small class="text-muted d-block">إذا ألغيت التفعيل، تختفي صورة الغلاف من أعلى صفحة المقال بالموقع فقط — الصور داخل نص المقال ما بتتأثر.</small>
             </div>
 
         </div>

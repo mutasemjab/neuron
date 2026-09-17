@@ -62,7 +62,7 @@ class ArticleController extends Controller
         $data['read_minutes']      = $data['read_minutes'] ?? 5;
         $data['published_at']      = $data['published_at'] ?? now();
         $data['is_active']         = $request->boolean('is_active', true);
-        $data['show_body_images']  = $request->boolean('show_body_images', true);
+        $data['show_cover_image']  = $request->boolean('show_cover_image', true);
 
         Article::create($data);
 
@@ -85,7 +85,7 @@ class ArticleController extends Controller
         $data['read_minutes']      = $data['read_minutes'] ?? 5;
         $data['published_at']      = $data['published_at'] ?? $article->published_at;
         $data['is_active']         = $request->boolean('is_active');
-        $data['show_body_images']  = $request->boolean('show_body_images');
+        $data['show_cover_image']  = $request->boolean('show_cover_image');
 
         $article->update($data);
 

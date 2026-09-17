@@ -139,14 +139,14 @@
     </span>
   </div>
 
-  @if($article->image)
+  @if($article->image && $article->show_cover_image)
   <div class="ap-cover">
     <img data-src="{{ $article->image_url }}" alt="{{ $article->title }}">
   </div>
   @endif
 
   <div class="ap-content">
-    {!! $article->body_for_display !!}
+    {!! $article->body !!}
   </div>
 
   <div class="ap-cta">
