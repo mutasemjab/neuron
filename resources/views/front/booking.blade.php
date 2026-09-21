@@ -315,10 +315,7 @@
         .phone-group {
             display: flex;
             gap: 8px;
-        }
-
-        .phone-group select {
-            flex: 0 0 128px;
+            direction: ltr;
         }
 
         .phone-group input {
@@ -694,9 +691,6 @@
                 flex-direction: column;
             }
 
-            .phone-group select {
-                flex-basis: auto;
-            }
         }
     </style>
 @endpush
@@ -787,13 +781,7 @@
                             <div class="field">
                                 <label>{{ $isAr ? 'رقم الهاتف' : 'Phone Number' }} <span class="req">*</span></label>
                                 <div class="phone-group">
-                                    <select name="phone_country_code" required>
-                                        @foreach ($countries as $country)
-                                            <option value="{{ $country['dial'] }}" @selected($country['iso'] === 'JO')>
-                                                &#x2066;{{ $country['dial'] }}&#x2069;
-                                                {{ $isAr ? $country['name_ar'] : $country['name_en'] }}</option>
-                                        @endforeach
-                                    </select>
+                                    @include('front._country_code_picker', ['countries' => $countries])
                                     <input type="tel" name="phone" dir="ltr" required placeholder="7XXXXXXXX">
                                 </div>
                                 <span
@@ -985,13 +973,7 @@
                             <label>{{ $isAr ? 'رقم الهاتف / واتساب' : 'Phone / WhatsApp Number' }} <span
                                     class="req">*</span></label>
                             <div class="phone-group">
-                                <select name="phone_country_code" required>
-                                    @foreach ($countries as $country)
-                                        <option value="{{ $country['dial'] }}" @selected($country['iso'] === 'JO')>
-                                            &#x2066;{{ $country['dial'] }}&#x2069; {{ $isAr ? $country['name_ar'] : $country['name_en'] }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                @include('front._country_code_picker', ['countries' => $countries])
                                 <input type="tel" name="phone" dir="ltr" required>
                             </div>
                         </div>

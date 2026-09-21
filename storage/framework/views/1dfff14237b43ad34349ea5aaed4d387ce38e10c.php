@@ -314,10 +314,7 @@
         .phone-group {
             display: flex;
             gap: 8px;
-        }
-
-        .phone-group select {
-            flex: 0 0 128px;
+            direction: ltr;
         }
 
         .phone-group input {
@@ -693,9 +690,6 @@
                 flex-direction: column;
             }
 
-            .phone-group select {
-                flex-basis: auto;
-            }
         }
     </style>
 <?php $__env->stopPush(); ?>
@@ -790,13 +784,7 @@
                             <div class="field">
                                 <label><?php echo e($isAr ? 'رقم الهاتف' : 'Phone Number'); ?> <span class="req">*</span></label>
                                 <div class="phone-group">
-                                    <select name="phone_country_code" required>
-                                        <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <option value="<?php echo e($country['dial']); ?>" <?php if($country['iso'] === 'JO'): echo 'selected'; endif; ?>>
-                                                &#x2066;<?php echo e($country['dial']); ?>&#x2069;
-                                                <?php echo e($isAr ? $country['name_ar'] : $country['name_en']); ?></option>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </select>
+                                    <?php echo $__env->make('front._country_code_picker', ['countries' => $countries], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                     <input type="tel" name="phone" dir="ltr" required placeholder="7XXXXXXXX">
                                 </div>
                                 <span
@@ -994,14 +982,7 @@
                             <label><?php echo e($isAr ? 'رقم الهاتف / واتساب' : 'Phone / WhatsApp Number'); ?> <span
                                     class="req">*</span></label>
                             <div class="phone-group">
-                                <select name="phone_country_code" required>
-                                    <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option value="<?php echo e($country['dial']); ?>" <?php if($country['iso'] === 'JO'): echo 'selected'; endif; ?>>
-                                            &#x2066;<?php echo e($country['dial']); ?>&#x2069; <?php echo e($isAr ? $country['name_ar'] : $country['name_en']); ?>
-
-                                        </option>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                </select>
+                                <?php echo $__env->make('front._country_code_picker', ['countries' => $countries], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                 <input type="tel" name="phone" dir="ltr" required>
                             </div>
                         </div>
