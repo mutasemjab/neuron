@@ -680,17 +680,17 @@ body.nav-open .burger span:nth-child(3) {
   line-height: 1.4
 }
 
-/* typographic hierarchy: light lead-in line, heavy key line, medium accent line */
+/* typographic hierarchy: heavy key line, light secondary line, medium accent line */
 .hero h1 .ln:nth-child(1) i {
+  font-size: 1.12em;
+  font-weight: 900
+}
+
+.hero h1 .ln:nth-child(2) i {
   font-size: .62em;
   font-weight: 400;
   color: #cfe0de;
   letter-spacing: 0
-}
-
-.hero h1 .ln:nth-child(2) i {
-  font-size: 1.12em;
-  font-weight: 900
 }
 
 .hero h1 .ln:nth-child(3) i {
