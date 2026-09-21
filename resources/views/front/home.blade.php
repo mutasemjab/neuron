@@ -647,7 +647,7 @@
         <a href="{{ route('booking.page') }}" class="btn btn-primary btn-lg"><span>{{ __('front.book_now') }}</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="tel:{{ sett_raw('contact.phone') }}" class="btn btn-ghost btn-lg" style="color:#fff;border-color:rgba(255,255,255,.3)">{{ __('front.call_us') }}: {{ sett_raw('contact.phone') }}</a>
+        <a href="tel:{{ sett_raw('contact.phone') }}" class="btn btn-ghost btn-lg" style="color:#fff;border-color:rgba(255,255,255,.3)">{{ __('front.call_us') }}: <bdi dir="ltr">{{ sett_raw('contact.phone') }}</bdi></a>
       </div>
     </div>
   </div>

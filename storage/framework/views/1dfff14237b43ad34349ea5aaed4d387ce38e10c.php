@@ -1,10 +1,9 @@
-@extends('layouts.front')
-@section('title', sett('booking_page.heading') . ' | ' . sett('identity.site_name'))
-@section('meta_description', sett('booking_page.subtext'))
+<?php $__env->startSection('title', sett('booking_page.heading') . ' | ' . sett('identity.site_name')); ?>
+<?php $__env->startSection('meta_description', sett('booking_page.subtext')); ?>
 
-@php $isAr = app()->getLocale() === 'ar'; @endphp
+<?php $isAr = app()->getLocale() === 'ar'; ?>
 
-@push('styles')
+<?php $__env->startPush('styles'); ?>
     <style>
         /* ── Steps ─────────────────────────────────────────────── */
         .book-flow {
@@ -699,24 +698,24 @@
             }
         }
     </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="page-head">
         <div class="wrap">
-            <span class="eyebrow">{{ sett('booking_page.eyebrow') }}</span>
-            <h1>{{ sett('booking_page.heading') }}</h1>
-            <p style="color:var(--ink-soft);max-width:640px;margin:14px auto 0">{{ sett('booking_page.subtext') }}</p>
-            <div class="crumbs"><a href="{{ route('home') }}">{{ __('front.nav_home') }}</a> /
-                {{ sett('booking_page.heading') }}</div>
+            <span class="eyebrow"><?php echo e(sett('booking_page.eyebrow')); ?></span>
+            <h1><?php echo e(sett('booking_page.heading')); ?></h1>
+            <p style="color:var(--ink-soft);max-width:640px;margin:14px auto 0"><?php echo e(sett('booking_page.subtext')); ?></p>
+            <div class="crumbs"><a href="<?php echo e(route('home')); ?>"><?php echo e(__('front.nav_home')); ?></a> /
+                <?php echo e(sett('booking_page.heading')); ?></div>
         </div>
     </div>
 
     <div class="book-flow">
         <div class="wrap">
 
-            {{-- ══ STEP 0: choose location ══ --}}
+            
             <div class="book-step active" data-step="choice">
                 <div class="book-choice-grid">
 
@@ -727,10 +726,11 @@
                                 <circle cx="12" cy="10" r="3" />
                             </svg>
                         </div>
-                        <h3>{{ sett('booking_choice.domestic_title') }}</h3>
-                        <p>{{ sett('booking_choice.domestic_text') }}</p>
+                        <h3><?php echo e(sett('booking_choice.domestic_title')); ?></h3>
+                        <p><?php echo e(sett('booking_choice.domestic_text')); ?></p>
                         <span class="book-choice-cta">
-                            {{ $isAr ? 'احجز الآن' : 'Book Now' }}
+                            <?php echo e($isAr ? 'احجز الآن' : 'Book Now'); ?>
+
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                                 <path d="M5 12h14M13 6l6 6-6 6" />
                             </svg>
@@ -744,10 +744,11 @@
                                 <path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z" />
                             </svg>
                         </div>
-                        <h3>{{ sett('booking_choice.international_title') }}</h3>
-                        <p>{{ sett('booking_choice.international_text') }}</p>
+                        <h3><?php echo e(sett('booking_choice.international_title')); ?></h3>
+                        <p><?php echo e(sett('booking_choice.international_text')); ?></p>
                         <span class="book-choice-cta">
-                            {{ $isAr ? 'احجز الآن' : 'Book Now' }}
+                            <?php echo e($isAr ? 'احجز الآن' : 'Book Now'); ?>
+
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                                 <path d="M5 12h14M13 6l6 6-6 6" />
                             </svg>
@@ -757,13 +758,14 @@
                 </div>
             </div>
 
-            {{-- ══ STEP 1: domestic form ══ --}}
+            
             <div class="book-step" data-step="domestic">
                 <button type="button" class="book-back" data-back>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M19 12H5M11 18l-6-6 6-6" />
                     </svg>
-                    {{ $isAr ? 'تغيير الخيار' : 'Change Option' }}
+                    <?php echo e($isAr ? 'تغيير الخيار' : 'Change Option'); ?>
+
                 </button>
 
                 <div class="book-page-card">
@@ -773,52 +775,53 @@
                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                                 <circle cx="12" cy="10" r="3" />
                             </svg></div>
-                        <h2>{{ $isAr ? 'حجز موعد داخل الأردن' : 'Book an Appointment Inside Jordan' }}</h2>
-                        <p>{{ $isAr ? 'أدخل بياناتك، وسيتواصل معك فريقنا لتأكيد الموعد واستكمال التفاصيل.' : 'Enter your details, and our team will contact you to confirm the appointment and complete the details.' }}
+                        <h2><?php echo e($isAr ? 'حجز موعد داخل الأردن' : 'Book an Appointment Inside Jordan'); ?></h2>
+                        <p><?php echo e($isAr ? 'أدخل بياناتك، وسيتواصل معك فريقنا لتأكيد الموعد واستكمال التفاصيل.' : 'Enter your details, and our team will contact you to confirm the appointment and complete the details.'); ?>
+
                         </p>
                     </div>
 
-                    <form class="book-ajax-form" action="{{ route('appointments.store') }}" method="POST">
-                        @csrf
+                    <form class="book-ajax-form" action="<?php echo e(route('appointments.store')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
 
                         <div class="form-row">
-                            <div class="field"><label>{{ $isAr ? 'الاسم الكامل' : 'Full Name' }} <span
+                            <div class="field"><label><?php echo e($isAr ? 'الاسم الكامل' : 'Full Name'); ?> <span
                                         class="req">*</span></label><input type="text" name="name" required></div>
                             <div class="field">
-                                <label>{{ $isAr ? 'رقم الهاتف' : 'Phone Number' }} <span class="req">*</span></label>
+                                <label><?php echo e($isAr ? 'رقم الهاتف' : 'Phone Number'); ?> <span class="req">*</span></label>
                                 <div class="phone-group">
                                     <select name="phone_country_code" required>
-                                        @foreach ($countries as $country)
-                                            <option value="{{ $country['dial'] }}" @selected($country['iso'] === 'JO')>
-                                                &#x2066;{{ $country['dial'] }}&#x2069;
-                                                {{ $isAr ? $country['name_ar'] : $country['name_en'] }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($country['dial']); ?>" <?php if($country['iso'] === 'JO'): echo 'selected'; endif; ?>>
+                                                &#x2066;<?php echo e($country['dial']); ?>&#x2069;
+                                                <?php echo e($isAr ? $country['name_ar'] : $country['name_en']); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                     <input type="tel" name="phone" dir="ltr" required placeholder="7XXXXXXXX">
                                 </div>
                                 <span
-                                    class="field-hint">{{ $isAr ? 'الرقم الأردني يبدأ بـ 077 / 078 / 079 ويتكوّن من 10 أرقام. الأرقام غير الأردنية تُقبل حسب مفتاح الدولة.' : 'Jordanian numbers start with 077/078/079 and are 10 digits. Other numbers are accepted based on the selected country code.' }}</span>
+                                    class="field-hint"><?php echo e($isAr ? 'الرقم الأردني يبدأ بـ 077 / 078 / 079 ويتكوّن من 10 أرقام. الأرقام غير الأردنية تُقبل حسب مفتاح الدولة.' : 'Jordanian numbers start with 077/078/079 and are 10 digits. Other numbers are accepted based on the selected country code.'); ?></span>
                             </div>
                         </div>
 
                         <div class="field full" style="margin-bottom:18px">
-                            <label>{{ $isAr ? 'البريد الإلكتروني' : 'Email' }}</label>
+                            <label><?php echo e($isAr ? 'البريد الإلكتروني' : 'Email'); ?></label>
                             <input type="email" name="email" dir="ltr">
-                            <span class="field-hint">{{ $isAr ? 'اختياري' : 'Optional' }}</span>
+                            <span class="field-hint"><?php echo e($isAr ? 'اختياري' : 'Optional'); ?></span>
                         </div>
 
                         <div class="form-row">
-                            <div class="field"><label>{{ $isAr ? 'الفرع' : 'Branch' }} <span
+                            <div class="field"><label><?php echo e($isAr ? 'الفرع' : 'Branch'); ?> <span
                                         class="req">*</span></label>
                                 <select name="branch_id" required>
-                                    <option value="">{{ $isAr ? 'اختر الفرع' : 'Select branch' }}</option>
-                                    @foreach ($branches as $branch)
-                                        <option value="{{ $branch->id }}">{{ $branch->name }}</option>
-                                    @endforeach
+                                    <option value=""><?php echo e($isAr ? 'اختر الفرع' : 'Select branch'); ?></option>
+                                    <?php $__currentLoopData = $branches; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $branch): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($branch->id); ?>"><?php echo e($branch->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                             <div class="field">
-                                <label>{{ $isAr ? 'التاريخ المفضل' : 'Preferred Date' }} <span
+                                <label><?php echo e($isAr ? 'التاريخ المفضل' : 'Preferred Date'); ?> <span
                                         class="req">*</span></label>
                                 <div class="cal-wrap" id="calWrap">
                                     <button type="button" class="cal-trigger" id="calTrigger">
@@ -826,7 +829,7 @@
                                             <rect x="3" y="4" width="18" height="18" rx="2" />
                                             <path d="M16 2v4M8 2v4M3 10h18" />
                                         </svg>
-                                        <span id="calTriggerLabel">{{ $isAr ? 'اختر التاريخ' : 'Choose a date' }}</span>
+                                        <span id="calTriggerLabel"><?php echo e($isAr ? 'اختر التاريخ' : 'Choose a date'); ?></span>
                                     </button>
                                     <input type="hidden" name="preferred_date" id="calValue" required>
                                     <div class="cal-pop" id="calPop">
@@ -849,70 +852,72 @@
                                         <div class="cal-days-grid" id="calDaysGrid"></div>
                                         <div class="cal-legend">
                                             <span><i
-                                                    class="dot-disabled"></i>{{ $isAr ? 'غير متاح' : 'Unavailable' }}</span>
-                                            <span><i class="dot-selected"></i>{{ $isAr ? 'المختار' : 'Selected' }}</span>
+                                                    class="dot-disabled"></i><?php echo e($isAr ? 'غير متاح' : 'Unavailable'); ?></span>
+                                            <span><i class="dot-selected"></i><?php echo e($isAr ? 'المختار' : 'Selected'); ?></span>
                                         </div>
                                     </div>
                                 </div>
                                 <span
-                                    class="field-hint">{{ $isAr ? 'الحجز متاح من السبت للخميس. الجمعة والعطل الرسمية مغلقة.' : 'Booking available Saturday–Thursday. Fridays and public holidays are closed.' }}</span>
+                                    class="field-hint"><?php echo e($isAr ? 'الحجز متاح من السبت للخميس. الجمعة والعطل الرسمية مغلقة.' : 'Booking available Saturday–Thursday. Fridays and public holidays are closed.'); ?></span>
                             </div>
                         </div>
 
                         <div class="field full" style="margin-bottom:18px">
-                            <label>{{ $isAr ? 'الوقت المفضل' : 'Preferred Time' }} <span class="req">*</span></label>
+                            <label><?php echo e($isAr ? 'الوقت المفضل' : 'Preferred Time'); ?> <span class="req">*</span></label>
                             <select name="preferred_time_slot" required>
-                                <option value="">{{ $isAr ? 'اختر الوقت' : 'Select time' }}</option>
-                                <option value="{{ $isAr ? 'صباحًا (9 ص – 12 م)' : 'Morning (9am – 12pm)' }}">
-                                    {{ $isAr ? 'صباحًا (9 ص – 12 م)' : 'Morning (9am – 12pm)' }}</option>
-                                <option value="{{ $isAr ? 'ظهرًا (12 م – 2 م)' : 'Noon (12pm – 2pm)' }}">
-                                    {{ $isAr ? 'ظهرًا (12 م – 2 م)' : 'Noon (12pm – 2pm)' }}</option>
-                                <option value="{{ $isAr ? 'بعد الظهر (2 م – 4 م)' : 'Afternoon (2pm – 4pm)' }}">
-                                    {{ $isAr ? 'بعد الظهر (2 م – 4 م)' : 'Afternoon (2pm – 4pm)' }}</option>
+                                <option value=""><?php echo e($isAr ? 'اختر الوقت' : 'Select time'); ?></option>
+                                <option value="<?php echo e($isAr ? 'صباحًا (9 ص – 12 م)' : 'Morning (9am – 12pm)'); ?>">
+                                    <?php echo e($isAr ? 'صباحًا (9 ص – 12 م)' : 'Morning (9am – 12pm)'); ?></option>
+                                <option value="<?php echo e($isAr ? 'ظهرًا (12 م – 2 م)' : 'Noon (12pm – 2pm)'); ?>">
+                                    <?php echo e($isAr ? 'ظهرًا (12 م – 2 م)' : 'Noon (12pm – 2pm)'); ?></option>
+                                <option value="<?php echo e($isAr ? 'بعد الظهر (2 م – 4 م)' : 'Afternoon (2pm – 4pm)'); ?>">
+                                    <?php echo e($isAr ? 'بعد الظهر (2 م – 4 م)' : 'Afternoon (2pm – 4pm)'); ?></option>
                             </select>
                         </div>
 
                         <div class="field full" style="margin-bottom:18px">
-                            <label>{{ $isAr ? 'طريقة الدفع' : 'Payment Method' }} <span class="req">*</span></label>
+                            <label><?php echo e($isAr ? 'طريقة الدفع' : 'Payment Method'); ?> <span class="req">*</span></label>
                             <div class="pill-radio-group">
                                 <div class="pill-radio">
                                     <input type="radio" name="payment_method" value="insurance" id="pay_insurance"
                                         required>
-                                    <label for="pay_insurance">{{ $isAr ? 'تأمين' : 'Insurance' }}</label>
+                                    <label for="pay_insurance"><?php echo e($isAr ? 'تأمين' : 'Insurance'); ?></label>
                                 </div>
                                 <div class="pill-radio">
                                     <input type="radio" name="payment_method" value="cash" id="pay_cash" required>
-                                    <label for="pay_cash">{{ $isAr ? 'نقدي' : 'Cash' }}</label>
+                                    <label for="pay_cash"><?php echo e($isAr ? 'نقدي' : 'Cash'); ?></label>
                                 </div>
                             </div>
                             <span class="field-hint"><a
-                                    href="{{ route('home') }}#insurance">{{ $isAr ? 'تعرّف على شركات التأمين المعتمدة لدينا' : 'View our approved insurance companies' }}</a></span>
+                                    href="<?php echo e(route('home')); ?>#insurance"><?php echo e($isAr ? 'تعرّف على شركات التأمين المعتمدة لدينا' : 'View our approved insurance companies'); ?></a></span>
                         </div>
 
                         <div class="field full" style="margin-bottom:18px">
-                            <label>{{ $isAr ? 'هل سبق لك زيارة عيادات نيورون؟' : 'Have you visited Neuron Clinics before?' }}
+                            <label><?php echo e($isAr ? 'هل سبق لك زيارة عيادات نيورون؟' : 'Have you visited Neuron Clinics before?'); ?>
+
                                 <span class="req">*</span></label>
                             <div class="pill-radio-group">
                                 <div class="pill-radio">
                                     <input type="radio" name="visited_before" value="1" id="visited_yes"
                                         required>
-                                    <label for="visited_yes">{{ $isAr ? 'نعم' : 'Yes' }}</label>
+                                    <label for="visited_yes"><?php echo e($isAr ? 'نعم' : 'Yes'); ?></label>
                                 </div>
                                 <div class="pill-radio">
                                     <input type="radio" name="visited_before" value="0" id="visited_no" required>
-                                    <label for="visited_no">{{ $isAr ? 'لا' : 'No' }}</label>
+                                    <label for="visited_no"><?php echo e($isAr ? 'لا' : 'No'); ?></label>
                                 </div>
                             </div>
                         </div>
 
                         <button type="submit"
-                            class="btn btn-primary btn-lg"><span>{{ $isAr ? 'إرسال طلب الحجز' : 'Send Booking Request' }}</span>
+                            class="btn btn-primary btn-lg"><span><?php echo e($isAr ? 'إرسال طلب الحجز' : 'Send Booking Request'); ?></span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M5 12h14M13 6l6 6-6 6" />
                             </svg>
                         </button>
                         <p class="field-hint" style="margin-top:12px;text-align:center">
-                            {{ $isAr ? 'إرسال الطلب لا يعني تأكيد الموعد. سيتواصل معك فريقنا لتأكيد الموعد واستكمال التفاصيل.' : 'Submitting this request does not confirm the appointment. Our team will contact you to confirm and complete the details.' }}
+                            <?php echo e($isAr ? 'إرسال الطلب لا يعني تأكيد الموعد. سيتواصل معك فريقنا لتأكيد الموعد واستكمال التفاصيل.' : 'Submitting this request does not confirm the appointment. Our team will contact you to confirm and complete the details.'); ?>
+
                         </p>
                     </form>
 
@@ -921,20 +926,22 @@
                                 stroke-width="2.5">
                                 <path d="M20 6 9 17l-5-5" />
                             </svg></div>
-                        <h3>{{ $isAr ? 'تم استلام طلبك بنجاح ✓' : 'Your Request Has Been Received ✓' }}</h3>
-                        <p>{{ $isAr ? 'شكرًا لتواصلك مع عيادات نيورون. سيتواصل معك فريقنا لتأكيد الموعد واستكمال التفاصيل.' : 'Thank you for contacting Neuron Clinics. Our team will contact you to confirm the appointment and complete the details.' }}
+                        <h3><?php echo e($isAr ? 'تم استلام طلبك بنجاح ✓' : 'Your Request Has Been Received ✓'); ?></h3>
+                        <p><?php echo e($isAr ? 'شكرًا لتواصلك مع عيادات نيورون. سيتواصل معك فريقنا لتأكيد الموعد واستكمال التفاصيل.' : 'Thank you for contacting Neuron Clinics. Our team will contact you to confirm the appointment and complete the details.'); ?>
+
                         </p>
                     </div>
                 </div>
             </div>
 
-            {{-- ══ STEP 2: international online consultation form ══ --}}
+            
             <div class="book-step" data-step="international">
                 <button type="button" class="book-back" data-back>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M19 12H5M11 18l-6-6 6-6" />
                     </svg>
-                    {{ $isAr ? 'تغيير الخيار' : 'Change Option' }}
+                    <?php echo e($isAr ? 'تغيير الخيار' : 'Change Option'); ?>
+
                 </button>
 
                 <div class="book-page-card">
@@ -944,13 +951,15 @@
                                 <circle cx="12" cy="12" r="10" />
                                 <path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z" />
                             </svg></div>
-                        <h2>{{ $isAr ? 'استشارة أونلاين للمرضى من خارج الأردن' : 'Online Consultation for Patients Outside Jordan' }}
+                        <h2><?php echo e($isAr ? 'استشارة أونلاين للمرضى من خارج الأردن' : 'Online Consultation for Patients Outside Jordan'); ?>
+
                         </h2>
-                        <p>{{ $isAr ? 'أدخل بياناتك وأرفق التقارير والصور الطبية المتوفرة، وسيتواصل معك فريق عيادات نيورون عبر البريد الإلكتروني لاستكمال التفاصيل وتنسيق موعد الاستشارة الأونلاين.' : 'Submit your information and any available medical reports and imaging. The Neuron Clinics team will contact you by email to complete the necessary details and arrange your online consultation.' }}
+                        <p><?php echo e($isAr ? 'أدخل بياناتك وأرفق التقارير والصور الطبية المتوفرة، وسيتواصل معك فريق عيادات نيورون عبر البريد الإلكتروني لاستكمال التفاصيل وتنسيق موعد الاستشارة الأونلاين.' : 'Submit your information and any available medical reports and imaging. The Neuron Clinics team will contact you by email to complete the necessary details and arrange your online consultation.'); ?>
+
                         </p>
                     </div>
 
-                    @if (sett('booking_page.price'))
+                    <?php if(sett('booking_page.price')): ?>
                         <div class="book-price-badge">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10" />
@@ -959,38 +968,39 @@
                             </svg>
                             <div>
                                 <span
-                                    class="bp-label">{{ $isAr ? 'سعر الاستشارة الأونلاين' : 'Online Consultation Price' }}</span>
-                                <span class="bp-value">{{ sett('booking_page.price') }}</span>
-                                @if (sett('booking_page.price_note'))
-                                    <span class="bp-note">{{ sett('booking_page.price_note') }}</span>
-                                @endif
+                                    class="bp-label"><?php echo e($isAr ? 'سعر الاستشارة الأونلاين' : 'Online Consultation Price'); ?></span>
+                                <span class="bp-value"><?php echo e(sett('booking_page.price')); ?></span>
+                                <?php if(sett('booking_page.price_note')): ?>
+                                    <span class="bp-note"><?php echo e(sett('booking_page.price_note')); ?></span>
+                                <?php endif; ?>
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    <form class="book-ajax-form" id="consultForm" action="{{ route('consultations.store') }}"
+                    <form class="book-ajax-form" id="consultForm" action="<?php echo e(route('consultations.store')); ?>"
                         method="POST" enctype="multipart/form-data">
-                        @csrf
+                        <?php echo csrf_field(); ?>
 
                         <div class="form-row">
-                            <div class="field"><label>{{ $isAr ? 'الاسم الكامل' : 'Full Name' }} <span
+                            <div class="field"><label><?php echo e($isAr ? 'الاسم الكامل' : 'Full Name'); ?> <span
                                         class="req">*</span></label><input type="text" name="name" required>
                             </div>
-                            <div class="field"><label>{{ $isAr ? 'البريد الإلكتروني' : 'Email Address' }} <span
+                            <div class="field"><label><?php echo e($isAr ? 'البريد الإلكتروني' : 'Email Address'); ?> <span
                                         class="req">*</span></label><input type="email" name="email"
                                     dir="ltr" required></div>
                         </div>
 
                         <div class="field full" style="margin-bottom:18px">
-                            <label>{{ $isAr ? 'رقم الهاتف / واتساب' : 'Phone / WhatsApp Number' }} <span
+                            <label><?php echo e($isAr ? 'رقم الهاتف / واتساب' : 'Phone / WhatsApp Number'); ?> <span
                                     class="req">*</span></label>
                             <div class="phone-group">
                                 <select name="phone_country_code" required>
-                                    @foreach ($countries as $country)
-                                        <option value="{{ $country['dial'] }}" @selected($country['iso'] === 'JO')>
-                                            &#x2066;{{ $country['dial'] }}&#x2069; {{ $isAr ? $country['name_ar'] : $country['name_en'] }}
+                                    <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($country['dial']); ?>" <?php if($country['iso'] === 'JO'): echo 'selected'; endif; ?>>
+                                            &#x2066;<?php echo e($country['dial']); ?>&#x2069; <?php echo e($isAr ? $country['name_ar'] : $country['name_en']); ?>
+
                                         </option>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                                 <input type="tel" name="phone" dir="ltr" required>
                             </div>
@@ -998,71 +1008,71 @@
 
                         <div class="form-row">
                             <div class="field">
-                                <label>{{ $isAr ? 'بلد الإقامة' : 'Country of Residence' }} <span
+                                <label><?php echo e($isAr ? 'بلد الإقامة' : 'Country of Residence'); ?> <span
                                         class="req">*</span></label>
                                 <select name="country_of_residence" required>
-                                    <option value="">{{ $isAr ? 'اختر الدولة' : 'Select country' }}</option>
-                                    @foreach ($countries as $country)
-                                        <option value="{{ $country['name_en'] }}" @selected($country['iso'] === 'JO')>
-                                            {{ $isAr ? $country['name_ar'] : $country['name_en'] }}</option>
-                                    @endforeach
+                                    <option value=""><?php echo e($isAr ? 'اختر الدولة' : 'Select country'); ?></option>
+                                    <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($country['name_en']); ?>" <?php if($country['iso'] === 'JO'): echo 'selected'; endif; ?>>
+                                            <?php echo e($isAr ? $country['name_ar'] : $country['name_en']); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
                             <div class="field">
-                                <label>{{ $isAr ? 'تاريخ الميلاد' : 'Date of Birth' }} <span
+                                <label><?php echo e($isAr ? 'تاريخ الميلاد' : 'Date of Birth'); ?> <span
                                         class="req">*</span></label>
-                                <input type="date" name="date_of_birth" max="{{ now()->subDay()->toDateString() }}"
+                                <input type="date" name="date_of_birth" max="<?php echo e(now()->subDay()->toDateString()); ?>"
                                     required>
                             </div>
                         </div>
 
                         <div class="field full" style="margin-bottom:18px">
-                            <label>{{ $isAr ? 'الأيام المناسبة للاستشارة' : 'Preferred Consultation Days' }} <span
+                            <label><?php echo e($isAr ? 'الأيام المناسبة للاستشارة' : 'Preferred Consultation Days'); ?> <span
                                     class="req">*</span></label>
                             <div class="chip-checkbox-group">
-                                @php $days = ['sunday'=>['ar'=>'الأحد','en'=>'Sunday'],'monday'=>['ar'=>'الاثنين','en'=>'Monday'],'tuesday'=>['ar'=>'الثلاثاء','en'=>'Tuesday'],'thursday'=>['ar'=>'الخميس','en'=>'Thursday']]; @endphp
-                                @foreach ($days as $key => $label)
+                                <?php $days = ['sunday'=>['ar'=>'الأحد','en'=>'Sunday'],'monday'=>['ar'=>'الاثنين','en'=>'Monday'],'tuesday'=>['ar'=>'الثلاثاء','en'=>'Tuesday'],'thursday'=>['ar'=>'الخميس','en'=>'Thursday']]; ?>
+                                <?php $__currentLoopData = $days; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="chip-checkbox">
-                                        <input type="checkbox" name="preferred_days[]" value="{{ $key }}"
-                                            id="day_{{ $key }}">
+                                        <input type="checkbox" name="preferred_days[]" value="<?php echo e($key); ?>"
+                                            id="day_<?php echo e($key); ?>">
                                         <label
-                                            for="day_{{ $key }}">{{ $isAr ? $label['ar'] : $label['en'] }}</label>
+                                            for="day_<?php echo e($key); ?>"><?php echo e($isAr ? $label['ar'] : $label['en']); ?></label>
                                     </div>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </div>
 
                         <div class="field full" style="margin-bottom:18px">
-                            <label>{{ $isAr ? 'الفترة المناسبة للاستشارة' : 'Preferred Consultation Time' }} <span
+                            <label><?php echo e($isAr ? 'الفترة المناسبة للاستشارة' : 'Preferred Consultation Time'); ?> <span
                                     class="req">*</span></label>
                             <div class="chip-checkbox-group">
-                                @php $periods = ['morning'=>['ar'=>'صباحًا','en'=>'Morning'],'afternoon'=>['ar'=>'ظهرًا','en'=>'Afternoon']]; @endphp
-                                @foreach ($periods as $key => $label)
+                                <?php $periods = ['morning'=>['ar'=>'صباحًا','en'=>'Morning'],'afternoon'=>['ar'=>'ظهرًا','en'=>'Afternoon']]; ?>
+                                <?php $__currentLoopData = $periods; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <div class="chip-checkbox">
-                                        <input type="checkbox" name="preferred_periods[]" value="{{ $key }}"
-                                            id="period_{{ $key }}">
+                                        <input type="checkbox" name="preferred_periods[]" value="<?php echo e($key); ?>"
+                                            id="period_<?php echo e($key); ?>">
                                         <label
-                                            for="period_{{ $key }}">{{ $isAr ? $label['ar'] : $label['en'] }}</label>
+                                            for="period_<?php echo e($key); ?>"><?php echo e($isAr ? $label['ar'] : $label['en']); ?></label>
                                     </div>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                             <span
-                                class="field-hint">{{ $isAr ? 'يرجى اختيار الفترة الأنسب لك حسب التوقيت المحلي في بلد إقامتك. سيتم تنسيق الموعد النهائي وتأكيده عبر البريد الإلكتروني وفق المواعيد المتاحة.' : 'Please select the time period that suits you based on your local time zone. The final consultation date and time will be arranged and confirmed by email based on availability.' }}</span>
+                                class="field-hint"><?php echo e($isAr ? 'يرجى اختيار الفترة الأنسب لك حسب التوقيت المحلي في بلد إقامتك. سيتم تنسيق الموعد النهائي وتأكيده عبر البريد الإلكتروني وفق المواعيد المتاحة.' : 'Please select the time period that suits you based on your local time zone. The final consultation date and time will be arranged and confirmed by email based on availability.'); ?></span>
                         </div>
 
                         <div class="field full" style="margin-bottom:18px">
-                            <label>{{ $isAr ? 'وصف الحالة / الاستفسار الطبي' : 'Medical Condition / Inquiry' }} <span
+                            <label><?php echo e($isAr ? 'وصف الحالة / الاستفسار الطبي' : 'Medical Condition / Inquiry'); ?> <span
                                     class="req">*</span></label>
                             <textarea name="condition_description" required
-                                placeholder="{{ $isAr ? 'يرجى وصف الحالة والأعراض وأي معلومات طبية ذات صلة.' : 'Please describe your condition, symptoms, and any relevant medical information.' }}"></textarea>
+                                placeholder="<?php echo e($isAr ? 'يرجى وصف الحالة والأعراض وأي معلومات طبية ذات صلة.' : 'Please describe your condition, symptoms, and any relevant medical information.'); ?>"></textarea>
                         </div>
 
                         <div class="field full" style="margin-bottom:18px">
-                            <label>{{ $isAr ? 'التقارير والصور الطبية' : 'Medical Reports & Imaging' }}</label>
+                            <label><?php echo e($isAr ? 'التقارير والصور الطبية' : 'Medical Reports & Imaging'); ?></label>
                             <input type="file" name="attachments[]" id="consultFiles"
                                 accept=".pdf,.jpg,.jpeg,.png,.dcm,.zip" multiple>
                             <span
-                                class="field-hint">{{ $isAr ? 'يمكنك إرفاق التقارير الطبية، نتائج الفحوصات وصور الأشعة المتوفرة لمساعدة الطبيب في مراجعة حالتك. الصيغ المدعومة: PDF – JPG – JPEG – PNG – DICOM (.dcm) – ZIP، حتى 5 ملفات وبحد أقصى 50MB لكل ملف.' : 'You may upload available medical reports, test results, and imaging to assist the physician in reviewing your case. Supported formats: PDF – JPG – JPEG – PNG – DICOM (.dcm) – ZIP, up to 5 files, 50MB max per file.' }}</span>
+                                class="field-hint"><?php echo e($isAr ? 'يمكنك إرفاق التقارير الطبية، نتائج الفحوصات وصور الأشعة المتوفرة لمساعدة الطبيب في مراجعة حالتك. الصيغ المدعومة: PDF – JPG – JPEG – PNG – DICOM (.dcm) – ZIP، حتى 5 ملفات وبحد أقصى 50MB لكل ملف.' : 'You may upload available medical reports, test results, and imaging to assist the physician in reviewing your case. Supported formats: PDF – JPG – JPEG – PNG – DICOM (.dcm) – ZIP, up to 5 files, 50MB max per file.'); ?></span>
                             <div class="file-list" id="consultFileList"></div>
                         </div>
 
@@ -1071,13 +1081,16 @@
                                 <input type="checkbox" name="privacy_consent" value="1" id="privacyConsent"
                                     required>
                                 <label for="privacyConsent">
-                                    {{ $isAr ? 'أوافق على' : 'I agree to the' }}
-                                    <a href="{{ route('privacy.policy') }}" target="_blank">
-                                        {{ $isAr ? 'سياسة الخصوصية' : 'Privacy Policy' }}
+                                    <?php echo e($isAr ? 'أوافق على' : 'I agree to the'); ?>
+
+                                    <a href="<?php echo e(route('privacy.policy')); ?>" target="_blank">
+                                        <?php echo e($isAr ? 'سياسة الخصوصية' : 'Privacy Policy'); ?>
+
                                     </a>
-                                    {{ $isAr
+                                    <?php echo e($isAr
                                         ? 'ومعالجة بياناتي الطبية لغرض تقديم خدمة الاستشارة، مع التأكيد بأن عيادات نيورون تلتزم بحماية جميع البيانات والتعامل معها بسرية تامة.'
-                                        : 'and the processing of my medical information for the purpose of providing the consultation service, acknowledging that Neuron Clinics is committed to protecting all data and handling it with complete confidentiality.' }}
+                                        : 'and the processing of my medical information for the purpose of providing the consultation service, acknowledging that Neuron Clinics is committed to protecting all data and handling it with complete confidentiality.'); ?>
+
                                     <span class="req">*</span>
                                 </label>
 
@@ -1085,7 +1098,7 @@
                         </div>
 
                         <button type="submit"
-                            class="btn btn-primary btn-lg"><span>{{ $isAr ? 'إرسال طلب الاستشارة' : 'Submit Consultation Request' }}</span>
+                            class="btn btn-primary btn-lg"><span><?php echo e($isAr ? 'إرسال طلب الاستشارة' : 'Submit Consultation Request'); ?></span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M5 12h14M13 6l6 6-6 6" />
                             </svg>
@@ -1097,23 +1110,26 @@
                                 stroke-width="2.5">
                                 <path d="M20 6 9 17l-5-5" />
                             </svg></div>
-                        <h3>{{ $isAr ? 'تم استلام طلب الاستشارة بنجاح' : 'Your Consultation Request Has Been Received' }}
+                        <h3><?php echo e($isAr ? 'تم استلام طلب الاستشارة بنجاح' : 'Your Consultation Request Has Been Received'); ?>
+
                         </h3>
-                        <p>{{ $isAr ? 'شكرًا لتواصلك مع عيادات نيورون. سيتواصل معك فريقنا عبر البريد الإلكتروني لاستكمال التفاصيل وتزويدك بالمواعيد المتاحة للاستشارة.' : 'Thank you for contacting Neuron Clinics. Our team will contact you by email to complete the necessary details and provide you with the available consultation times.' }}
+                        <p><?php echo e($isAr ? 'شكرًا لتواصلك مع عيادات نيورون. سيتواصل معك فريقنا عبر البريد الإلكتروني لاستكمال التفاصيل وتزويدك بالمواعيد المتاحة للاستشارة.' : 'Thank you for contacting Neuron Clinics. Our team will contact you by email to complete the necessary details and provide you with the available consultation times.'); ?>
+
                         </p>
 
-                        @if (sett_raw('booking_page.price_amount'))
+                        <?php if(sett_raw('booking_page.price_amount')): ?>
                             <div class="consult-pay-box" id="consultPayBox">
                                 <div class="consult-pay-price">
-                                    <span>{{ $isAr ? 'سعر الاستشارة' : 'Consultation Price' }}:</span>
-                                    <strong>{{ sett('booking_page.price') ?: sett_raw('booking_page.price_amount') . ' JOD' }}</strong>
+                                    <span><?php echo e($isAr ? 'سعر الاستشارة' : 'Consultation Price'); ?>:</span>
+                                    <strong><?php echo e(sett('booking_page.price') ?: sett_raw('booking_page.price_amount') . ' JOD'); ?></strong>
                                 </div>
                                 <button type="button" class="btn btn-primary btn-lg" id="consultPayBtn"
                                     style="width:100%;justify-content:center">
-                                    <span>{{ $isAr ? 'ادفع الآن' : 'Pay Now' }}</span>
+                                    <span><?php echo e($isAr ? 'ادفع الآن' : 'Pay Now'); ?></span>
                                 </button>
                                 <p class="field-hint" style="text-align:center;margin-top:10px">
-                                    {{ $isAr ? 'الدفع الآن اختياري، ويمكنك أيضاً الدفع لاحقاً عند تواصل فريقنا معك.' : 'Paying now is optional — you can also pay later when our team contacts you.' }}
+                                    <?php echo e($isAr ? 'الدفع الآن اختياري، ويمكنك أيضاً الدفع لاحقاً عند تواصل فريقنا معك.' : 'Paying now is optional — you can also pay later when our team contacts you.'); ?>
+
                                 </p>
                             </div>
 
@@ -1122,7 +1138,7 @@
                                 <div id="consultPaymentForm"></div>
                             </div>
                             <div class="consult-pay-result" id="consultPayResult" style="display:none"></div>
-                        @endif
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -1130,9 +1146,9 @@
         </div>
     </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
     <script>
         (function() {
             const steps = document.querySelectorAll('.book-step');
@@ -1168,8 +1184,8 @@
             const nextBtn = document.getElementById('calNextBtn');
             if (!trigger || !pop) return;
 
-            const isAr = @json($isAr);
-            const closedSet = new Set(@json($closedDates));
+            const isAr = <?php echo json_encode($isAr, 15, 512) ?>;
+            const closedSet = new Set(<?php echo json_encode($closedDates, 15, 512) ?>);
             const weekdayLabels = isAr ? ['س', 'ح', 'ن', 'ث', 'ر', 'خ', 'ج'] : ['Sat', 'Sun', 'Mon', 'Tue', 'Wed',
                 'Thu', 'Fri'
             ];
@@ -1274,7 +1290,7 @@
         })();
 
         /* ============ CONSULTATION ONLINE PAYMENT (Bank al Etihad) ============ */
-        @if (sett_raw('booking_page.price_amount'))
+        <?php if(sett_raw('booking_page.price_amount')): ?>
             (function() {
                 const consultForm = document.getElementById('consultForm');
                 const payBox = document.getElementById('consultPayBox');
@@ -1285,18 +1301,18 @@
                 if (!consultForm || !payBtn) return;
 
                 const cfg = {
-                    checkoutUrlTemplate: @json(route('consultations.checkout', ['consultation' => '__ID__'])),
-                    resultUrlTemplate: @json(route('consultations.result', ['consultation' => '__ID__'])),
-                    csrf: @json(csrf_token()),
+                    checkoutUrlTemplate: <?php echo json_encode(route('consultations.checkout', ['consultation' => '__ID__']), 512) ?>,
+                    resultUrlTemplate: <?php echo json_encode(route('consultations.result', ['consultation' => '__ID__']), 512) ?>,
+                    csrf: <?php echo json_encode(csrf_token(), 15, 512) ?>,
                     i18n: {
-                        processing: @json($isAr ? 'يتم تجهيز الدفع الآمن...' : 'Preparing secure payment...'),
-                        paying: @json($isAr ? 'يتم تنفيذ الدفع...' : 'Processing payment...'),
-                        success: @json($isAr ? 'تم الدفع بنجاح، شكرًا لك.' : 'Payment successful, thank you.'),
-                        failed: @json(
+                        processing: <?php echo json_encode($isAr ? 'يتم تجهيز الدفع الآمن...' : 'Preparing secure payment...', 15, 512) ?>,
+                        paying: <?php echo json_encode($isAr ? 'يتم تنفيذ الدفع...' : 'Processing payment...', 15, 512) ?>,
+                        success: <?php echo json_encode($isAr ? 'تم الدفع بنجاح، شكرًا لك.' : 'Payment successful, thank you.', 512) ?>,
+                        failed: <?php echo json_encode(
                             $isAr
                                 ? 'تعذّر إتمام الدفع. يمكنك المحاولة مرة أخرى لاحقًا.'
-                                : 'Payment could not be completed. You can try again later.'),
-                        initFailed: @json($isAr ? 'تعذّر بدء عملية الدفع، حاول مرة أخرى.' : 'Could not start the payment, please try again.'),
+                                : 'Payment could not be completed. You can try again later.', 15, 512) ?>,
+                        initFailed: <?php echo json_encode($isAr ? 'تعذّر بدء عملية الدفع، حاول مرة أخرى.' : 'Could not start the payment, please try again.', 512) ?>,
                     },
                 };
 
@@ -1387,7 +1403,7 @@
                     }
                 });
             })();
-        @endif
+        <?php endif; ?>
 
         /* ============ MULTI FILE UPLOAD LIST (consultation attachments) ============ */
         (function() {
@@ -1409,4 +1425,6 @@
             });
         })();
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.front', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\nuron\resources\views\front\booking.blade.php ENDPATH**/ ?>

@@ -658,7 +658,7 @@ body.nav-open .burger span:nth-child(3) {
 }
 
 .hero-inner {
-  max-width: 620px;
+  max-width: 860px;
   color: #fff
 }
 
@@ -678,6 +678,25 @@ body.nav-open .burger span:nth-child(3) {
   color: #fff;
   letter-spacing: -.02em;
   line-height: 1.4
+}
+
+/* typographic hierarchy: light lead-in line, heavy key line, medium accent line */
+.hero h1 .ln:nth-child(1) i {
+  font-size: .62em;
+  font-weight: 400;
+  color: #cfe0de;
+  letter-spacing: 0
+}
+
+.hero h1 .ln:nth-child(2) i {
+  font-size: 1.12em;
+  font-weight: 900
+}
+
+.hero h1 .ln:nth-child(3) i {
+  font-size: .8em;
+  font-weight: 500;
+  color: #7fd8d3
 }
 
 .hero h1 .ln {
@@ -716,10 +735,12 @@ body.nav-open .burger span:nth-child(3) {
 }
 
 .hero p.lead {
-  margin-top: 18px;
-  font-size: .98rem;
+  margin-top: 22px;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  font-weight: 400;
   color: #cfe0de;
-  max-width: 480px;
+  max-width: 720px;
   opacity: 0;
   transform: translateY(20px)
 }
@@ -4988,3 +5009,5 @@ body.nav-open .burger span:nth-child(3) {
     transform: none
   }
 }
+/* numbers with a "+" (phones, counters) must keep the "+" on the natural side in RTL pages */
+[data-count], a[href^="tel:"] strong, .phone-group input { direction: ltr; unicode-bidi: isolate }
