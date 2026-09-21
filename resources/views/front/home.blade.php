@@ -43,7 +43,7 @@
         <span class="ln"><i>{{ sett('hero.heading_line2') }}</i></span>
         <span class="ln"><i>{{ sett('hero.heading_line3') }}</i></span>
       </h1>
-      <p class="lead">{{ sett('hero.lead') }}</p>
+      <p class="lead">{!! sett('hero.lead') !!}</p>
       <div class="cta-row">
         <a href="{{ route('booking.page') }}" class="btn btn-primary btn-lg"><span>{{ __('front.book_now') }}</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
