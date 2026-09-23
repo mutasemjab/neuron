@@ -2074,9 +2074,8 @@ body.nav-open .burger span:nth-child(3) {
   gap: 24px
 }
 
-.vid--hidden {
-  display: none
-}
+.vid-more-wrap .btn svg { transition: transform .35s var(--ease) }
+.vid-more-wrap .btn.open svg { transform: rotate(180deg) }
 
 .vid-more-wrap {
   display: flex;
@@ -2197,6 +2196,10 @@ body.nav-open .burger span:nth-child(3) {
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden
+}
+
+.vid.vid--hidden {
+  display: none
 }
 
 @media(max-width:900px) {

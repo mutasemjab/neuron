@@ -364,7 +364,7 @@
 
     @if($videos->count() > 3)
     <div class="vid-more-wrap reveal d2">
-      <button type="button" class="svc-more-btn" id="vidMoreBtn"
+      <button type="button" class="btn btn-ghost" id="vidMoreBtn"
         data-label-more="{{ app()->getLocale() === 'ar' ? 'عرض المزيد' : 'View More' }}"
         data-label-less="{{ app()->getLocale() === 'ar' ? 'عرض أقل' : 'Show Less' }}">
         <span>{{ app()->getLocale() === 'ar' ? 'عرض المزيد' : 'View More' }}</span>
