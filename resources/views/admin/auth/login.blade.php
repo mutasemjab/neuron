@@ -387,23 +387,6 @@
         </ul>
     </div>
 
-    <div class="l-stats">
-        <div class="l-stat">
-            <span class="l-stat-val">{{ $stats['doctors'] }}</span>
-            <span class="l-stat-lbl">{{ __('messages.stat_doctors') }}</span>
-        </div>
-        <div class="l-stat-divider"></div>
-        <div class="l-stat">
-            <span class="l-stat-val">{{ $stats['branches'] }}</span>
-            <span class="l-stat-lbl">{{ __('messages.stat_branches') }}</span>
-        </div>
-        <div class="l-stat-divider"></div>
-        <div class="l-stat">
-            <span class="l-stat-val">{{ $stats['years'] }}</span>
-            <span class="l-stat-lbl">{{ __('messages.stat_years') }}</span>
-        </div>
-    </div>
-
 </div>
 
 {{-- RIGHT PANEL --}}
