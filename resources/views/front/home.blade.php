@@ -598,12 +598,21 @@
       </div>
 
       <div class="faq-list reveal d1">
-        @foreach($faqs as $faq)
+        @foreach($faqs->take(5) as $faq)
         <div class="faq-item @if($loop->first) open @endif">
           <button class="faq-q">{{ $faq->question }}<span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button>
           <div class="faq-a"><p>{{ $faq->answer }}</p></div>
         </div>
         @endforeach
+
+        @if($faqs->count() > 5)
+        <div style="margin-top:8px">
+          <a href="{{ route('faq.index') }}" class="btn btn-ghost" style="width:100%;justify-content:center">
+            <span>{{ app()->getLocale() === 'ar' ? 'عرض جميع الأسئلة' : 'View All Questions' }}</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+        @endif
       </div>
     </div>
   </div>

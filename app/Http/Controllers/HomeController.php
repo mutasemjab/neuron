@@ -55,6 +55,13 @@ class HomeController extends Controller
         return view('front.videos', compact('videos'));
     }
 
+    public function faq()
+    {
+        $faqs = Faq::active()->get();
+
+        return view('front.faq', compact('faqs'));
+    }
+
     public function bookingPage()
     {
         $branches    = Branch::active()->get();

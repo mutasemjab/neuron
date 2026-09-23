@@ -28,6 +28,7 @@ Route::group([
     Route::view('/terms', 'front.terms')->name('terms.conditions');
 
     Route::get('/videos',             [HomeController::class, 'videos'])->name('videos.index');
+    Route::get('/faq',                [HomeController::class, 'faq'])->name('faq.index');
     Route::get('/articles',           [ArticleController::class, 'index'])->name('articles.index');
     Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 
