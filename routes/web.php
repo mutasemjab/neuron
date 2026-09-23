@@ -27,6 +27,7 @@ Route::group([
     Route::view('/privacy-policy', 'front.privacy_policy')->name('privacy.policy');
     Route::view('/terms', 'front.terms')->name('terms.conditions');
 
+    Route::get('/videos',             [HomeController::class, 'videos'])->name('videos.index');
     Route::get('/articles',           [ArticleController::class, 'index'])->name('articles.index');
     Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 

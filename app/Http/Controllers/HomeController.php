@@ -48,6 +48,13 @@ class HomeController extends Controller
         ));
     }
 
+    public function videos()
+    {
+        $videos = Video::active()->get();
+
+        return view('front.videos', compact('videos'));
+    }
+
     public function bookingPage()
     {
         $branches    = Branch::active()->get();

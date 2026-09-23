@@ -337,6 +337,10 @@
 
 <!-- ============ VIDEOS ============ -->
 @if($videos->isNotEmpty())
+@php
+  $mainVideo   = $videos->firstWhere('is_main', true) ?? $videos->first();
+  $smallVideos = $videos->where('id', '!=', $mainVideo->id)->take(2);
+@endphp
 <section class="videos" id="videos">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -346,30 +350,32 @@
     </div>
 
     <div class="vid-grid reveal d1">
-      @foreach($videos as $video)
-      <button type="button" class="vid{{ $loop->iteration > 3 ? ' vid--hidden' : '' }}"
-        data-video-url="{{ $video->embed_url }}"
-        data-fallback-url="{{ $video->video_url }}">
-        <div class="ph" data-label="{{ $video->title }}">
-          @if($video->thumbnail)<img data-src="{{ $video->thumbnail_url }}" alt="{{ $video->title }}">@endif
+      <button type="button" class="vid main" data-video-url="{{ $mainVideo->embed_url }}" data-fallback-url="{{ $mainVideo->video_url }}">
+        <div class="ph" data-label="{{ $mainVideo->title }}">
+          @if($mainVideo->thumbnail)<img data-src="{{ $mainVideo->thumbnail_url }}" alt="{{ $mainVideo->title }}">@endif
         </div>
         <span class="vid-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
-        <div class="vid-info">
-          @if($video->tag)<span class="tag">{{ $video->tag }}</span>@endif
-          <h3>{{ $video->title }}</h3>
-        </div>
+        <div class="vid-info">@if($mainVideo->tag)<span class="tag">{{ $mainVideo->tag }}</span>@endif<h3>{{ $mainVideo->title }}</h3></div>
       </button>
-      @endforeach
+      <div class="vid-col">
+        @foreach($smallVideos as $video)
+        <button type="button" class="vid small" data-video-url="{{ $video->embed_url }}" data-fallback-url="{{ $video->video_url }}">
+          <div class="ph" data-label="{{ $video->title }}">
+            @if($video->thumbnail)<img data-src="{{ $video->thumbnail_url }}" alt="{{ $video->title }}">@endif
+          </div>
+          <span class="vid-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <div class="vid-info">@if($video->tag)<span class="tag">{{ $video->tag }}</span>@endif<h3>{{ $video->title }}</h3></div>
+        </button>
+        @endforeach
+      </div>
     </div>
 
     @if($videos->count() > 3)
     <div class="vid-more-wrap reveal d2">
-      <button type="button" class="btn btn-ghost" id="vidMoreBtn"
-        data-label-more="{{ app()->getLocale() === 'ar' ? 'عرض المزيد' : 'View More' }}"
-        data-label-less="{{ app()->getLocale() === 'ar' ? 'عرض أقل' : 'Show Less' }}">
-        <span>{{ app()->getLocale() === 'ar' ? 'عرض المزيد' : 'View More' }}</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-      </button>
+      <a href="{{ route('videos.index') }}" class="btn btn-ghost">
+        <span>{{ app()->getLocale() === 'ar' ? 'عرض جميع الفيديوهات' : 'View All Videos' }}</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
     @endif
   </div>

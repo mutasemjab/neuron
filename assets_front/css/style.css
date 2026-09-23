@@ -2070,12 +2070,20 @@ body.nav-open .burger span:nth-child(3) {
 
 .vid-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 2fr 1fr;
   gap: 24px
 }
 
-.vid-more-wrap .btn svg { transition: transform .35s var(--ease) }
-.vid-more-wrap .btn.open svg { transform: rotate(180deg) }
+.vid-col {
+  display: grid;
+  gap: 24px
+}
+
+.vid-grid--all {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px
+}
 
 .vid-more-wrap {
   display: flex;
@@ -2087,7 +2095,6 @@ body.nav-open .burger span:nth-child(3) {
   position: relative;
   display: block;
   width: 100%;
-  aspect-ratio: 16/9;
   border-radius: var(--r-lg);
   overflow: hidden;
   cursor: pointer;
@@ -2102,6 +2109,10 @@ body.nav-open .burger span:nth-child(3) {
   -webkit-appearance: none;
   appearance: none
 }
+
+.vid.main { min-height: 440px }
+.vid.small { min-height: 207px }
+.vid-grid--all .vid { aspect-ratio: 16/9 }
 
 .vid .ph {
   position: absolute;
@@ -2198,16 +2209,15 @@ body.nav-open .burger span:nth-child(3) {
   overflow: hidden
 }
 
-.vid.vid--hidden {
-  display: none
-}
-
 @media(max-width:900px) {
-  .vid-grid { grid-template-columns: repeat(2,1fr) }
+  .vid-grid { grid-template-columns: 1fr }
+  .vid-col { display: grid; grid-template-columns: repeat(2,1fr) }
+  .vid-grid--all { grid-template-columns: repeat(2,1fr) }
 }
 
 @media(max-width:560px) {
-  .vid-grid { grid-template-columns: 1fr }
+  .vid-col { grid-template-columns: 1fr }
+  .vid-grid--all { grid-template-columns: 1fr }
 }
 
 /* ==================== LOCATIONS ==================== */
