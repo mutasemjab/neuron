@@ -180,6 +180,17 @@ document.querySelectorAll('[data-service]').forEach(el=>{
   });
 })();
 
+/* ============ VIDEOS SHOW MORE ============ */
+(()=>{
+  const btn=document.getElementById('vidMoreBtn');
+  if(!btn)return;
+  btn.addEventListener('click',()=>{
+    const isOpen=btn.classList.toggle('open');
+    document.querySelectorAll('.vid--hidden').forEach(r=>{r.style.display=isOpen?'block':'none';});
+    btn.querySelector('span').textContent=isOpen?btn.dataset.labelLess:btn.dataset.labelMore;
+  });
+})();
+
 /* ============ CAREERS SHOW MORE ============ */
 (()=>{
   const btn=document.getElementById('careersMoreBtn');

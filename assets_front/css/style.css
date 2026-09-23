@@ -2070,59 +2070,64 @@ body.nav-open .burger span:nth-child(3) {
 
 .vid-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px
 }
 
-.vid-col {
-  display: grid;
-  gap: 24px
+.vid--hidden {
+  display: none
+}
+
+.vid-more-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px
 }
 
 .vid {
   position: relative;
   display: block;
   width: 100%;
+  aspect-ratio: 16/9;
   border-radius: var(--r-lg);
   overflow: hidden;
   cursor: pointer;
   isolation: isolate;
   border: none;
-  background: none;
+  background: #0d1a19;
   padding: 0;
   margin: 0;
   text-align: start;
   font: inherit;
   color: inherit;
   -webkit-appearance: none;
-  appearance: none;
-}
-
-.vid.main {
-  min-height: 440px
-}
-
-.vid.small {
-  min-height: 207px
+  appearance: none
 }
 
 .vid .ph {
   position: absolute;
   inset: 0;
-  z-index: -1
+  z-index: 0
+}
+
+.vid .ph img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s var(--ease)
 }
 
 .vid::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(13, 26, 25, .85), rgba(13, 26, 25, .15));
-  z-index: 0;
+  background: linear-gradient(to top, rgba(13,26,25,.88) 0%, rgba(13,26,25,.2) 55%, transparent 100%);
+  z-index: 1;
   transition: background .4s
 }
 
 .vid:hover::after {
-  background: linear-gradient(to top, rgba(13, 26, 25, .9), rgba(42, 128, 125, .3))
+  background: linear-gradient(to top, rgba(13,26,25,.92) 0%, rgba(42,128,125,.28) 60%, transparent 100%)
 }
 
 .vid:hover .ph img {
@@ -2131,30 +2136,32 @@ body.nav-open .burger span:nth-child(3) {
 
 .vid-play {
   position: absolute;
-  top: 24px;
-  inset-inline-start: 24px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 3;
-  width: 64px;
-  height: 64px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .94);
+  background: rgba(255,255,255,.92);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all .45s var(--ease)
+  transition: all .4s var(--ease);
+  box-shadow: 0 4px 24px rgba(0,0,0,.25)
 }
 
 .vid:hover .vid-play {
   background: var(--teal);
-  transform: scale(1.08)
+  transform: translate(-50%,-50%) scale(1.1)
 }
 
 .vid-play svg {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   color: var(--teal);
   transition: color .3s;
-  margin-right: -3px
+  margin-inline-start: 3px
 }
 
 .vid:hover .vid-play svg {
@@ -2163,16 +2170,16 @@ body.nav-open .burger span:nth-child(3) {
 
 .vid-info {
   position: absolute;
-  bottom: 26px;
-  inset-inline-start: 26px;
-  inset-inline-end: 26px;
+  bottom: 20px;
+  inset-inline-start: 20px;
+  inset-inline-end: 20px;
   z-index: 3;
   color: #fff
 }
 
 .vid-info .tag {
   font-family: var(--f-num);
-  font-size: .72rem;
+  font-size: .7rem;
   letter-spacing: .1em;
   color: #7fd8d3;
   font-weight: 600;
@@ -2180,23 +2187,24 @@ body.nav-open .burger span:nth-child(3) {
 }
 
 .vid-info h3 {
-  font-size: 1.35rem;
-  margin-top: 8px;
-  color: #fff
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 6px;
+  color: #fff;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden
 }
 
-.vid.small .vid-info h3 {
-  font-size: 1.1rem
+@media(max-width:900px) {
+  .vid-grid { grid-template-columns: repeat(2,1fr) }
 }
 
-.vid.small .vid-play {
-  width: 52px;
-  height: 52px
-}
-
-.vid.small .vid-play svg {
-  width: 20px;
-  height: 20px
+@media(max-width:560px) {
+  .vid-grid { grid-template-columns: 1fr }
 }
 
 /* ==================== LOCATIONS ==================== */
@@ -2400,13 +2408,13 @@ body.nav-open .burger span:nth-child(3) {
 
 .testi-badge-stars {
   color: #fbbf24;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   letter-spacing: 2px
 }
 
 .testi-badge-info strong {
   display: block;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: #fff;
   font-family: var(--f-num);
@@ -2414,7 +2422,7 @@ body.nav-open .burger span:nth-child(3) {
 }
 
 .testi-badge-info span {
-  font-size: .78rem;
+  font-size: .98rem;
   color: rgba(255,255,255,.55);
   margin-top: 2px;
   display: block
