@@ -20,7 +20,7 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::latest('id')->get();
+        $articles = Article::orderBy('sort_order')->get();
         return view('admin.articles.index', compact('articles'));
     }
 
@@ -32,6 +32,7 @@ class ArticleController extends Controller
     private function rules(): array
     {
         return [
+            'sort_order'           => 'nullable|integer|min:1',
             'title_ar'             => 'required|string|max:200',
             'title_en'             => 'required|string|max:200',
             'excerpt_ar'           => 'required|string|max:2000',
@@ -64,6 +65,14 @@ class ArticleController extends Controller
         $data['is_active']         = $request->boolean('is_active', true);
         $data['show_cover_image']  = $request->boolean('show_cover_image', true);
 
+        $newOrder = isset($data['sort_order']) ? (int) $data['sort_order'] : null;
+        if ($newOrder) {
+            Article::where('sort_order', '>=', $newOrder)->increment('sort_order');
+            $data['sort_order'] = $newOrder;
+        } else {
+            $data['sort_order'] = (Article::max('sort_order') ?? 0) + 1;
+        }
+
         Article::create($data);
 
         return redirect()->route('admin.articles.index')->with('success', 'تمت إضافة المقال بنجاح.');
@@ -86,6 +95,15 @@ class ArticleController extends Controller
         $data['published_at']      = $data['published_at'] ?? $article->published_at;
         $data['is_active']         = $request->boolean('is_active');
         $data['show_cover_image']  = $request->boolean('show_cover_image');
+
+        $newOrder = isset($data['sort_order']) ? (int) $data['sort_order'] : $article->sort_order;
+        if ($newOrder !== $article->sort_order) {
+            $other = Article::where('sort_order', $newOrder)->where('id', '!=', $article->id)->first();
+            if ($other) {
+                $other->update(['sort_order' => $article->sort_order]);
+            }
+            $data['sort_order'] = $newOrder;
+        }
 
         $article->update($data);
 

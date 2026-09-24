@@ -15,13 +15,14 @@ class Article extends Model
         'body_ar', 'body_en', 'category_ar', 'category_en', 'image',
         'read_minutes', 'meta_title_ar', 'meta_title_en',
         'meta_description_ar', 'meta_description_en', 'published_at', 'is_active',
-        'show_cover_image',
+        'show_cover_image', 'sort_order',
     ];
 
     protected $casts = [
         'is_active'         => 'boolean',
         'show_cover_image'  => 'boolean',
         'read_minutes'      => 'integer',
+        'sort_order'        => 'integer',
         'published_at'      => 'datetime',
     ];
 
@@ -34,7 +35,7 @@ class Article extends Model
         return $query->where('is_active', true)
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now())
-            ->latest('published_at');
+            ->orderBy('sort_order');
     }
 
     public function getImageUrlAttribute(): ?string

@@ -5,12 +5,22 @@
     <div class="panel-card-body">
         <div class="row g-3">
 
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-2">
+                <label class="form-label">ترتيب العرض</label>
+                <input type="number" name="sort_order" min="1"
+                    class="form-control @error('sort_order') is-invalid @enderror"
+                    value="{{ old('sort_order', $a->sort_order ?? '') }}"
+                    placeholder="تلقائي">
+                @error('sort_order')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <div class="form-text">إذا ادخلت رقم موجود يتبادل مع المقال الذي كان فيه</div>
+            </div>
+
+            <div class="col-12 col-md-5">
                 <label class="form-label">العنوان (عربي) <span class="text-danger">*</span></label>
                 <input type="text" name="title_ar" class="form-control @error('title_ar') is-invalid @enderror" value="{{ old('title_ar', $a->title_ar ?? '') }}" required>
                 @error('title_ar')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-5">
                 <label class="form-label">Title (English) <span class="text-danger">*</span></label>
                 <input type="text" name="title_en" dir="ltr" class="form-control @error('title_en') is-invalid @enderror" value="{{ old('title_en', $a->title_en ?? '') }}" required>
                 @error('title_en')<div class="invalid-feedback">{{ $message }}</div>@enderror

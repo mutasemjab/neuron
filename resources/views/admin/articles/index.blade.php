@@ -32,6 +32,7 @@
             <table class="data-table">
                 <thead>
                     <tr>
+                        <th style="width:70px">الترتيب</th>
                         <th>الصورة</th>
                         <th>العنوان (عربي)</th>
                         <th>Title (English)</th>
@@ -44,6 +45,9 @@
                 <tbody>
                     @foreach($articles as $article)
                     <tr>
+                        <td>
+                            <span class="badge bg-secondary" style="font-size:13px;padding:5px 10px">{{ $article->sort_order }}</span>
+                        </td>
                         <td>
                             @if($article->image)
                                 <img src="{{ $article->image_url }}" alt="" style="height:44px;width:70px;object-fit:cover;border-radius:8px;border:1px solid #e2e8f0">
